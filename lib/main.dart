@@ -1,6 +1,7 @@
 import 'package:company_scheduler/data/user_info.dart';
 import 'package:company_scheduler/logic/local_storage/prefs.dart';
 import 'package:company_scheduler/other/scroll_behavior.dart';
+import 'package:company_scheduler/ui/dashboard/dashboard_screen.dart';
 import 'package:company_scheduler/ui/login/login_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -19,8 +20,15 @@ class CompanyScheduler extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Company Scheduler',
-      theme: ThemeData(fontFamily: 'Tahoma'),
-      home: UserInfo.id == null ? LoginScreen() : null,
+      theme: ThemeData(
+        fontFamily: 'Tahoma',
+        appBarTheme: AppBarTheme(
+          elevation: 2,
+          titleSpacing: 0,
+          color: Colors.white,
+        ),
+      ),
+      home: UserInfo.id == null ? LoginScreen() : DashboardScreen(),
       builder: (context, child) => ScrollConfiguration(
         behavior: CustomScrollBehavior(),
         child: child,

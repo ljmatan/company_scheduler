@@ -11,9 +11,9 @@ abstract class StringValues {
       },
       'dashboard': {
         'calendar': 'Calendar',
-        'tasks': 'Tasks',
+        'task': 'Task',
         'company': 'Company',
-        'contacts': 'Contacts',
+        'contact': 'Contact',
       }
     },
     'rs': {
@@ -27,9 +27,9 @@ abstract class StringValues {
       },
       'dashboard': {
         'calendar': 'Kalendar',
-        'tasks': 'Planer',
+        'task': 'Planer',
         'company': 'Firma',
-        'contacts': 'Kontakti',
+        'contact': 'Kontakti',
       }
     },
   };

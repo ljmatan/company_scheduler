@@ -23,12 +23,21 @@ class CompanyScheduler extends StatelessWidget {
       theme: ThemeData(
         fontFamily: 'Tahoma',
         appBarTheme: AppBarTheme(
+          iconTheme: IconThemeData(color: Colors.black),
           elevation: 2,
           titleSpacing: 0,
           color: Colors.white,
+          textTheme: const TextTheme(
+            headline6: TextStyle(
+              color: Colors.black,
+              fontWeight: FontWeight.bold,
+              fontSize: 18,
+            ),
+          ),
         ),
       ),
       home: UserInfo.id == null ? LoginScreen() : DashboardScreen(),
+      // Removes overscroll effect
       builder: (context, child) => ScrollConfiguration(
         behavior: CustomScrollBehavior(),
         child: child,

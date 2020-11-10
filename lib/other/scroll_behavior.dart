@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-/// Removes overscroll effect
 class CustomScrollBehavior extends ScrollBehavior {
   @override
   Widget buildViewportChrome(

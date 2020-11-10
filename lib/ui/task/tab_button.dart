@@ -17,9 +17,8 @@ class CustomTabButton extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(top: 16),
       child: InkWell(
-        child: Ink(
+        child: DecoratedBox(
           decoration: BoxDecoration(
-            color: Colors.grey[50],
             borderRadius: BorderRadius.circular(6),
             border: Border.all(
               width: _selected ? 0.5 : 0.1,

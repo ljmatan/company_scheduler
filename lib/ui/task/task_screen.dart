@@ -1,10 +1,11 @@
 import 'dart:async';
-
 import 'package:company_scheduler/logic/i18n/i18n.dart';
 import 'package:company_scheduler/ui/other/scroll_overflow.dart';
+import 'package:company_scheduler/ui/task/add_task/add_task_button.dart';
+import 'package:company_scheduler/ui/task/completed_tasks.dart';
 import 'package:company_scheduler/ui/task/bloc/tab_control.dart';
+import 'package:company_scheduler/ui/task/current_tasks.dart';
 import 'package:company_scheduler/ui/task/tab_button.dart';
-import 'package:company_scheduler/ui/task/task_entry.dart';
 import 'package:flutter/material.dart';
 import 'dart:io' show Platform;
 
@@ -68,25 +69,30 @@ class _TaskScreenState extends State<TaskScreen> {
       ),
       body: Column(
         children: [
-          StreamBuilder(
-            stream: TabControl.stream,
-            initialData: 0,
-            builder: (context, tab) => Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  CustomTabButton(
-                    selected: tab.data,
-                    page: 0,
-                    label: 'CURRENT',
-                  ),
-                  CustomTabButton(
-                    selected: tab.data,
-                    page: 1,
-                    label: 'COMPLETED',
-                  ),
-                ],
+          DecoratedBox(
+            decoration: BoxDecoration(
+              color: Theme.of(context).scaffoldBackgroundColor,
+            ),
+            child: StreamBuilder(
+              stream: TabControl.stream,
+              initialData: 0,
+              builder: (context, tab) => Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    CustomTabButton(
+                      selected: tab.data,
+                      page: 0,
+                      label: 'CURRENT',
+                    ),
+                    CustomTabButton(
+                      selected: tab.data,
+                      page: 1,
+                      label: 'COMPLETED',
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
@@ -97,41 +103,8 @@ class _TaskScreenState extends State<TaskScreen> {
                 PageView(
                   controller: _pageController,
                   children: [
-                    ListView(
-                      children: [
-                        TaskEntry(),
-                        TaskEntry(),
-                        TaskEntry(),
-                        TaskEntry(),
-                        TaskEntry(),
-                        TaskEntry(),
-                        TaskEntry(),
-                        TaskEntry(),
-                        TaskEntry(),
-                        TaskEntry(),
-                        TaskEntry(),
-                        TaskEntry(),
-                        TaskEntry(),
-                        TaskEntry(),
-                        TaskEntry(),
-                        TaskEntry(),
-                        TaskEntry(),
-                        TaskEntry(),
-                        TaskEntry(),
-                        TaskEntry(),
-                        TaskEntry(),
-                        TaskEntry(),
-                        TaskEntry(),
-                        TaskEntry(),
-                        TaskEntry(),
-                        TaskEntry(),
-                        TaskEntry(),
-                        TaskEntry(),
-                      ],
-                    ),
-                    Center(
-                      child: Text('aaa'),
-                    ),
+                    CurrentTasks(),
+                    CompletedTasks(),
                   ],
                 ),
                 ScrollOverflowEffect(),
@@ -140,6 +113,7 @@ class _TaskScreenState extends State<TaskScreen> {
           ),
         ],
       ),
+      floatingActionButton: AddTaskButton(),
     );
   }
 

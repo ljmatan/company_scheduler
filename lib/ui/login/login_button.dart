@@ -33,11 +33,11 @@ class _LoginButtonState extends State<LoginButton> {
       child: Ink(
         decoration: BoxDecoration(
           color: Theme.of(context).primaryColor,
-          borderRadius: BorderRadius.circular(22),
+          borderRadius: BorderRadius.circular(25),
         ),
         child: SizedBox(
-          height: 48,
-          width: 100,
+          height: 50,
+          width: 140,
           child: Center(
             child: _verifyingInfo
                 ? SizedBox(

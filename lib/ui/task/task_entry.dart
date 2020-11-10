@@ -1,6 +1,17 @@
 import 'package:flutter/material.dart';
 
 class TaskEntry extends StatelessWidget {
+  final String subject;
+  final int percent;
+  final DateTime startTime, endTime;
+
+  TaskEntry({
+    @required this.subject,
+    @required this.percent,
+    @required this.startTime,
+    @required this.endTime,
+  });
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -8,7 +19,7 @@ class TaskEntry extends StatelessWidget {
       child: InkWell(
         child: Ink(
           decoration: BoxDecoration(
-            boxShadow: kElevationToShadow[2],
+            boxShadow: kElevationToShadow[1],
             color: Colors.white,
           ),
           child: SizedBox(
@@ -20,27 +31,62 @@ class TaskEntry extends StatelessWidget {
                 children: [
                   DecoratedBox(
                     decoration: BoxDecoration(
-                      border: Border(
-                        left: BorderSide(width: 6, color: Colors.black),
-                      ),
+                      border: percent == 100
+                          ? null
+                          : Border(
+                              left: BorderSide(
+                                width: 6,
+                                color: Colors.green,
+                              ),
+                            ),
                     ),
                     child: Padding(
-                      padding: const EdgeInsets.only(left: 8),
+                      padding: EdgeInsets.fromLTRB(
+                        percent == 100 ? 6 : 12,
+                        6,
+                        0,
+                        6,
+                      ),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [],
+                        children: [
+                          Text(
+                            subject,
+                            style: const TextStyle(
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          Text('SOC190'),
+                        ],
                       ),
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.fromLTRB(0, 4, 4, 4),
+                    padding: const EdgeInsets.fromLTRB(0, 6, 6, 6),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.end,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text('97%'),
-                        Text('Jan 8 - 4:05 AM'),
+                        Text(percent.toString() + '%'),
+                        Text(
+                          (startTime.day < 10
+                                  ? '0' + startTime.day.toString()
+                                  : startTime.day.toString()) +
+                              '/' +
+                              (startTime.month < 10
+                                  ? '0' + startTime.month.toString()
+                                  : startTime.month.toString()) +
+                              ' - ' +
+                              (endTime.day < 10
+                                  ? '0' + endTime.day.toString()
+                                  : endTime.day.toString()) +
+                              '/' +
+                              (endTime.month < 10
+                                  ? '0' + endTime.month.toString()
+                                  : endTime.month.toString()),
+                        ),
                       ],
                     ),
                   ),

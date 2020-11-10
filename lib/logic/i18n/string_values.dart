@@ -9,6 +9,12 @@ abstract class StringValues {
         'error': 'Error',
         'unknown error': 'unknown error',
       },
+      'dashboard': {
+        'calendar': 'Calendar',
+        'tasks': 'Tasks',
+        'company': 'Company',
+        'contacts': 'Contacts',
+      }
     },
     'rs': {
       'login': {
@@ -19,6 +25,12 @@ abstract class StringValues {
         'error': 'Greška',
         'unknown error': 'Nepoznata greška',
       },
+      'dashboard': {
+        'calendar': 'Kalendar',
+        'tasks': 'Planer',
+        'company': 'Firma',
+        'contacts': 'Kontakti',
+      }
     },
   };
 }

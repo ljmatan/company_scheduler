@@ -8,10 +8,7 @@ abstract class LoginAPI {
       'password': password,
     });
 
-    final response = await http.post(
-      APIHelper.url + 'WebServiceServlet?wsMethod=login',
-      body: body,
-    );
+    final response = await http.post(APIHelper.url + 'login', body: body);
 
     final data = APIHelper.jsonCodec.decode(response.body);
 

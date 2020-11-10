@@ -1,6 +1,7 @@
 import 'package:company_scheduler/ui/company/company_screen.dart';
 import 'package:company_scheduler/ui/contact/contact_screen.dart';
 import 'package:company_scheduler/ui/dashboard/dashboard_button.dart';
+import 'package:company_scheduler/ui/task/task_screen.dart';
 import 'package:flutter/material.dart';
 
 class DashboardScreen extends StatelessWidget {
@@ -19,7 +20,7 @@ class DashboardScreen extends StatelessWidget {
           ),
           DashboardButton(
             label: 'task',
-            route: null,
+            route: TaskScreen(),
           ),
           DashboardButton(
             label: 'company',

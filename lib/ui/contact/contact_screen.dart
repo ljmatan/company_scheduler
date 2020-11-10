@@ -1,9 +1,21 @@
+import 'dart:async';
+
 import 'package:company_scheduler/logic/i18n/i18n.dart';
 import 'package:company_scheduler/ui/contact/contact_entry.dart';
 import 'package:flutter/material.dart';
 import 'dart:io' show Platform;
 
-class ContactScreen extends StatelessWidget {
+class ContactScreen extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() {
+    return _ContactScreenState();
+  }
+}
+
+class _ContactScreenState extends State<ContactScreen> {
+  final TextEditingController _textEditingController = TextEditingController();
+  final StreamController _textStreamController = StreamController.broadcast();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,6 +38,7 @@ class ContactScreen extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.fromLTRB(16, 20, 16, 0),
             child: TextField(
+              controller: _textEditingController,
               autofocus: true,
               decoration: InputDecoration(
                 filled: true,
@@ -33,52 +46,58 @@ class ContactScreen extends StatelessWidget {
                 border: OutlineInputBorder(),
                 suffixIcon: Icon(Icons.search),
               ),
-            ),
-          ),
-          DecoratedBox(
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                colors: [
-                  Colors.grey[50],
-                  Colors.grey[50].withOpacity(0),
-                ],
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-              ),
-            ),
-            child: SizedBox(
-              height: 16,
-              width: MediaQuery.of(context).size.width,
+              onChanged: (text) => _textStreamController.add(text),
             ),
           ),
           SizedBox(
             height: MediaQuery.of(context).size.height -
-                119 -
+                103 -
                 kToolbarHeight -
                 MediaQuery.of(context).viewInsets.bottom,
-            child: FutureBuilder(
-              future: Future.delayed(
-                const Duration(seconds: 1),
-                () => [],
-              ),
-              builder: (context, contacts) => contacts.hasData
-                  ? contacts.data.isEmpty
-                      ? Center(child: Text('No contacts found'))
-                      : ListView.builder(
-                          itemCount: contacts.data.length,
-                          itemBuilder: (context, index) => ContactEntry(),
-                        )
-                  : Center(
-                      child: SizedBox(
-                        height: 64,
-                        width: 64,
-                        child: CircularProgressIndicator(),
-                      ),
+            child: Stack(
+              children: [
+                StreamBuilder(
+                  stream: _textStreamController.stream,
+                  initialData: '',
+                  builder: (context, text) => FutureBuilder(
+                    future: Future.delayed(
+                      const Duration(seconds: 1),
+                      () => [],
                     ),
+                    builder: (context, contacts) => contacts.hasData
+                        ? contacts.data.isEmpty
+                            ? Center(
+                                child: Text(
+                                  text.data == ''
+                                      ? 'Enter a name'
+                                      : 'No contacts found',
+                                ),
+                              )
+                            : ListView.builder(
+                                itemCount: contacts.data.length,
+                                itemBuilder: (context, index) => ContactEntry(),
+                              )
+                        : Center(
+                            child: SizedBox(
+                              height: 64,
+                              width: 64,
+                              child: CircularProgressIndicator(),
+                            ),
+                          ),
+                  ),
+                ),
+              ],
             ),
           ),
         ],
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    _textEditingController.dispose();
+    _textStreamController.close();
+    super.dispose();
   }
 }

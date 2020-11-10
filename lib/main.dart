@@ -9,10 +9,10 @@ void main() async {
   await Prefs.init();
   // Check if user info is stored on the device
   Prefs.getLocalData();
-  runApp(MyApp());
+  runApp(CompanyScheduler());
 }
 
-class MyApp extends StatelessWidget {
+class CompanyScheduler extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -23,18 +23,6 @@ class MyApp extends StatelessWidget {
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       home: UserInfo.id == null ? LoginScreen() : null,
-    );
-  }
-}
-
-class CompanyScheduler extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [],
-      ),
     );
   }
 }

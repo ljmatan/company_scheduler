@@ -13,30 +13,32 @@ class CalendarScreen extends StatefulWidget {
 }
 
 class _CalendarScreenState extends State<CalendarScreen> {
-  final PageController _pageController = PageController(initialPage: 241);
+  final PageController _pageController = PageController(initialPage: 240);
 
-  int _pageIndex = 241;
+  int _pageIndex = 240;
   DateTime _currentDate = DateTime.now();
-
-  StreamSubscription _dateSubscription;
 
   @override
   void initState() {
     super.initState();
     DateSelection.init();
     DaySelection.init();
-    _dateSubscription = DateSelection.stream.listen(
-      (date) {},
-    );
     _pageController.addListener(
       () {
         if (_pageController.page.round() != _pageIndex) {
           _pageIndex = _pageController.page.round();
           _currentDate = CalendarProvider.addMonths(
             DateTime.now(),
-            _pageIndex - 241,
+            _pageIndex - 240,
           );
           DateSelection.change(_currentDate);
+          DaySelection.change(
+            DateTime(
+              _currentDate.year,
+              _currentDate.month,
+              DaySelection.selected.day,
+            ),
+          );
         }
       },
     );
@@ -66,29 +68,33 @@ class _CalendarScreenState extends State<CalendarScreen> {
               ? ListView(
                   children: [
                     for (var row in CalendarProvider.weekRows(
-                      index == 241
+                      index == 240
                           ? DateTime.now()
                           : CalendarProvider.addMonths(
                               DateTime.now(),
-                              index - 241,
+                              index - 240,
                             ),
                       tasks.data,
                     ))
                       row,
-                    Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        if (tasks.data.isEmpty)
-                          Padding(
-                            padding: const EdgeInsets.only(top: 16),
-                            child: Text(
-                              'No tasks found',
-                              style: const TextStyle(
-                                color: Colors.black54,
+                    StreamBuilder(
+                      stream: DaySelection.stream,
+                      initialData: DaySelection.selected,
+                      builder: (context, date) => Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          if (tasks.data.isEmpty)
+                            Padding(
+                              padding: const EdgeInsets.only(top: 16),
+                              child: Text(
+                                'No tasks found',
+                                style: const TextStyle(
+                                  color: Colors.black54,
+                                ),
                               ),
                             ),
-                          ),
-                      ],
+                        ],
+                      ),
                     ),
                   ],
                 )
@@ -110,7 +116,6 @@ class _CalendarScreenState extends State<CalendarScreen> {
 
   @override
   void dispose() {
-    _dateSubscription.cancel();
     DateSelection.dispose();
     DaySelection.dispose();
     super.dispose();

@@ -4,31 +4,49 @@ import 'package:company_scheduler/ui/calendar/day_p_n_month.dart';
 import 'package:flutter/widgets.dart' show Widget, Row;
 
 class CalendarProvider {
+  static const _daysInMonthList = const [
+    0,
+    31,
+    28,
+    31,
+    30,
+    31,
+    30,
+    31,
+    31,
+    30,
+    31,
+    30,
+    31
+  ];
+
+  static bool _isLeapYear(int value) =>
+      value % 400 == 0 || (value % 4 == 0 && value % 100 != 0);
+
+  static int _daysInMonth(int year, int month) {
+    var result = _daysInMonthList[month];
+    if (month == 2 && _isLeapYear(year)) result++;
+    return result;
+  }
+
   static List weekRows(DateTime selectedDate, List events) {
     List weekRows = [];
+
     final int month = selectedDate.month;
     final int year = selectedDate.year;
     final int firstInMonthday = DateTime(year, month).weekday;
-    final int daysInMonth = month < 8
-        ? month % 2 == 0 && month != 2
-            ? 30
-            : month == 2 && year % 4 != 0
-                ? 28
-                : month == 2 && year % 4 == 0
-                    ? 29
-                    : 31
-        : month % 2 == 0
-            ? 31
-            : 30;
+    final int daysInMonth = _daysInMonth(year, month);
+
     for (int i = 0; i < 6; i++) {
       List<Widget> days = [];
+
       for (int dayNr = firstInMonthday + 7 * i;
           dayNr < firstInMonthday + 7 + 7 * i;
           dayNr++) {
         // Set to dayNr - 2 * firstInMonthday + 1 for sun - mon display
         final int day = dayNr - 2 * firstInMonthday + 2;
         final int inNextMonth = day - daysInMonth;
-        final int indateDay = month < 8
+        final int inDateDay = month < 8
             ? day +
                 (month == 1
                     ? 31
@@ -53,7 +71,9 @@ class CalendarProvider {
                             : year % 4 == 0
                                 ? daysInMonth + 2
                                 : daysInMonth + 3);
-        final int dateDay = day > daysInMonth ? inNextMonth : indateDay;
+
+        final int dateDay = day > daysInMonth ? inNextMonth : inDateDay;
+
         days.add(
           day > 0 && day <= daysInMonth
               ? DayCurrentMonth(
@@ -71,31 +91,6 @@ class CalendarProvider {
       weekRows.add(Row(children: days));
     }
     return weekRows;
-  }
-
-  static const _daysInMonthList = const [
-    0,
-    31,
-    28,
-    31,
-    30,
-    31,
-    30,
-    31,
-    31,
-    30,
-    31,
-    30,
-    31
-  ];
-
-  static bool _isLeapYear(int value) =>
-      value % 400 == 0 || (value % 4 == 0 && value % 100 != 0);
-
-  static int _daysInMonth(int year, int month) {
-    var result = _daysInMonthList[month];
-    if (month == 2 && _isLeapYear(year)) result++;
-    return result;
   }
 
   static DateTime addMonths(DateTime dt, int value) {

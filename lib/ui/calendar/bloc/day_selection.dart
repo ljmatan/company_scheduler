@@ -18,5 +18,6 @@ abstract class DaySelection {
 
   static void dispose() {
     _streamController.close();
+    _selected = DateTime.now();
   }
 }

@@ -29,8 +29,12 @@ class DayCurrentMonth extends StatelessWidget {
             children: [
               Text(
                 dayOfTheWeek.toString(),
-                style: const TextStyle(
-                  color: Colors.black54,
+                style: TextStyle(
+                  color: dayOfTheWeek == DateTime.now().day &&
+                          date.month == DateTime.now().month &&
+                          date.year == DateTime.now().year
+                      ? Theme.of(context).primaryColor
+                      : Colors.black54,
                 ),
               ),
             ],

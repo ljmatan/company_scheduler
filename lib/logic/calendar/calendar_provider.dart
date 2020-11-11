@@ -4,13 +4,12 @@ import 'package:company_scheduler/ui/calendar/week_row.dart';
 import 'package:flutter/widgets.dart' show Widget;
 
 class CalendarProvider {
-  static List weekRows(DateTime streamDate, List events) {
+  static List weekRows(DateTime selectedDate, List events) {
     List weekRows = [];
-    DateTime date = streamDate;
-    int month = date.month;
-    int year = date.year;
-    int firstInMonthdayOfTheWeek = DateTime(year, month).weekday;
-    int daysInMonth = month < 8
+    final int month = selectedDate.month;
+    final int year = selectedDate.year;
+    final int firstInMonthdayOfTheWeek = DateTime(year, month).weekday;
+    final int daysInMonth = month < 8
         ? month % 2 == 0 && month != 2
             ? 30
             : month == 2 && year % 4 != 0
@@ -26,9 +25,11 @@ class CalendarProvider {
       for (int dayOfTheWeekNr = firstInMonthdayOfTheWeek + 7 * i;
           dayOfTheWeekNr < firstInMonthdayOfTheWeek + 7 + 7 * i;
           dayOfTheWeekNr++) {
-        int dayOfTheWeek = dayOfTheWeekNr - 2 * firstInMonthdayOfTheWeek + 1;
-        int inNextMonth = dayOfTheWeek - daysInMonth;
-        int indateDay = month < 8
+        // Set to dayOfTheWeekNr - 2 * firstInMonthdayOfTheWeek + 1 for sun - mon display
+        final int dayOfTheWeek =
+            dayOfTheWeekNr - 2 * firstInMonthdayOfTheWeek + 2;
+        final int inNextMonth = dayOfTheWeek - daysInMonth;
+        final int indateDay = month < 8
             ? dayOfTheWeek +
                 (month == 1
                     ? 31
@@ -53,12 +54,13 @@ class CalendarProvider {
                             : year % 4 == 0
                                 ? daysInMonth + 2
                                 : daysInMonth + 3);
-        int dateDay = dayOfTheWeek > daysInMonth ? inNextMonth : indateDay;
+        final int dateDay =
+            dayOfTheWeek > daysInMonth ? inNextMonth : indateDay;
         dayOfTheWeeks.add(
           dayOfTheWeek > 0 && dayOfTheWeek <= daysInMonth
               ? DayCurrentMonth(
                   dayOfTheWeek: dayOfTheWeek,
-                  date: date,
+                  date: selectedDate,
                   events: events,
                 )
               : DayPrevNextMonth(

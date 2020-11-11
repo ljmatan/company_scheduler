@@ -16,7 +16,7 @@ class CalendarScreen extends StatelessWidget {
       ),
       endDrawerEnableOpenDragGesture: false,
       endDrawer: Drawer(),
-      body: Column(
+      body: ListView(
         children: [
           for (var row in CalendarProvider.weekRows(DateTime.now(), [])) row,
         ],

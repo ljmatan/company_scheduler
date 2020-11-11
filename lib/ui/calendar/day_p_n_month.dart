@@ -28,7 +28,7 @@ class DayPrevNextMonth extends StatelessWidget {
               Text(
                 dateDay.toString(),
                 style: const TextStyle(
-                  color: Colors.black54,
+                  color: Colors.black26,
                 ),
               ),
             ],

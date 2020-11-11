@@ -47,7 +47,7 @@ class CalendarAppBar extends StatelessWidget {
                 ),
                 IconButton(
                   icon: Icon(Icons.more_vert),
-                  onPressed: () => Scaffold.of(context).openDrawer(),
+                  onPressed: () => Scaffold.of(context).openEndDrawer(),
                 ),
               ],
             ),

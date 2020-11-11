@@ -28,12 +28,12 @@ class _LoginScreenState extends State<LoginScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 FlutterLogo(size: MediaQuery.of(context).size.width * 0.4),
-                // TODO: Replace with below once logo had been appropriated
+                // TODO: Replace FlutterLogo with below once logo had been appropriated
                 /*Image.asset(
-            'assets/logo.png',
-            width: MediaQuery.of(context).size.width * 0.5,
-            fit: BoxFit.cover,
-          ),*/
+                    'assets/logo.png',
+                    width: MediaQuery.of(context).size.width * 0.5,
+                    fit: BoxFit.cover,
+                  ),*/
                 UsernameField(controller: _usernameController),
                 PasswordField(controller: _passwordController),
                 LoginButton(

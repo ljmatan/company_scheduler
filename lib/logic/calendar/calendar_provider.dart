@@ -1,3 +1,4 @@
+import 'dart:math' as math;
 import 'package:company_scheduler/ui/calendar/day_current_month.dart';
 import 'package:company_scheduler/ui/calendar/day_p_n_month.dart';
 import 'package:company_scheduler/ui/calendar/week_row.dart';
@@ -73,5 +74,49 @@ class CalendarProvider {
       weekRows.add(WeekRow(children: dayOfTheWeeks));
     }
     return weekRows;
+  }
+
+  static const _daysInMonthList = const [
+    0,
+    31,
+    28,
+    31,
+    30,
+    31,
+    30,
+    31,
+    31,
+    30,
+    31,
+    30,
+    31
+  ];
+
+  static bool _isLeapYear(int value) =>
+      value % 400 == 0 || (value % 4 == 0 && value % 100 != 0);
+
+  static int _daysInMonth(int year, int month) {
+    var result = _daysInMonthList[month];
+    if (month == 2 && _isLeapYear(year)) result++;
+    return result;
+  }
+
+  static DateTime addMonths(DateTime dt, int value) {
+    var r = value % 12;
+    var q = (value - r) ~/ 12;
+    var newYear = dt.year + q;
+    var newMonth = dt.month + r;
+    if (newMonth > 12) {
+      newYear++;
+      newMonth -= 12;
+    }
+    var newDay = math.min(dt.day, _daysInMonth(newYear, newMonth));
+    if (dt.isUtc) {
+      return new DateTime.utc(newYear, newMonth, newDay, dt.hour, dt.minute,
+          dt.second, dt.millisecond, dt.microsecond);
+    } else {
+      return new DateTime(newYear, newMonth, newDay, dt.hour, dt.minute,
+          dt.second, dt.millisecond, dt.microsecond);
+    }
   }
 }

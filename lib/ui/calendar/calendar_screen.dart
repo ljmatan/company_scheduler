@@ -1,9 +1,35 @@
+import 'dart:async';
 import 'package:company_scheduler/logic/calendar/calendar_provider.dart';
-import 'package:company_scheduler/logic/i18n/i18n.dart';
 import 'package:company_scheduler/ui/calendar/appbar/appbar.dart';
+import 'package:company_scheduler/ui/calendar/bloc/date_selection.dart';
+import 'package:company_scheduler/ui/calendar/bloc/day_selection.dart';
 import 'package:flutter/material.dart';
 
-class CalendarScreen extends StatelessWidget {
+class CalendarScreen extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() {
+    return _CalendarScreenState();
+  }
+}
+
+class _CalendarScreenState extends State<CalendarScreen> {
+  final PageController _pageController = PageController(initialPage: 241);
+
+  StreamSubscription _dateSubscription;
+
+  @override
+  void initState() {
+    super.initState();
+    DateSelection.init();
+    DaySelection.init();
+    _dateSubscription = DateSelection.stream.listen(
+      (date) {},
+    );
+    _pageController.addListener(
+      () {},
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -16,11 +42,50 @@ class CalendarScreen extends StatelessWidget {
       ),
       endDrawerEnableOpenDragGesture: false,
       endDrawer: Drawer(),
-      body: ListView(
-        children: [
-          for (var row in CalendarProvider.weekRows(DateTime.now(), [])) row,
-        ],
+      body: PageView.builder(
+        controller: _pageController,
+        itemCount: 481,
+        itemBuilder: (context, index) => FutureBuilder(
+          future: Future.delayed(
+            const Duration(seconds: 2),
+            () => [],
+          ),
+          builder: (context, events) => events.hasData
+              ? ListView(
+                  children: [
+                    for (var row in CalendarProvider.weekRows(
+                      index == 241
+                          ? DateTime.now()
+                          : CalendarProvider.addMonths(
+                              DateTime.now(),
+                              index - 241,
+                            ),
+                      events.data,
+                    ))
+                      row,
+                  ],
+                )
+              : SizedBox(
+                  height:
+                      MediaQuery.of(context).size.height - kToolbarHeight - 24,
+                  child: Center(
+                    child: SizedBox(
+                      height: 64,
+                      width: 64,
+                      child: CircularProgressIndicator(),
+                    ),
+                  ),
+                ),
+        ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    _dateSubscription.cancel();
+    DateSelection.dispose();
+    DaySelection.dispose();
+    super.dispose();
   }
 }

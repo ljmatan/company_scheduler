@@ -1,8 +1,7 @@
 import 'dart:math' as math;
 import 'package:company_scheduler/ui/calendar/day_current_month.dart';
 import 'package:company_scheduler/ui/calendar/day_p_n_month.dart';
-import 'package:company_scheduler/ui/calendar/week_row.dart';
-import 'package:flutter/widgets.dart' show Widget;
+import 'package:flutter/widgets.dart' show Widget, Row;
 
 class CalendarProvider {
   static List weekRows(DateTime selectedDate, List events) {
@@ -71,7 +70,7 @@ class CalendarProvider {
                 ),
         );
       }
-      weekRows.add(WeekRow(children: dayOfTheWeeks));
+      weekRows.add(Row(children: dayOfTheWeeks));
     }
     return weekRows;
   }

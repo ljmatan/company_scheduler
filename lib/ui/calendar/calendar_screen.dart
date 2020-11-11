@@ -15,6 +15,9 @@ class CalendarScreen extends StatefulWidget {
 class _CalendarScreenState extends State<CalendarScreen> {
   final PageController _pageController = PageController(initialPage: 241);
 
+  int _pageIndex = 241;
+  DateTime _currentDate = DateTime.now();
+
   StreamSubscription _dateSubscription;
 
   @override
@@ -26,7 +29,15 @@ class _CalendarScreenState extends State<CalendarScreen> {
       (date) {},
     );
     _pageController.addListener(
-      () {},
+      () {
+        if (_pageController.page.round() != _pageIndex) {
+          _pageIndex = _pageController.page.round();
+          DateSelection.change(CalendarProvider.addMonths(
+            DateTime.now(),
+            _pageIndex - 241,
+          ));
+        }
+      },
     );
   }
 
@@ -47,7 +58,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
         itemCount: 481,
         itemBuilder: (context, index) => FutureBuilder(
           future: Future.delayed(
-            const Duration(seconds: 2),
+            const Duration(seconds: 0),
             () => [],
           ),
           builder: (context, events) => events.hasData

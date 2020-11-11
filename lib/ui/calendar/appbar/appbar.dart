@@ -1,4 +1,5 @@
 import 'package:company_scheduler/ui/calendar/appbar/day_name.dart';
+import 'package:company_scheduler/ui/calendar/bloc/date_selection.dart';
 import 'package:flutter/material.dart';
 import 'dart:io' show Platform;
 import 'package:company_scheduler/logic/i18n/i18n.dart';
@@ -28,20 +29,24 @@ class CalendarAppBar extends StatelessWidget {
                       ),
                       onPressed: () => Navigator.pop(context),
                     ),
-                    GestureDetector(
-                      child: Text(
-                        Internationalization.calendar(
-                              'months',
-                              DateTime.now().month,
-                            ) +
-                            ' ' +
-                            DateTime.now().year.toString(),
-                        style: const TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 18,
+                    StreamBuilder(
+                      stream: DateSelection.stream,
+                      initialData: DateTime.now(),
+                      builder: (context, date) => GestureDetector(
+                        child: Text(
+                          Internationalization.calendar(
+                                'months',
+                                date.data.month,
+                              ) +
+                              ' ' +
+                              date.data.year.toString(),
+                          style: const TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 18,
+                          ),
                         ),
+                        onTap: () => null,
                       ),
-                      onTap: () => null,
                     ),
                   ],
                 ),

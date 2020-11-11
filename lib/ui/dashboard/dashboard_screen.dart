@@ -1,3 +1,4 @@
+import 'package:company_scheduler/ui/calendar/calendar_screen.dart';
 import 'package:company_scheduler/ui/company/company_screen.dart';
 import 'package:company_scheduler/ui/contact/contact_screen.dart';
 import 'package:company_scheduler/ui/dashboard/dashboard_button.dart';
@@ -28,7 +29,7 @@ class DashboardScreen extends StatelessWidget {
           ),
           DashboardButton(
             label: 'calendar',
-            route: null,
+            route: CalendarScreen(),
           ),
         ],
       ),

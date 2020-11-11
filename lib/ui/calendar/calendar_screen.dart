@@ -32,10 +32,11 @@ class _CalendarScreenState extends State<CalendarScreen> {
       () {
         if (_pageController.page.round() != _pageIndex) {
           _pageIndex = _pageController.page.round();
-          DateSelection.change(CalendarProvider.addMonths(
+          _currentDate = CalendarProvider.addMonths(
             DateTime.now(),
             _pageIndex - 241,
-          ));
+          );
+          DateSelection.change(_currentDate);
         }
       },
     );
@@ -61,7 +62,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
             const Duration(seconds: 0),
             () => [],
           ),
-          builder: (context, events) => events.hasData
+          builder: (context, tasks) => tasks.hasData
               ? ListView(
                   children: [
                     for (var row in CalendarProvider.weekRows(
@@ -71,9 +72,24 @@ class _CalendarScreenState extends State<CalendarScreen> {
                               DateTime.now(),
                               index - 241,
                             ),
-                      events.data,
+                      tasks.data,
                     ))
                       row,
+                    Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        if (tasks.data.isEmpty)
+                          Padding(
+                            padding: const EdgeInsets.only(top: 16),
+                            child: Text(
+                              'No tasks found',
+                              style: const TextStyle(
+                                color: Colors.black54,
+                              ),
+                            ),
+                          ),
+                      ],
+                    ),
                   ],
                 )
               : SizedBox(

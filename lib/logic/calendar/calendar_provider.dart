@@ -8,7 +8,7 @@ class CalendarProvider {
     List weekRows = [];
     final int month = selectedDate.month;
     final int year = selectedDate.year;
-    final int firstInMonthdayOfTheWeek = DateTime(year, month).weekday;
+    final int firstInMonthday = DateTime(year, month).weekday;
     final int daysInMonth = month < 8
         ? month % 2 == 0 && month != 2
             ? 30
@@ -21,16 +21,15 @@ class CalendarProvider {
             ? 31
             : 30;
     for (int i = 0; i < 6; i++) {
-      List<Widget> dayOfTheWeeks = [];
-      for (int dayOfTheWeekNr = firstInMonthdayOfTheWeek + 7 * i;
-          dayOfTheWeekNr < firstInMonthdayOfTheWeek + 7 + 7 * i;
-          dayOfTheWeekNr++) {
-        // Set to dayOfTheWeekNr - 2 * firstInMonthdayOfTheWeek + 1 for sun - mon display
-        final int dayOfTheWeek =
-            dayOfTheWeekNr - 2 * firstInMonthdayOfTheWeek + 2;
-        final int inNextMonth = dayOfTheWeek - daysInMonth;
+      List<Widget> days = [];
+      for (int dayNr = firstInMonthday + 7 * i;
+          dayNr < firstInMonthday + 7 + 7 * i;
+          dayNr++) {
+        // Set to dayNr - 2 * firstInMonthday + 1 for sun - mon display
+        final int day = dayNr - 2 * firstInMonthday + 2;
+        final int inNextMonth = day - daysInMonth;
         final int indateDay = month < 8
-            ? dayOfTheWeek +
+            ? day +
                 (month == 1
                     ? 31
                     : month == 3
@@ -44,7 +43,7 @@ class CalendarProvider {
                                 : year % 4 == 0
                                     ? daysInMonth + 2
                                     : daysInMonth + 3)
-            : dayOfTheWeek +
+            : day +
                 (daysInMonth == 31 && month == 8
                     ? 31
                     : daysInMonth == 31
@@ -54,23 +53,22 @@ class CalendarProvider {
                             : year % 4 == 0
                                 ? daysInMonth + 2
                                 : daysInMonth + 3);
-        final int dateDay =
-            dayOfTheWeek > daysInMonth ? inNextMonth : indateDay;
-        dayOfTheWeeks.add(
-          dayOfTheWeek > 0 && dayOfTheWeek <= daysInMonth
+        final int dateDay = day > daysInMonth ? inNextMonth : indateDay;
+        days.add(
+          day > 0 && day <= daysInMonth
               ? DayCurrentMonth(
-                  dayOfTheWeek: dayOfTheWeek,
+                  day: day,
                   date: selectedDate,
                   events: events,
                 )
               : DayPrevNextMonth(
                   dateDay: dateDay,
                   daysInMonth: daysInMonth,
-                  dayOfTheWeek: dayOfTheWeek,
+                  day: day,
                 ),
         );
       }
-      weekRows.add(Row(children: dayOfTheWeeks));
+      weekRows.add(Row(children: days));
     }
     return weekRows;
   }

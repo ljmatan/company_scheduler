@@ -32,20 +32,17 @@ class CalendarAppBar extends StatelessWidget {
                     StreamBuilder(
                       stream: DateSelection.stream,
                       initialData: DateTime.now(),
-                      builder: (context, date) => GestureDetector(
-                        child: Text(
-                          Internationalization.calendar(
-                                'months',
-                                date.data.month,
-                              ) +
-                              ' ' +
-                              date.data.year.toString(),
-                          style: const TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 18,
-                          ),
+                      builder: (context, date) => Text(
+                        Internationalization.calendar(
+                              'months',
+                              date.data.month,
+                            ) +
+                            ' ' +
+                            date.data.year.toString(),
+                        style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 18,
                         ),
-                        onTap: () => null,
                       ),
                     ),
                   ],

@@ -1,4 +1,5 @@
 import 'package:company_scheduler/logic/api/models/contact_model.dart';
+import 'package:company_scheduler/ui/contact/contact_display.dart';
 import 'package:flutter/material.dart';
 
 class ContactEntry extends StatelessWidget {
@@ -9,12 +10,16 @@ class ContactEntry extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(16, 0, 16, 12),
+      padding: const EdgeInsets.symmetric(horizontal: 16),
       child: InkWell(
         child: Ink(
           decoration: BoxDecoration(
-            color: Colors.white,
-            boxShadow: kElevationToShadow[1],
+            border: Border(
+              bottom: BorderSide(
+                width: 0.1,
+                color: Colors.black54,
+              ),
+            ),
           ),
           child: SizedBox(
             height: 56,
@@ -58,7 +63,11 @@ class ContactEntry extends StatelessWidget {
             ),
           ),
         ),
-        onTap: () => null,
+        onTap: () => showModalBottomSheet(
+          isScrollControlled: true,
+          context: context,
+          builder: (context) => ContactDisplay(contact: contact),
+        ),
       ),
     );
   }

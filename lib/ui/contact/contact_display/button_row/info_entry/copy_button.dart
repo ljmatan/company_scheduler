@@ -58,7 +58,7 @@ class _CopyButtonState extends State<CopyButton> {
                         ClipboardData(text: widget.details));
                     Copied.update();
                     Future.delayed(
-                      const Duration(milliseconds: 50),
+                      const Duration(milliseconds: 100),
                       () => newState(() => _copied = true),
                     );
                   },

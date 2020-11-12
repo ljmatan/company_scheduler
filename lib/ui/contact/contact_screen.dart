@@ -64,8 +64,11 @@ class _ContactScreenState extends State<ContactScreen> {
                         ? Future.value([])
                         : _search(text.data),
                     builder: (context, contacts) => contacts.connectionState ==
-                                ConnectionState.active ||
-                            contacts.connectionState == ConnectionState.waiting
+                                    ConnectionState.active &&
+                                text.data.length > 2 ||
+                            contacts.connectionState ==
+                                    ConnectionState.waiting &&
+                                text.data.length > 2
                         ? Center(
                             child: SizedBox(
                               height: 64,

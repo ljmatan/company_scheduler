@@ -1,5 +1,5 @@
 import 'package:company_scheduler/logic/api/models/contact_model.dart';
-import 'package:company_scheduler/ui/contact/contact_display.dart';
+import 'package:company_scheduler/ui/contact/contact_display/contact_display.dart';
 import 'package:flutter/material.dart';
 
 class ContactEntry extends StatelessWidget {
@@ -54,7 +54,7 @@ class ContactEntry extends StatelessWidget {
                       ),
                       Text(
                         contact.client.clientType.name,
-                        style: const TextStyle(color: Colors.green),
+                        style: TextStyle(color: Theme.of(context).primaryColor),
                       ),
                     ],
                   ),
@@ -63,11 +63,14 @@ class ContactEntry extends StatelessWidget {
             ),
           ),
         ),
-        onTap: () => showModalBottomSheet(
-          isScrollControlled: true,
-          context: context,
-          builder: (context) => ContactDisplay(contact: contact),
-        ),
+        onTap: () {
+          FocusScope.of(context).unfocus();
+          showModalBottomSheet(
+            isScrollControlled: true,
+            context: context,
+            builder: (context) => ContactDisplay(contact: contact),
+          );
+        },
       ),
     );
   }

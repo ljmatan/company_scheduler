@@ -21,33 +21,26 @@ class _AddTaskSheetState extends State<AddTaskSheet> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              SizedBox(
-                height: kToolbarHeight,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(left: 16),
-                      child: Text(
-                        'New task',
-                        style: Theme.of(context).textTheme.headline6,
-                      ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(left: 16),
+                    child: Text(
+                      'New task',
+                      style: Theme.of(context).textTheme.headline6,
                     ),
-                    IconButton(
-                      icon: Icon(Icons.close),
-                      onPressed: () => Navigator.pop(context),
-                    ),
-                  ],
-                ),
+                  ),
+                  IconButton(
+                    icon: Icon(Icons.close),
+                    onPressed: () => Navigator.pop(context),
+                  ),
+                ],
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: SingleChildScrollView(
-                  child: SizedBox(
-                    height: MediaQuery.of(context).size.height -
-                        kToolbarHeight -
-                        24 -
-                        MediaQuery.of(context).viewInsets.bottom,
+                  child: Expanded(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [

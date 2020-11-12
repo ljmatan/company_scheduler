@@ -61,79 +61,7 @@ class _ContactScreenState extends State<ContactScreen> {
                   initialData: '',
                   builder: (context, text) => FutureBuilder(
                     future: text.data.length < 3
-                        ? Future.value(
-                            [
-                              {
-                                "entityManager": null,
-                                "id": 1000,
-                                "name": "Nikola Djakovic",
-                                "address": {
-                                  "entityManager": null,
-                                  "id": 21600,
-                                  "street": "Ulica 1",
-                                  "city": "Belgrade",
-                                  "houseno": "40",
-                                  "flatno": "13",
-                                  "phone1": "3931173",
-                                  "phone2": "",
-                                  "mobile1": "(064) 367",
-                                  "mobile2": "",
-                                  "email1": "",
-                                  "email2": "",
-                                  "note": "Test"
-                                },
-                                "client": {
-                                  "entityManager": null,
-                                  "id": 1,
-                                  "name": "Input doo",
-                                  "account": {
-                                    "entityManager": null,
-                                    "id": 1,
-                                    "name": "Input doo",
-                                    "registerTime": "20:58:53",
-                                    "active": true
-                                  },
-                                  "clientType": {
-                                    "entityManager": null,
-                                    "id": 1,
-                                    "name": "Parner",
-                                    "active": true,
-                                    "account": 1
-                                  },
-                                  "address": {
-                                    "entityManager": null,
-                                    "id": 0,
-                                    "street": "",
-                                    "city": "1",
-                                    "houseno": "",
-                                    "flatno": "",
-                                    "phone1": "",
-                                    "phone2": "",
-                                    "mobile1": "",
-                                    "mobile2": "",
-                                    "email1": null,
-                                    "email2": null,
-                                    "note": ""
-                                  },
-                                  "clientTypeDTO": null
-                                },
-                                "contactType": {
-                                  "entityManager": null,
-                                  "id": 300,
-                                  "name": "Podrska",
-                                  "active": false,
-                                  "account": {
-                                    "entityManager": null,
-                                    "id": 1,
-                                    "name": "Input doo",
-                                    "registerTime": "20:58:53",
-                                    "active": true
-                                  }
-                                },
-                                "attributes": null
-                              },
-                            ],
-                          )
+                        ? Future.value([])
                         : _search(text.data),
                     builder: (context, contacts) => contacts.connectionState ==
                                 ConnectionState.active ||
@@ -145,38 +73,40 @@ class _ContactScreenState extends State<ContactScreen> {
                               child: CircularProgressIndicator(),
                             ),
                           )
-                        : contacts.hasError
+                        : contacts.hasError ||
+                                contacts.hasData &&
+                                    contacts.data.isNotEmpty &&
+                                    contacts.data[0]['status'] == 400
                             ? Center(
                                 child: Text(
-                                  'Error: ' + contacts.error.toString(),
+                                  'Error: ' +
+                                      (contacts.hasData &&
+                                              contacts.data.isNotEmpty &&
+                                              contacts.data[0]['status'] == 400
+                                          ? contacts.data[0]['message']
+                                          : contacts.error.toString()),
+                                  textAlign: TextAlign.center,
                                 ),
                               )
-                            : contacts.hasData
-                                ? contacts.data.isEmpty
-                                    ? Center(
-                                        child: Text(
-                                          text.data == ''
-                                              ? 'Enter a search term'
-                                              : text.data.length < 3
-                                                  ? 'Enter at least 3 characters'
-                                                  : 'No contacts found',
-                                        ),
-                                      )
-                                    : ListView.builder(
-                                        itemCount: contacts.data.length,
-                                        itemBuilder: (context, i) =>
-                                            ContactEntry(
-                                          contact: Contact.fromJson(
-                                            contacts.data[i],
-                                          ),
-                                        ),
-                                      )
-                                : Center(
-                                    child: SizedBox(
-                                      height: 64,
-                                      width: 64,
-                                      child: CircularProgressIndicator(),
+                            : contacts.data.isEmpty
+                                ? Center(
+                                    child: Text(
+                                      text.data == ''
+                                          ? 'Enter a search term'
+                                          : text.data.length < 3
+                                              ? 'Enter at least 3 characters'
+                                              : 'No contacts found',
+                                      textAlign: TextAlign.center,
                                     ),
+                                  )
+                                : ListView(
+                                    children: [
+                                      const SizedBox(height: 16),
+                                      for (var contact in contacts.data)
+                                        ContactEntry(
+                                          contact: Contact.fromJson(contact),
+                                        ),
+                                    ],
                                   ),
                   ),
                 ),

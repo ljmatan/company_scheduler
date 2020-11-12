@@ -9,7 +9,7 @@ class ContactEntry extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
+      padding: const EdgeInsets.fromLTRB(16, 0, 16, 12),
       child: InkWell(
         child: Ink(
           decoration: BoxDecoration(
@@ -17,10 +17,11 @@ class ContactEntry extends StatelessWidget {
             boxShadow: kElevationToShadow[1],
           ),
           child: SizedBox(
-            height: 64,
+            height: 56,
             child: Padding(
               padding: const EdgeInsets.all(6),
               child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -35,6 +36,20 @@ class ContactEntry extends StatelessWidget {
                       ),
                       Text(
                         contact.contactType.name + ', ' + contact.address.city,
+                      ),
+                    ],
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        contact.client.name,
+                        style: const TextStyle(color: Colors.black54),
+                      ),
+                      Text(
+                        contact.client.clientType.name,
+                        style: const TextStyle(color: Colors.green),
                       ),
                     ],
                   ),

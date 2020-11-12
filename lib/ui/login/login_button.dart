@@ -1,6 +1,6 @@
 import 'package:company_scheduler/logic/i18n/i18n.dart';
 import 'package:company_scheduler/logic/local_storage/prefs.dart';
-import 'package:company_scheduler/logic/login/login_api.dart';
+import 'package:company_scheduler/logic/api/login/login_api.dart';
 import 'package:company_scheduler/ui/dashboard/dashboard_screen.dart';
 import 'package:company_scheduler/ui/login/bloc/textfield_enabled.dart';
 import 'package:flutter/material.dart';

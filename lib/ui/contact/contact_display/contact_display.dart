@@ -1,6 +1,7 @@
 import 'package:company_scheduler/logic/api/models/contact_model.dart';
 import 'package:company_scheduler/ui/contact/contact_display/appbar.dart';
 import 'package:company_scheduler/ui/contact/contact_display/button_row/button_row.dart';
+import 'package:company_scheduler/ui/contact/contact_display/button_row/info_entry/info_entry.dart';
 import 'package:flutter/material.dart';
 
 class ContactDisplay extends StatelessWidget {
@@ -14,27 +15,39 @@ class ContactDisplay extends StatelessWidget {
       children: [
         ListView(
           children: [
-            ContactDisplayAppBar(name: contact.name),
+            ContactDisplayAppBar(
+              name: contact.name,
+              address: contact.address.street +
+                  ' ' +
+                  contact.address.houseno +
+                  '/' +
+                  contact.address.flatno +
+                  ', ' +
+                  contact.address.city,
+            ),
+            InfoEntry(
+              icon: Icons.contact_phone,
+              label: 'Phone Number',
+              phone1: contact.address.phone1 ?? '',
+              phone2: contact.address.phone2 ?? '',
+              mobile1: contact.address.mobile1 ?? '',
+              mobile2: contact.address.mobile2 ?? '',
+            ),
+            InfoEntry(
+              icon: Icons.contact_mail,
+              label: 'Email',
+              email1: contact.address.email1 ?? '',
+              email2: contact.address.email2 ?? '',
+            ),
+            InfoEntry(
+              icon: Icons.chrome_reader_mode,
+              label: 'Other',
+              contactType: contact.contactType.name ?? '',
+              clientType: contact.client.name ?? '',
+              clientName: contact.client.account.name ?? '',
+            ),
+            const SizedBox(height: 90),
           ],
-        ),
-        Padding(
-          padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(),
-                child: Text(
-                  'Numbers',
-                  style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 18,
-                  ),
-                ),
-              ),
-            ],
-          ),
         ),
         Positioned(
           bottom: 16,

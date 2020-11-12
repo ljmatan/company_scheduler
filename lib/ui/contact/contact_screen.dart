@@ -60,15 +60,15 @@ class _ContactScreenState extends State<ContactScreen> {
                   stream: _textStreamController.stream,
                   initialData: '',
                   builder: (context, text) => FutureBuilder(
-                    future: text.data.length < 3
+                    future: text.data.trim().length < 3
                         ? Future.value([])
-                        : _search(text.data),
+                        : _search(text.data.trim()),
                     builder: (context, contacts) => contacts.connectionState ==
                                     ConnectionState.active &&
-                                text.data.length > 2 ||
+                                text.data.trim().length > 2 ||
                             contacts.connectionState ==
                                     ConnectionState.waiting &&
-                                text.data.length > 2
+                                text.data.trim().length > 2
                         ? Center(
                             child: SizedBox(
                               height: 64,
@@ -96,7 +96,7 @@ class _ContactScreenState extends State<ContactScreen> {
                                     child: Text(
                                       text.data == ''
                                           ? 'Enter a search term'
-                                          : text.data.length < 3
+                                          : text.data.trim().length < 3
                                               ? 'Enter at least 3 characters'
                                               : 'No contacts found',
                                       textAlign: TextAlign.center,

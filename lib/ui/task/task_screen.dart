@@ -96,8 +96,7 @@ class _TaskScreenState extends State<TaskScreen> {
               ),
             ),
           ),
-          SizedBox(
-            height: MediaQuery.of(context).size.height - 141,
+          Expanded(
             child: Stack(
               children: [
                 PageView(

@@ -48,11 +48,7 @@ class _CompanyScreenState extends State<CompanyScreen> {
               onChanged: (text) => _textStreamController.add(text),
             ),
           ),
-          SizedBox(
-            height: MediaQuery.of(context).size.height -
-                103 -
-                kToolbarHeight -
-                MediaQuery.of(context).viewInsets.bottom,
+          Expanded(
             child: Stack(
               children: [
                 StreamBuilder(
@@ -69,7 +65,9 @@ class _CompanyScreenState extends State<CompanyScreen> {
                                 child: Text(
                                   text.data == ''
                                       ? 'Enter a search term'
-                                      : 'No contacts found',
+                                      : text.data.length < 3
+                                          ? 'Enter at least 3 characters'
+                                          : 'No results',
                                 ),
                               )
                             : ListView.builder(

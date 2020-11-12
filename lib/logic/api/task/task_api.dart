@@ -3,7 +3,7 @@ import 'package:company_scheduler/logic/api/api_helper.dart';
 import 'package:http/http.dart' as http;
 
 abstract class TaskAPI {
-  static Future<Map> getTaskList(String userID) async {
+  static Future<Map> getTaskList() async {
     final response = await http.get(
       APIHelper.url +
           'taskDetails&taskId=principalTaskList&principal=${UserInfo.id}',

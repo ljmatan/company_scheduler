@@ -61,7 +61,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
         itemCount: 481,
         itemBuilder: (context, index) => FutureBuilder(
           future: Future.delayed(
-            const Duration(seconds: 0),
+            const Duration(seconds: 2),
             () => [],
           ),
           builder: (context, tasks) => tasks.hasData
@@ -116,6 +116,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
 
   @override
   void dispose() {
+    _pageController.dispose();
     DateSelection.dispose();
     DaySelection.dispose();
     super.dispose();

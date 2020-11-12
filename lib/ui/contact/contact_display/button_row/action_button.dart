@@ -22,14 +22,17 @@ class ActionButton extends StatelessWidget {
             Icon(
               icon,
               size: 30,
-              color: Theme.of(context).primaryColor,
+              color:
+                  url == null ? Colors.black54 : Theme.of(context).primaryColor,
             ),
             Padding(
               padding: const EdgeInsets.only(top: 4),
               child: Text(
                 label,
                 style: TextStyle(
-                  color: Theme.of(context).primaryColor,
+                  color: url == null
+                      ? Colors.black54
+                      : Theme.of(context).primaryColor,
                   fontSize: 12,
                 ),
               ),
@@ -37,18 +40,20 @@ class ActionButton extends StatelessWidget {
           ],
         ),
       ),
-      onTap: () async {
-        if (await canLaunch(url))
-          await launch(url);
-        else
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(
-                'Unavailable',
-              ),
-            ),
-          );
-      },
+      onTap: url == null
+          ? null
+          : () async {
+              if (await canLaunch(url))
+                await launch(url);
+              else
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text(
+                      'Unavailable',
+                    ),
+                  ),
+                );
+            },
     );
   }
 }

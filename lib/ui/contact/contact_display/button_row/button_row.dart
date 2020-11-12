@@ -2,9 +2,13 @@ import 'package:company_scheduler/ui/contact/contact_display/button_row/action_b
 import 'package:flutter/material.dart';
 
 class ButtonRow extends StatelessWidget {
-  final String number, email;
+  final String houseNumber, phoneNumber, email;
 
-  ButtonRow({@required this.number, @required this.email});
+  ButtonRow({
+    @required this.houseNumber,
+    @required this.phoneNumber,
+    @required this.email,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -20,17 +24,17 @@ class ButtonRow extends StatelessWidget {
           ActionButton(
             icon: Icons.call,
             label: 'Call',
-            url: 'tel:$number',
+            url: houseNumber != null ? 'tel:$houseNumber' : null,
           ),
           ActionButton(
             icon: Icons.message,
             label: 'Text',
-            url: 'sms:$number',
+            url: phoneNumber != null ? 'sms:$phoneNumber' : null,
           ),
           ActionButton(
             icon: Icons.email,
             label: 'Email',
-            url: 'mailto:$email',
+            url: email != null ? 'mailto:$email' : null,
           ),
         ],
       ),

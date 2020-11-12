@@ -1,3 +1,4 @@
+import 'package:company_scheduler/ui/contact/contact_display/button_row/info_entry/copy_button.dart';
 import 'package:flutter/material.dart';
 
 class InfoRow extends StatelessWidget {
@@ -28,17 +29,7 @@ class InfoRow extends StatelessWidget {
           ),
           details != ''
               ? selectable != null && selectable
-                  ? FlatButton(
-                      color: Theme.of(context).primaryColor,
-                      child: Text(
-                        details,
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      onPressed: () => null,
-                    )
+                  ? CopyButton(details: details)
                   : Text(details)
               : Text(
                   'no info',

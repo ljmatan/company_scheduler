@@ -43,7 +43,7 @@ class ContactDisplay extends StatelessWidget {
               icon: Icons.chrome_reader_mode,
               label: 'Other',
               contactType: contact.contactType.name ?? '',
-              clientType: contact.client.name ?? '',
+              clientType: contact.client.clientType.name ?? '',
               clientName: contact.client.account.name ?? '',
             ),
             const SizedBox(height: 90),
@@ -54,8 +54,11 @@ class ContactDisplay extends StatelessWidget {
           left: 16,
           right: 16,
           child: ButtonRow(
-            number: contact.address.phone1,
-            email: contact.address.email1,
+            houseNumber:
+                contact.address.phone1 == '' ? null : contact.address.phone1,
+            phoneNumber:
+                contact.address.mobile1 == '' ? null : contact.address.mobile1,
+            email: contact.address.email1 == '' ? null : contact.address.email1,
           ),
         ),
       ],

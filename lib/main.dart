@@ -1,7 +1,7 @@
 import 'dart:io';
 import 'package:company_scheduler/logic/api/api.dart';
 import 'package:company_scheduler/logic/local_storage/prefs.dart';
-import 'package:company_scheduler/other/scroll_behavior.dart';
+import 'package:company_scheduler/ui/other/scroll_behavior.dart';
 import 'package:company_scheduler/ui/main_view/main_view.dart';
 import 'package:flutter/material.dart';
 

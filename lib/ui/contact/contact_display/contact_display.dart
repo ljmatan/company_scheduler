@@ -1,8 +1,8 @@
 import 'package:company_scheduler/logic/api/models/contact_model.dart';
 import 'package:company_scheduler/ui/contact/contact_display/appbar.dart';
 import 'package:company_scheduler/ui/shared/bloc/copied.dart';
-import 'package:company_scheduler/ui/contact/contact_display/info_entry/info_entry.dart';
 import 'package:company_scheduler/ui/shared/button_row/button_row.dart';
+import 'package:company_scheduler/ui/shared/info_entry/info_entry.dart';
 import 'package:flutter/material.dart';
 
 class ContactDisplay extends StatefulWidget {
@@ -31,13 +31,7 @@ class _ContactDisplayState extends State<ContactDisplay> {
           children: [
             ContactDisplayAppBar(
               name: widget.contact.name,
-              address: widget.contact.address.street +
-                  ' ' +
-                  widget.contact.address.houseno +
-                  '/' +
-                  widget.contact.address.flatno +
-                  ', ' +
-                  widget.contact.address.city,
+              address: widget.contact.address,
             ),
             InfoEntry(
               icon: Icons.contact_phone,

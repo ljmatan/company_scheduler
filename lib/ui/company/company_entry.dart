@@ -34,12 +34,9 @@ class CompanyEntry extends StatelessWidget {
                     children: [
                       Text(
                         company.name,
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 16,
-                          color: company.account.active
-                              ? Colors.black
-                              : Colors.red.shade300,
                         ),
                       ),
                       Text(company.address.city),

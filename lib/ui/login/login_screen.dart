@@ -26,8 +26,8 @@ class _LoginScreenState extends State<LoginScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Padding(
-                  padding:
-                      EdgeInsets.only(top: MediaQuery.of(context).padding.top),
+                  padding: EdgeInsets.only(
+                      top: MediaQuery.of(context).padding.top + 16),
                   child: FlutterLogo(
                     size: MediaQuery.of(context).size.width * 0.4,
                   ),

@@ -1,8 +1,8 @@
 import 'package:company_scheduler/logic/api/models/company_model.dart';
 import 'package:company_scheduler/ui/company/company_display/appbar.dart';
-import 'package:company_scheduler/ui/company/company_display/info_entry/info_entry.dart';
 import 'package:company_scheduler/ui/shared/bloc/copied.dart';
 import 'package:company_scheduler/ui/shared/button_row/button_row.dart';
+import 'package:company_scheduler/ui/shared/info_entry/info_entry.dart';
 import 'package:flutter/material.dart';
 
 class CompanyDisplay extends StatefulWidget {
@@ -31,13 +31,7 @@ class _CompanyDisplayState extends State<CompanyDisplay> {
           children: [
             CompanyDisplayAppBar(
               name: widget.company.name,
-              address: widget.company.address.street +
-                  ' ' +
-                  widget.company.address.houseno +
-                  '/' +
-                  widget.company.address.flatno +
-                  ', ' +
-                  widget.company.address.city,
+              address: widget.company.address,
             ),
             InfoEntry(
               icon: Icons.contact_phone,
@@ -52,11 +46,6 @@ class _CompanyDisplayState extends State<CompanyDisplay> {
               label: 'Email',
               email1: widget.company.address.email1 ?? '',
               email2: widget.company.address.email2 ?? '',
-            ),
-            InfoEntry(
-              icon: Icons.chrome_reader_mode,
-              label: 'Other',
-              clientType: widget.company.clientType.name ?? '',
             ),
             const SizedBox(height: 90),
           ],

@@ -1,4 +1,4 @@
-import 'package:company_scheduler/logic/api/api_helper.dart';
+import 'package:company_scheduler/logic/api/api.dart';
 
 List<TaskDetails> taskDetailsFromJson(String str) => List<TaskDetails>.from(
     APIHelper.jsonCodec.decode(str).map((x) => TaskDetails.fromJson(x)));

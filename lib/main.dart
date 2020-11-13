@@ -1,6 +1,6 @@
 import 'dart:io';
-import 'package:company_scheduler/data/user_info.dart';
-import 'package:company_scheduler/logic/api/api_helper.dart';
+import 'package:company_scheduler/logic/data/user_info.dart';
+import 'package:company_scheduler/logic/api/api.dart';
 import 'package:company_scheduler/logic/local_storage/prefs.dart';
 import 'package:company_scheduler/other/scroll_behavior.dart';
 import 'package:company_scheduler/ui/dashboard/dashboard_screen.dart';
@@ -8,13 +8,16 @@ import 'package:company_scheduler/ui/login/login_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() async {
+  // Required by framework
   WidgetsFlutterBinding.ensureInitialized();
+
   // Enable the use of self-signed SSL certificate
   HttpOverrides.global = CustomHttpOverrides();
   // Init local data storage
   await Prefs.init();
-  // Check if user info is stored on the device
+  // Check if user info is stored on the device and process it accordingly
   Prefs.getLocalData();
+
   runApp(CompanyScheduler());
 }
 
@@ -26,6 +29,7 @@ class CompanyScheduler extends StatelessWidget {
       title: 'Company Scheduler',
       theme: ThemeData(
         fontFamily: 'Tahoma',
+        // Replace two colors below in order to change button color, circular progress indicator color, etc.
         primaryColor: Colors.blue.shade300,
         accentColor: Colors.blue.shade300,
         appBarTheme: AppBarTheme(

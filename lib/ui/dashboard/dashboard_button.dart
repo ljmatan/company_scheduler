@@ -14,16 +14,15 @@ class DashboardButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.fromLTRB(16, 20, 16, 0),
-      child: InkWell(
-        child: Ink(
+      child: GestureDetector(
+        child: DecoratedBox(
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(8),
-            color: Colors.amber.shade200,
+            color: Colors.white.withOpacity(0.8),
             boxShadow: kElevationToShadow[1],
           ),
           child: SizedBox(
             width: MediaQuery.of(context).size.width,
-            height: 64,
+            height: 70,
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 14),
               child: Row(
@@ -34,14 +33,12 @@ class DashboardButton extends StatelessWidget {
                     style: const TextStyle(
                       fontSize: 19,
                       fontWeight: FontWeight.w900,
-                      color: Colors.black54,
                     ),
                   ),
                   Image.asset(
                     'assets/dash/' + label + '.png',
                     height: 28,
                     fit: BoxFit.fill,
-                    color: Colors.white,
                   ),
                 ],
               ),

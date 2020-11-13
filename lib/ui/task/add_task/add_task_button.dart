@@ -6,7 +6,7 @@ class AddTaskButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return FloatingActionButton(
       elevation: 2,
-      child: Icon(Icons.add),
+      child: Icon(Icons.add, color: Colors.white),
       onPressed: () => showModalBottomSheet(
         isScrollControlled: true,
         context: context,

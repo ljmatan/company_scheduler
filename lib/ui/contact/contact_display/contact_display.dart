@@ -1,5 +1,5 @@
 import 'package:company_scheduler/logic/api/contact/contact_model.dart';
-import 'package:company_scheduler/ui/contact/contact_display/appbar.dart';
+import 'package:company_scheduler/ui/shared/appbar.dart';
 import 'package:company_scheduler/ui/shared/bloc/copied.dart';
 import 'package:company_scheduler/ui/shared/button_row/button_row.dart';
 import 'package:company_scheduler/ui/shared/info_entry/info_entry.dart';
@@ -29,7 +29,7 @@ class _ContactDisplayState extends State<ContactDisplay> {
       children: [
         ListView(
           children: [
-            ContactDisplayAppBar(
+            ContactCompanyDisplayAppBar(
               name: widget.contact.name,
               address: widget.contact.address,
             ),
@@ -51,7 +51,6 @@ class _ContactDisplayState extends State<ContactDisplay> {
               icon: Icons.chrome_reader_mode,
               label: 'Other',
               contactType: widget.contact.contactType.name ?? '',
-              clientType: widget.contact.client.clientType.name ?? '',
               clientName: widget.contact.client.account.name ?? '',
             ),
             const SizedBox(height: 90),

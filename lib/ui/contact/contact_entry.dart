@@ -27,6 +27,7 @@ class ContactEntry extends StatelessWidget {
               padding: const EdgeInsets.all(6),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -44,19 +45,9 @@ class ContactEntry extends StatelessWidget {
                       ),
                     ],
                   ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        contact.client.name,
-                        style: const TextStyle(color: Colors.black54),
-                      ),
-                      Text(
-                        contact.client.clientType.name,
-                        style: TextStyle(color: Theme.of(context).primaryColor),
-                      ),
-                    ],
+                  Text(
+                    contact.client.name,
+                    style: const TextStyle(color: Colors.black54),
                   ),
                 ],
               ),

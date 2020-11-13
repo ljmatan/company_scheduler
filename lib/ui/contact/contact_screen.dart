@@ -4,6 +4,7 @@ import 'package:company_scheduler/logic/api/contact/contact_model.dart';
 import 'package:company_scheduler/logic/i18n/i18n.dart';
 import 'package:company_scheduler/ui/contact/contact_entry.dart';
 import 'package:company_scheduler/ui/other/scroll_overflow.dart';
+import 'package:company_scheduler/ui/shared/custom_spinning_indicator.dart';
 import 'package:flutter/material.dart';
 import 'dart:io' show Platform;
 
@@ -69,13 +70,7 @@ class _ContactScreenState extends State<ContactScreen> {
                             contacts.connectionState ==
                                     ConnectionState.waiting &&
                                 text.data.trim().length > 2
-                        ? Center(
-                            child: SizedBox(
-                              height: 64,
-                              width: 64,
-                              child: CircularProgressIndicator(),
-                            ),
-                          )
+                        ? Center(child: CustomSpinningIndicator())
                         : contacts.hasError ||
                                 contacts.hasData &&
                                     contacts.data.isNotEmpty &&

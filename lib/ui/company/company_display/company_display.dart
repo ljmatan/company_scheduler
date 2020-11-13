@@ -1,5 +1,5 @@
 import 'package:company_scheduler/logic/api/company/company_model.dart';
-import 'package:company_scheduler/ui/company/company_display/appbar.dart';
+import 'package:company_scheduler/ui/shared/appbar.dart';
 import 'package:company_scheduler/ui/shared/bloc/copied.dart';
 import 'package:company_scheduler/ui/shared/button_row/button_row.dart';
 import 'package:company_scheduler/ui/shared/info_entry/info_entry.dart';
@@ -29,7 +29,7 @@ class _CompanyDisplayState extends State<CompanyDisplay> {
       children: [
         ListView(
           children: [
-            CompanyDisplayAppBar(
+            ContactCompanyDisplayAppBar(
               name: widget.company.name,
               address: widget.company.address,
             ),

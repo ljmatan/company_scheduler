@@ -3,6 +3,7 @@ import 'package:company_scheduler/logic/calendar/calendar_provider.dart';
 import 'package:company_scheduler/ui/calendar/appbar/appbar.dart';
 import 'package:company_scheduler/ui/calendar/bloc/date_selection.dart';
 import 'package:company_scheduler/ui/calendar/bloc/day_selection.dart';
+import 'package:company_scheduler/ui/shared/custom_spinning_indicator.dart';
 import 'package:flutter/material.dart';
 
 class CalendarScreen extends StatefulWidget {
@@ -98,17 +99,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
                     ),
                   ],
                 )
-              : SizedBox(
-                  height:
-                      MediaQuery.of(context).size.height - kToolbarHeight - 24,
-                  child: Center(
-                    child: SizedBox(
-                      height: 64,
-                      width: 64,
-                      child: CircularProgressIndicator(),
-                    ),
-                  ),
-                ),
+              : Center(child: CustomSpinningIndicator()),
         ),
       ),
     );

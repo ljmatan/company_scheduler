@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:company_scheduler/logic/api/task/task_api.dart';
 import 'package:company_scheduler/logic/api/task/task_details_model.dart';
 import 'package:company_scheduler/logic/i18n/i18n.dart';
+import 'package:company_scheduler/ui/shared/custom_spinning_indicator.dart';
 import 'package:company_scheduler/ui/task/add_task/add_task_button.dart';
 import 'package:company_scheduler/ui/task/current_tasks.dart';
 import 'package:company_scheduler/ui/task/task_entry.dart';
@@ -45,13 +46,7 @@ class _TaskScreenState extends State<TaskScreen> {
                 ),
               )
             : !tasks.hasData
-                ? Center(
-                    child: SizedBox(
-                      height: 64,
-                      width: 64,
-                      child: CircularProgressIndicator(),
-                    ),
-                  )
+                ? Center(child: CustomSpinningIndicator())
                 : CurrentTasks(
                     tasks: [
                       for (var task in tasks.data)

@@ -5,7 +5,7 @@ class InfoEntry extends StatelessWidget {
   final IconData icon;
   final String label, phone1, phone2, mobile1, mobile2;
   final String email1, email2;
-  final String contactType, clientType, clientName;
+  final String contactType, clientName;
 
   InfoEntry({
     @required this.icon,
@@ -17,7 +17,6 @@ class InfoEntry extends StatelessWidget {
     this.email1,
     this.email2,
     this.contactType,
-    this.clientType,
     this.clientName,
   });
 
@@ -81,18 +80,13 @@ class InfoEntry extends StatelessWidget {
           if (email2 != null)
             InfoRow(
               label: 'Email 2',
-              details: email1,
+              details: email2,
               copiable: true,
             ),
           if (contactType != null)
             InfoRow(
               label: 'Contact type',
               details: contactType,
-            ),
-          if (clientType != null)
-            InfoRow(
-              label: 'Client type',
-              details: clientType,
             ),
           if (clientName != null)
             InfoRow(

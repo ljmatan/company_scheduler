@@ -17,6 +17,7 @@ class PasswordField extends StatelessWidget {
         builder: (context, enabled) => TextField(
           controller: controller,
           enabled: enabled.data,
+          obscureText: true,
           decoration: InputDecoration(
             contentPadding: const EdgeInsets.fromLTRB(14, 18, 14, 18),
             border: OutlineInputBorder(),

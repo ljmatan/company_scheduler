@@ -3,6 +3,7 @@ import 'package:company_scheduler/logic/api/company/company_model.dart';
 import 'package:company_scheduler/logic/i18n/i18n.dart';
 import 'package:company_scheduler/ui/company/company_entry.dart';
 import 'package:company_scheduler/ui/other/scroll_overflow.dart';
+import 'package:company_scheduler/ui/shared/custom_spinning_indicator.dart';
 import 'package:flutter/material.dart';
 import 'dart:io' show Platform;
 import 'dart:async';
@@ -71,13 +72,7 @@ class _CompanyScreenState extends State<CompanyScreen> {
                             companies.connectionState ==
                                     ConnectionState.waiting &&
                                 text.data.trim().length > 2
-                        ? Center(
-                            child: SizedBox(
-                              height: 64,
-                              width: 64,
-                              child: CircularProgressIndicator(),
-                            ),
-                          )
+                        ? Center(child: CustomSpinningIndicator())
                         : companies.hasError ||
                                 companies.hasData &&
                                     companies.data.isNotEmpty &&

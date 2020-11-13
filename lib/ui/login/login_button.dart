@@ -7,10 +7,12 @@ import 'package:flutter/material.dart';
 
 class LoginButton extends StatefulWidget {
   final String username, password;
+  final AnimationController animationController;
 
   LoginButton({
     @required this.username,
     @required this.password,
+    @required this.animationController,
   });
 
   @override
@@ -31,8 +33,8 @@ class _LoginButtonState extends State<LoginButton> {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 16),
-      child: InkWell(
-        child: Ink(
+      child: GestureDetector(
+        child: DecoratedBox(
           decoration: BoxDecoration(
             color: Theme.of(context).primaryColor,
             borderRadius: BorderRadius.circular(25),
@@ -59,13 +61,8 @@ class _LoginButtonState extends State<LoginButton> {
             ),
           ),
         ),
-        onTap: _verifyingInfo
-            ? null
-            : () => Navigator.pushAndRemoveUntil(
-                  context,
-                  MaterialPageRoute(builder: (context) => DashboardScreen()),
-                  (Route<dynamic> route) => false,
-                ),
+        onTap:
+            _verifyingInfo ? null : () => widget.animationController.forward(),
         /*() async {
               FocusScope.of(context).unfocus();
               _changeState(true);

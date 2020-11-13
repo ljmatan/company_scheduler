@@ -17,7 +17,7 @@ class DashboardButton extends StatelessWidget {
       child: GestureDetector(
         child: DecoratedBox(
           decoration: BoxDecoration(
-            color: Colors.white.withOpacity(0.8),
+            color: Colors.white,
             boxShadow: kElevationToShadow[1],
           ),
           child: SizedBox(

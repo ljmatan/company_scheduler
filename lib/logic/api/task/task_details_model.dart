@@ -112,9 +112,9 @@ class Creator {
 
   dynamic entityManager;
   int id;
-  CreatorName name;
-  Username username;
-  Password password;
+  String name;
+  String username;
+  String password;
   dynamic parent;
   AccountClass account;
   String createdDate;
@@ -124,9 +124,9 @@ class Creator {
   factory Creator.fromJson(Map<String, dynamic> json) => Creator(
         entityManager: json["entityManager"],
         id: json["id"],
-        name: creatorNameValues.map[json["name"]],
-        username: usernameValues.map[json["username"]],
-        password: passwordValues.map[json["password"]],
+        name: json["name"],
+        username: json["username"],
+        password: json["password"],
         parent: json["parent"],
         account: AccountClass.fromJson(json["account"]),
         createdDate: json["createdDate"],
@@ -137,9 +137,9 @@ class Creator {
   Map<String, dynamic> toJson() => {
         "entityManager": entityManager,
         "id": id,
-        "name": creatorNameValues.reverse[name],
-        "username": usernameValues.reverse[username],
-        "password": passwordValues.reverse[password],
+        "name": name,
+        "username": username,
+        "password": password,
         "parent": parent,
         "account": account.toJson(),
         "createdDate": createdDate,
@@ -162,7 +162,7 @@ class AccountClass {
 
   dynamic entityManager;
   int id;
-  AccountName name;
+  String name;
   String registerTime;
   bool active;
   dynamic account;
@@ -172,7 +172,7 @@ class AccountClass {
   factory AccountClass.fromJson(Map<String, dynamic> json) => AccountClass(
         entityManager: json["entityManager"],
         id: json["id"],
-        name: json["name"] == null ? null : accountNameValues.map[json["name"]],
+        name: json["name"],
         registerTime:
             json["registerTime"] == null ? null : json["registerTime"],
         active: json["active"] == null ? null : json["active"],
@@ -186,7 +186,7 @@ class AccountClass {
   Map<String, dynamic> toJson() => {
         "entityManager": entityManager,
         "id": id,
-        "name": name == null ? null : accountNameValues.reverse[name],
+        "name": name,
         "registerTime": registerTime == null ? null : registerTime,
         "active": active == null ? null : active,
         "account": account,
@@ -194,14 +194,6 @@ class AccountClass {
         "principal": principal == null ? null : principal.toJson(),
       };
 }
-
-enum CreatorName { STEFAN_PODRSKA, NIKOLA, NIKOLATEST722417467 }
-
-final creatorNameValues = EnumValues({
-  "nikola": CreatorName.NIKOLA,
-  "Nikolatest722417467": CreatorName.NIKOLATEST722417467,
-  "Stefan podrska": CreatorName.STEFAN_PODRSKA
-});
 
 enum Password {
   THE_9365_EA12_B2_D910_E1_ACEAAC190_FBC97_A5,
@@ -237,17 +229,6 @@ enum AccountName {
   NOV_OBJEKAT,
   EDUKACIJA
 }
-
-final accountNameValues = EnumValues({
-  "Edukacija": AccountName.EDUKACIJA,
-  "Input doo": AccountName.INPUT_DOO,
-  "Interni rad": AccountName.INTERNI_RAD,
-  "Nalog": AccountName.NALOG,
-  "Nov objekat": AccountName.NOV_OBJEKAT,
-  "Otvoren": AccountName.OTVOREN,
-  "Parner": AccountName.PARNER,
-  "Potencijalni klijent": AccountName.POTENCIJALNI_KLIJENT
-});
 
 class Project {
   Project({
@@ -413,20 +394,20 @@ class ProjectStatus {
 
   dynamic entityManager;
   int id;
-  AccountName name;
+  String name;
   AccountClass account;
 
   factory ProjectStatus.fromJson(Map<String, dynamic> json) => ProjectStatus(
         entityManager: json["entityManager"],
         id: json["id"],
-        name: accountNameValues.map[json["name"]],
+        name: json["name"],
         account: AccountClass.fromJson(json["account"]),
       );
 
   Map<String, dynamic> toJson() => {
         "entityManager": entityManager,
         "id": id,
-        "name": accountNameValues.reverse[name],
+        "name": name,
         "account": account.toJson(),
       };
 }

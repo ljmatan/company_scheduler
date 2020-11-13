@@ -1,4 +1,4 @@
-import 'package:company_scheduler/logic/api/models/company_model.dart';
+import 'package:company_scheduler/logic/api/company/company_model.dart';
 import 'package:flutter/material.dart';
 
 class CompanyDisplayAppBar extends StatelessWidget {

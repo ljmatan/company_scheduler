@@ -1,4 +1,4 @@
-import 'package:company_scheduler/logic/api/models/company_model.dart';
+import 'package:company_scheduler/logic/api/company/company_model.dart';
 import 'package:company_scheduler/ui/company/company_display/appbar.dart';
 import 'package:company_scheduler/ui/shared/bloc/copied.dart';
 import 'package:company_scheduler/ui/shared/button_row/button_row.dart';

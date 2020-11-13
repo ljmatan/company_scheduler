@@ -1,4 +1,4 @@
-import 'package:company_scheduler/logic/data/user_info.dart';
+import 'package:company_scheduler/logic/local_storage/data/user_info.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 abstract class Prefs {

@@ -1,13 +1,12 @@
 import 'package:company_scheduler/logic/api/api.dart';
-import 'package:company_scheduler/logic/data/user_info.dart';
+import 'package:company_scheduler/logic/local_storage/data/user_info.dart';
 import 'package:http/http.dart' as http;
 
 abstract class TaskAPI {
-  static Future<Map> getTaskList() async {
-    final response = await http.get(
-      APIHelper.url +
-          'taskDetails&taskId=principalTaskList&principal=${UserInfo.id}',
-    );
+  static Future<List> getTaskList() async {
+    final response = await http.get(APIHelper.url +
+            'principalTaskList&principal=1' // TODO: Replace 1 with ${UserInfo.id}
+        );
 
     return APIHelper.jsonCodec.decode(response.body);
   }

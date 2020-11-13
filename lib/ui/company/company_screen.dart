@@ -1,5 +1,5 @@
 import 'package:company_scheduler/logic/api/company/company_api.dart';
-import 'package:company_scheduler/logic/api/models/company_model.dart';
+import 'package:company_scheduler/logic/api/company/company_model.dart';
 import 'package:company_scheduler/logic/i18n/i18n.dart';
 import 'package:company_scheduler/ui/company/company_entry.dart';
 import 'package:company_scheduler/ui/other/scroll_overflow.dart';

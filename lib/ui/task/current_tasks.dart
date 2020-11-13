@@ -2,6 +2,10 @@ import 'package:company_scheduler/ui/task/task_entry.dart';
 import 'package:flutter/material.dart';
 
 class CurrentTasks extends StatefulWidget {
+  final List<TaskEntry> tasks;
+
+  CurrentTasks({@required this.tasks});
+
   @override
   State<StatefulWidget> createState() {
     return _CurrentTasksState();
@@ -13,20 +17,16 @@ class _CurrentTasksState extends State<CurrentTasks>
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    return ListView(
-      children: [
-        TaskEntry(
-          subject: 'Critical Social Analysis',
-          percent: 97,
-          startTime: DateTime.fromMillisecondsSinceEpoch(
-            1600180674198,
-          ),
-          endTime: DateTime.fromMillisecondsSinceEpoch(
-            1600180674198,
-          ),
-        ),
-      ],
-    );
+    return widget.tasks.isNotEmpty
+        ? ListView(
+            children: [for (var task in widget.tasks) task],
+          )
+        : Center(
+            child: Text(
+              'No tasks found',
+              textAlign: TextAlign.center,
+            ),
+          );
   }
 
   @override

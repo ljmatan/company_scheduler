@@ -1,4 +1,4 @@
-import 'package:company_scheduler/logic/api/models/contact_model.dart';
+import 'package:company_scheduler/logic/api/contact/contact_model.dart';
 import 'package:flutter/material.dart';
 
 class ContactDisplayAppBar extends StatelessWidget {

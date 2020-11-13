@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:company_scheduler/logic/api/contact/contact_api.dart';
-import 'package:company_scheduler/logic/api/models/contact_model.dart';
+import 'package:company_scheduler/logic/api/contact/contact_model.dart';
 import 'package:company_scheduler/logic/i18n/i18n.dart';
 import 'package:company_scheduler/ui/contact/contact_entry.dart';
 import 'package:company_scheduler/ui/other/scroll_overflow.dart';

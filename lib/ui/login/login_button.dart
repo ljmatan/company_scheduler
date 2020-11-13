@@ -68,7 +68,7 @@ class _LoginButtonState extends State<LoginButton> {
                 try {
                   final Map response =
                       await LoginAPI.login(widget.username, widget.password);
-                  if (response['status'] != 400) {
+                  if (response['id'] != null) {
                     await Prefs.setLocalData(
                       response['username'],
                       response['password'],
@@ -77,11 +77,10 @@ class _LoginButtonState extends State<LoginButton> {
                     widget.animationController.forward();
                   } else if (response['status'] == 400) {
                     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                        content: Text(
-                            Internationalization.login('incorrect data'))));
+                        content: Text('Error: ' + response['message'])));
                     _changeState(false);
                   } else
-                    throw ErrorDescription(
+                    throw ErrorSummary(
                         Internationalization.login('unknown error'));
                 } catch (e) {
                   _changeState(false);

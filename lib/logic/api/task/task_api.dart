@@ -4,8 +4,10 @@ import 'package:http/http.dart' as http;
 
 abstract class TaskAPI {
   static Future<List> getTaskList() async {
+    print(UserInfo.id);
+
     final response = await http.get(
-      APIHelper.url + 'principalTaskList&principal=${UserInfo.id}',
+      APIHelper.url + 'principalTaskList&principal=1', // ${UserInfo.id}
     );
 
     return APIHelper.jsonCodec.decode(response.body);

@@ -51,9 +51,6 @@ class _DayCurrentMonthState extends State<DayCurrentMonth> {
               endTime.year == endTime.year &&
                   endTime.month == endTime.month &&
                   endTime.day == widget.day)) {
-        print(startTime);
-        print(endTime);
-        print(currentDate);
         _taskList.add(task);
       }
     }

@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
 class DayPrevNextMonth extends StatelessWidget {
-  final int dateDay, day, daysInMonth;
+  final DateTime date;
+  final List tasks;
 
   DayPrevNextMonth({
-    @required this.dateDay,
-    @required this.day,
-    @required this.daysInMonth,
+    @required this.date,
+    @required this.tasks,
   });
 
   @override
@@ -27,7 +27,7 @@ class DayPrevNextMonth extends StatelessWidget {
             child: Column(
               children: [
                 Text(
-                  dateDay.toString(),
+                  date.day.toString(),
                   style: const TextStyle(
                     color: Colors.black26,
                   ),

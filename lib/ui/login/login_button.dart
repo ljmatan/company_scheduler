@@ -1,7 +1,6 @@
 import 'package:company_scheduler/logic/i18n/i18n.dart';
 import 'package:company_scheduler/logic/local_storage/prefs.dart';
 import 'package:company_scheduler/logic/api/login/login_api.dart';
-import 'package:company_scheduler/ui/dashboard/dashboard_screen.dart';
 import 'package:company_scheduler/ui/login/bloc/textfield_enabled.dart';
 import 'package:flutter/material.dart';
 
@@ -61,41 +60,37 @@ class _LoginButtonState extends State<LoginButton> {
             ),
           ),
         ),
-        onTap:
-            _verifyingInfo ? null : () => widget.animationController.forward(),
-        /*() async {
-              FocusScope.of(context).unfocus();
-              _changeState(true);
-              try {
-                final Map response =
-                    await LoginAPI.login(widget.username, widget.password);
-                if (response['status'] == null) {
-                  await Prefs.setLocalData(
-                    response['username'],
-                    response['password'],
-                    response['id'],
-                  );
-                  Navigator.pushAndRemoveUntil(
-                    context,
-                    MaterialPageRoute(builder: (context) => DashboardScreen()),
-                    (Route<dynamic> route) => false,
-                  );
-                } else if (response['status'] == 400) {
-                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                      content:
-                          Text(Internationalization.login('incorrect data'))));
+        onTap: _verifyingInfo
+            ? null
+            : () async {
+                FocusScope.of(context).unfocus();
+                _changeState(true);
+                try {
+                  final Map response =
+                      await LoginAPI.login(widget.username, widget.password);
+                  if (response['status'] != 400) {
+                    await Prefs.setLocalData(
+                      response['username'],
+                      response['password'],
+                      response['id'].toString(),
+                    );
+                    widget.animationController.forward();
+                  } else if (response['status'] == 400) {
+                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                        content: Text(
+                            Internationalization.login('incorrect data'))));
+                    _changeState(false);
+                  } else
+                    throw ErrorDescription(
+                        Internationalization.login('unknown error'));
+                } catch (e) {
                   _changeState(false);
-                } else
-                  throw ErrorDescription(
-                      Internationalization.login('unknown error'));
-              } catch (e) {
-                _changeState(false);
-                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                    content: Text(
-                  Internationalization.login('error') + ': ' + e.toString(),
-                )));
-              }
-            },*/
+                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                      content: Text(
+                    Internationalization.login('error') + ': ' + e.toString(),
+                  )));
+                }
+              },
       ),
     );
   }

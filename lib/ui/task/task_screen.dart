@@ -9,14 +9,7 @@ import 'package:company_scheduler/ui/task/task_entry.dart';
 import 'package:flutter/material.dart';
 import 'dart:io' show Platform;
 
-class TaskScreen extends StatefulWidget {
-  @override
-  State<StatefulWidget> createState() {
-    return _TaskScreenState();
-  }
-}
-
-class _TaskScreenState extends State<TaskScreen> {
+class TaskScreen extends StatelessWidget {
   Future<List> _getTasks() async => await TaskAPI.getTaskList();
 
   @override

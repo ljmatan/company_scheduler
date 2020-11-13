@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:company_scheduler/logic/api/task/task_api.dart';
 import 'package:company_scheduler/logic/calendar/calendar_provider.dart';
 import 'package:company_scheduler/ui/calendar/appbar/appbar.dart';
 import 'package:company_scheduler/ui/calendar/bloc/date_selection.dart';
@@ -45,6 +46,8 @@ class _CalendarScreenState extends State<CalendarScreen> {
     );
   }
 
+  Future<List> _getTasks() async => await TaskAPI.getTaskList();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -57,50 +60,62 @@ class _CalendarScreenState extends State<CalendarScreen> {
       ),
       endDrawerEnableOpenDragGesture: false,
       endDrawer: Drawer(),
-      body: PageView.builder(
-        controller: _pageController,
-        itemCount: 481,
-        itemBuilder: (context, index) => FutureBuilder(
-          future: Future.delayed(
-            const Duration(seconds: 2),
-            () => [],
-          ),
-          builder: (context, tasks) => tasks.hasData
-              ? ListView(
+      body: FutureBuilder(
+        future: _getTasks(),
+        builder: (context, tasks) => tasks.hasData
+            ? PageView.builder(
+                controller: _pageController,
+                itemCount: 481,
+                itemBuilder: (context, index) => ListView(
                   children: [
-                    for (var row in CalendarProvider.weekRows(
-                      index == 240
-                          ? DateTime.now()
-                          : CalendarProvider.addMonths(
-                              DateTime.now(),
-                              index - 240,
-                            ),
-                      tasks.data,
-                    ))
-                      row,
-                    StreamBuilder(
-                      stream: DaySelection.stream,
-                      initialData: DaySelection.selected,
-                      builder: (context, date) => Column(
+                    DecoratedBox(
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          width: 0.1,
+                          color: Colors.black38,
+                        ),
+                      ),
+                      child: Column(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          if (tasks.data.isEmpty)
-                            Padding(
-                              padding: const EdgeInsets.only(top: 16),
-                              child: Text(
-                                'No tasks found',
-                                style: const TextStyle(
-                                  color: Colors.black54,
-                                ),
-                              ),
-                            ),
+                          for (var row in CalendarProvider.weekRows(
+                            index == 240
+                                ? DateTime.now()
+                                : CalendarProvider.addMonths(
+                                    DateTime.now(),
+                                    index - 240,
+                                  ),
+                            tasks.data,
+                          ))
+                            row
                         ],
                       ),
                     ),
+                    StreamBuilder(
+                      stream: DaySelection.stream,
+                      initialData: DaySelection.selected,
+                      builder: (context, date) {
+                        return Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            if (tasks.data.isEmpty)
+                              Padding(
+                                padding: const EdgeInsets.only(top: 16),
+                                child: Text(
+                                  'No tasks found',
+                                  style: const TextStyle(
+                                    color: Colors.black54,
+                                  ),
+                                ),
+                              ),
+                          ],
+                        );
+                      },
+                    ),
                   ],
-                )
-              : Center(child: CustomSpinningIndicator()),
-        ),
+                ),
+              )
+            : Center(child: CustomSpinningIndicator()),
       ),
     );
   }

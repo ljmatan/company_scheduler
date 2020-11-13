@@ -1,4 +1,5 @@
 import 'dart:math' as math;
+import 'package:company_scheduler/logic/api/task/task_details_model.dart';
 import 'package:company_scheduler/ui/calendar/day_current_month.dart';
 import 'package:company_scheduler/ui/calendar/day_p_n_month.dart';
 import 'package:flutter/widgets.dart' show Widget, Row;
@@ -29,7 +30,7 @@ class CalendarProvider {
     return result;
   }
 
-  static List weekRows(DateTime selectedDate, List events) {
+  static List weekRows(DateTime selectedDate, List tasks) {
     List weekRows = [];
 
     final int month = selectedDate.month;
@@ -43,7 +44,7 @@ class CalendarProvider {
       for (int dayNr = firstInMonthday + 7 * i;
           dayNr < firstInMonthday + 7 + 7 * i;
           dayNr++) {
-        // Set to dayNr - 2 * firstInMonthday + 1 for sun - mon display
+        // Set below to dayNr - 2 * firstInMonthday + 1 for sun - mon display
         final int day = dayNr - 2 * firstInMonthday + 2;
         final int inNextMonth = day - daysInMonth;
         final int inDateDay = month < 8
@@ -72,19 +73,24 @@ class CalendarProvider {
                                 ? daysInMonth + 2
                                 : daysInMonth + 3);
 
-        final int dateDay = day > daysInMonth ? inNextMonth : inDateDay;
+        final bool _inNextMonth = day > daysInMonth;
+
+        final int dateDay = _inNextMonth ? inNextMonth : inDateDay;
 
         days.add(
           day > 0 && day <= daysInMonth
               ? DayCurrentMonth(
                   day: day,
                   date: selectedDate,
-                  events: events,
+                  tasks: [for (var task in tasks) TaskDetails.fromJson(task)],
                 )
               : DayPrevNextMonth(
-                  dateDay: dateDay,
-                  daysInMonth: daysInMonth,
-                  day: day,
+                  date: DateTime(
+                    addMonths(selectedDate, _inNextMonth ? 1 : -1).year,
+                    addMonths(selectedDate, _inNextMonth ? 1 : -1).month,
+                    dateDay,
+                  ),
+                  tasks: [for (var task in tasks) TaskDetails.fromJson(task)],
                 ),
         );
       }

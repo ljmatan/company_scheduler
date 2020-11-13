@@ -91,7 +91,7 @@ class _ContactScreenState extends State<ContactScreen> {
                                   textAlign: TextAlign.center,
                                 ),
                               )
-                            : contacts.data.isEmpty
+                            : !contacts.hasData || contacts.data.isEmpty
                                 ? Center(
                                     child: Text(
                                       text.data == ''

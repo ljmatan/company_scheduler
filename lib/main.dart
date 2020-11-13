@@ -1,4 +1,6 @@
+import 'dart:io';
 import 'package:company_scheduler/data/user_info.dart';
+import 'package:company_scheduler/logic/api/api_helper.dart';
 import 'package:company_scheduler/logic/local_storage/prefs.dart';
 import 'package:company_scheduler/other/scroll_behavior.dart';
 import 'package:company_scheduler/ui/dashboard/dashboard_screen.dart';
@@ -7,6 +9,8 @@ import 'package:flutter/material.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  // Enable the use of self-signed SSL certificate
+  HttpOverrides.global = CustomHttpOverrides();
   // Init local data storage
   await Prefs.init();
   // Check if user info is stored on the device

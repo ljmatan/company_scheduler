@@ -1,3 +1,4 @@
+import 'package:company_scheduler/logic/api/company/company_api.dart';
 import 'package:company_scheduler/logic/i18n/i18n.dart';
 import 'package:company_scheduler/ui/other/scroll_overflow.dart';
 import 'package:flutter/material.dart';
@@ -14,6 +15,9 @@ class CompanyScreen extends StatefulWidget {
 class _CompanyScreenState extends State<CompanyScreen> {
   final TextEditingController _textEditingController = TextEditingController();
   final StreamController _textStreamController = StreamController.broadcast();
+
+  Future<void> _search(String term) async =>
+      await CompanyAPI.getCompanies(term);
 
   @override
   Widget build(BuildContext context) {
@@ -55,32 +59,54 @@ class _CompanyScreenState extends State<CompanyScreen> {
                   stream: _textStreamController.stream,
                   initialData: '',
                   builder: (context, text) => FutureBuilder(
-                    future: Future.delayed(
-                      const Duration(seconds: 1),
-                      () => [],
-                    ),
-                    builder: (context, contacts) => contacts.hasData
-                        ? contacts.data.isEmpty
-                            ? Center(
-                                child: Text(
-                                  text.data == ''
-                                      ? 'Enter a search term'
-                                      : text.data.length < 3
-                                          ? 'Enter at least 3 characters'
-                                          : 'No results',
-                                ),
-                              )
-                            : ListView.builder(
-                                itemCount: contacts.data.length,
-                                itemBuilder: (context, index) => null,
-                              )
-                        : Center(
+                    future: text.data.trim().length < 3
+                        ? Future.value([])
+                        : _search(text.data.trim()),
+                    builder: (context, contacts) => contacts.connectionState ==
+                                    ConnectionState.active &&
+                                text.data.trim().length > 2 ||
+                            contacts.connectionState ==
+                                    ConnectionState.waiting &&
+                                text.data.trim().length > 2
+                        ? Center(
                             child: SizedBox(
                               height: 64,
                               width: 64,
                               child: CircularProgressIndicator(),
                             ),
-                          ),
+                          )
+                        : contacts.hasError ||
+                                contacts.hasData &&
+                                    contacts.data.isNotEmpty &&
+                                    contacts.data[0]['status'] == 400
+                            ? Center(
+                                child: Text(
+                                  'Error: ' +
+                                      (contacts.hasData &&
+                                              contacts.data.isNotEmpty &&
+                                              contacts.data[0]['status'] == 400
+                                          ? contacts.data[0]['message']
+                                          : contacts.error.toString()),
+                                  textAlign: TextAlign.center,
+                                ),
+                              )
+                            : !contacts.hasData || contacts.data.isEmpty
+                                ? Center(
+                                    child: Text(
+                                      text.data == ''
+                                          ? 'Enter a search term'
+                                          : text.data.trim().length < 3
+                                              ? 'Enter at least 3 characters'
+                                              : 'No contacts found',
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  )
+                                : ListView(
+                                    children: [
+                                      const SizedBox(height: 16),
+                                      for (var contact in contacts.data) null,
+                                    ],
+                                  ),
                   ),
                 ),
                 ScrollOverflowEffect(),

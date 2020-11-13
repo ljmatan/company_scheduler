@@ -18,22 +18,26 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
-          child: SizedBox(
-            height: MediaQuery.of(context).size.height -
-                MediaQuery.of(context).viewInsets.bottom,
+      body: LayoutBuilder(
+        builder: (context, constraints) => SingleChildScrollView(
+          child: ConstrainedBox(
+            constraints: BoxConstraints(minHeight: constraints.maxHeight),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                FlutterLogo(size: MediaQuery.of(context).size.width * 0.4),
-                // TODO: Replace FlutterLogo with below once logo had been appropriated
-                /*Image.asset(
+                Padding(
+                  padding:
+                      EdgeInsets.only(top: MediaQuery.of(context).padding.top),
+                  child: FlutterLogo(
+                    size: MediaQuery.of(context).size.width * 0.4,
+                  ),
+                  // TODO: Replace FlutterLogo with below once logo had been appropriated
+                  /*Image.asset(
                     'assets/logo.png',
                     width: MediaQuery.of(context).size.width * 0.5,
                     fit: BoxFit.cover,
                   ),*/
+                ),
                 UsernameField(controller: _usernameController),
                 PasswordField(controller: _passwordController),
                 LoginButton(

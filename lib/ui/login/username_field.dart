@@ -18,6 +18,8 @@ class UsernameField extends StatelessWidget {
           controller: controller,
           enabled: enabled.data,
           decoration: InputDecoration(
+            filled: true,
+            fillColor: Colors.white,
             border: OutlineInputBorder(),
             labelText: Internationalization.login('username'),
           ),

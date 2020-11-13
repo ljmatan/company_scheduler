@@ -26,6 +26,8 @@ class CompanyScheduler extends StatelessWidget {
       title: 'Company Scheduler',
       theme: ThemeData(
         fontFamily: 'Tahoma',
+        primaryColor: Colors.blue.shade300,
+        accentColor: Colors.blue.shade300,
         appBarTheme: AppBarTheme(
           iconTheme: IconThemeData(color: Colors.black),
           elevation: 2,

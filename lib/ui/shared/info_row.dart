@@ -1,21 +1,21 @@
-import 'package:company_scheduler/ui/contact/contact_display/button_row/info_entry/copy_button.dart';
+import 'package:company_scheduler/ui/shared/copy_button.dart';
 import 'package:flutter/material.dart';
 
 class InfoRow extends StatelessWidget {
   final String label, details;
-  final bool selectable;
+  final bool copiable;
 
   InfoRow({
     @required this.label,
     @required this.details,
-    this.selectable,
+    this.copiable,
   });
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.symmetric(
-        vertical: selectable != null && selectable && details != '' ? 0 : 10,
+        vertical: copiable != null && copiable && details != '' ? 0 : 10,
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -28,7 +28,7 @@ class InfoRow extends StatelessWidget {
             ),
           ),
           details != ''
-              ? selectable != null && selectable
+              ? copiable != null && copiable
                   ? CopyButton(details: details)
                   : Text(details)
               : Text(

@@ -1,5 +1,7 @@
 import 'package:company_scheduler/logic/api/company/company_api.dart';
+import 'package:company_scheduler/logic/api/models/company_model.dart';
 import 'package:company_scheduler/logic/i18n/i18n.dart';
+import 'package:company_scheduler/ui/company/company_entry.dart';
 import 'package:company_scheduler/ui/other/scroll_overflow.dart';
 import 'package:flutter/material.dart';
 import 'dart:io' show Platform;
@@ -62,10 +64,11 @@ class _CompanyScreenState extends State<CompanyScreen> {
                     future: text.data.trim().length < 3
                         ? Future.value([])
                         : _search(text.data.trim()),
-                    builder: (context, contacts) => contacts.connectionState ==
+                    builder: (context, companies) => companies
+                                        .connectionState ==
                                     ConnectionState.active &&
                                 text.data.trim().length > 2 ||
-                            contacts.connectionState ==
+                            companies.connectionState ==
                                     ConnectionState.waiting &&
                                 text.data.trim().length > 2
                         ? Center(
@@ -75,36 +78,39 @@ class _CompanyScreenState extends State<CompanyScreen> {
                               child: CircularProgressIndicator(),
                             ),
                           )
-                        : contacts.hasError ||
-                                contacts.hasData &&
-                                    contacts.data.isNotEmpty &&
-                                    contacts.data[0]['status'] == 400
+                        : companies.hasError ||
+                                companies.hasData &&
+                                    companies.data.isNotEmpty &&
+                                    companies.data[0]['status'] == 400
                             ? Center(
                                 child: Text(
                                   'Error: ' +
-                                      (contacts.hasData &&
-                                              contacts.data.isNotEmpty &&
-                                              contacts.data[0]['status'] == 400
-                                          ? contacts.data[0]['message']
-                                          : contacts.error.toString()),
+                                      (companies.hasData &&
+                                              companies.data.isNotEmpty &&
+                                              companies.data[0]['status'] == 400
+                                          ? companies.data[0]['message']
+                                          : companies.error.toString()),
                                   textAlign: TextAlign.center,
                                 ),
                               )
-                            : !contacts.hasData || contacts.data.isEmpty
+                            : !companies.hasData || companies.data.isEmpty
                                 ? Center(
                                     child: Text(
                                       text.data == ''
                                           ? 'Enter a search term'
                                           : text.data.trim().length < 3
                                               ? 'Enter at least 3 characters'
-                                              : 'No contacts found',
+                                              : 'No companies found',
                                       textAlign: TextAlign.center,
                                     ),
                                   )
                                 : ListView(
                                     children: [
                                       const SizedBox(height: 16),
-                                      for (var contact in contacts.data) null,
+                                      for (var company in companies.data)
+                                        CompanyEntry(
+                                          company: Company.fromJson(company),
+                                        ),
                                     ],
                                   ),
                   ),

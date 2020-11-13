@@ -1,4 +1,4 @@
-import 'package:company_scheduler/ui/contact/contact_display/button_row/action_button.dart';
+import 'package:company_scheduler/ui/shared/button_row/action_button.dart';
 import 'package:flutter/material.dart';
 
 class ButtonRow extends StatelessWidget {

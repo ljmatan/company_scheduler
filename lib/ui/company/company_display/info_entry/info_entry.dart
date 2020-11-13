@@ -1,4 +1,4 @@
-import 'package:company_scheduler/ui/contact/contact_display/button_row/info_entry/info_row.dart';
+import 'package:company_scheduler/ui/shared/info_row.dart';
 import 'package:flutter/material.dart';
 
 class InfoEntry extends StatelessWidget {
@@ -52,37 +52,37 @@ class InfoEntry extends StatelessWidget {
             InfoRow(
               label: 'House 1',
               details: phone1,
-              selectable: true,
+              copiable: true,
             ),
           if (phone2 != null)
             InfoRow(
               label: 'House 2',
               details: phone2,
-              selectable: true,
+              copiable: true,
             ),
           if (mobile1 != null)
             InfoRow(
               label: 'Mobile 1',
               details: mobile1,
-              selectable: true,
+              copiable: true,
             ),
           if (mobile2 != null)
             InfoRow(
               label: 'Mobile 2',
               details: mobile2,
-              selectable: true,
+              copiable: true,
             ),
           if (email1 != null)
             InfoRow(
               label: 'Email 1',
               details: email1,
-              selectable: true,
+              copiable: true,
             ),
           if (email2 != null)
             InfoRow(
               label: 'Email 2',
               details: email1,
-              selectable: true,
+              copiable: true,
             ),
           if (contactType != null)
             InfoRow(

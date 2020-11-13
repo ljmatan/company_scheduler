@@ -34,14 +34,15 @@ class CompanyEntry extends StatelessWidget {
                     children: [
                       Text(
                         company.name,
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 16,
+                          color: company.account.active
+                              ? Colors.black
+                              : Colors.red.shade300,
                         ),
                       ),
-                      Text(
-                        company.name + ', ' + company.address.city,
-                      ),
+                      Text(company.address.city),
                     ],
                   ),
                   Column(
@@ -49,11 +50,11 @@ class CompanyEntry extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        company.name,
+                        company.account.name,
                         style: const TextStyle(color: Colors.black54),
                       ),
                       Text(
-                        company.name,
+                        company.clientType.name,
                         style: TextStyle(color: Theme.of(context).primaryColor),
                       ),
                     ],

@@ -29,42 +29,44 @@ class _LoginButtonState extends State<LoginButton> {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      child: Ink(
-        decoration: BoxDecoration(
-          color: Theme.of(context).primaryColor,
-          borderRadius: BorderRadius.circular(25),
-        ),
-        child: SizedBox(
-          height: 50,
-          width: 140,
-          child: Center(
-            child: _verifyingInfo
-                ? SizedBox(
-                    height: 22,
-                    width: 22,
-                    child: CircularProgressIndicator(
-                      valueColor: AlwaysStoppedAnimation(Colors.white),
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 16),
+      child: InkWell(
+        child: Ink(
+          decoration: BoxDecoration(
+            color: Theme.of(context).primaryColor,
+            borderRadius: BorderRadius.circular(25),
+          ),
+          child: SizedBox(
+            height: 50,
+            width: 140,
+            child: Center(
+              child: _verifyingInfo
+                  ? SizedBox(
+                      height: 22,
+                      width: 22,
+                      child: CircularProgressIndicator(
+                        valueColor: AlwaysStoppedAnimation(Colors.white),
+                      ),
+                    )
+                  : Text(
+                      Internationalization.login('login'),
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
-                  )
-                : Text(
-                    Internationalization.login('login'),
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
+            ),
           ),
         ),
-      ),
-      onTap: _verifyingInfo
-          ? null
-          : () => Navigator.pushAndRemoveUntil(
-                context,
-                MaterialPageRoute(builder: (context) => DashboardScreen()),
-                (Route<dynamic> route) => false,
-              ),
-      /*() async {
+        onTap: _verifyingInfo
+            ? null
+            : () => Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(builder: (context) => DashboardScreen()),
+                  (Route<dynamic> route) => false,
+                ),
+        /*() async {
               FocusScope.of(context).unfocus();
               _changeState(true);
               try {
@@ -97,6 +99,7 @@ class _LoginButtonState extends State<LoginButton> {
                 )));
               }
             },*/
+      ),
     );
   }
 }

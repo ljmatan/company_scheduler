@@ -1,8 +1,8 @@
 import 'package:company_scheduler/logic/api/models/contact_model.dart';
 import 'package:company_scheduler/ui/contact/contact_display/appbar.dart';
-import 'package:company_scheduler/ui/contact/contact_display/button_row/button_row.dart';
-import 'package:company_scheduler/ui/contact/contact_display/button_row/info_entry/bloc/copied.dart';
-import 'package:company_scheduler/ui/contact/contact_display/button_row/info_entry/info_entry.dart';
+import 'package:company_scheduler/ui/shared/bloc/copied.dart';
+import 'package:company_scheduler/ui/contact/contact_display/info_entry/info_entry.dart';
+import 'package:company_scheduler/ui/shared/button_row/button_row.dart';
 import 'package:flutter/material.dart';
 
 class ContactDisplay extends StatefulWidget {

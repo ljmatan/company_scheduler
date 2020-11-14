@@ -1,6 +1,6 @@
 import 'package:company_scheduler/logic/api/task/task_api.dart';
 import 'package:company_scheduler/ui/task/task_display/task_comments/comment.dart';
-import 'package:company_scheduler/ui/task/task_display/task_comments/new_comment_field.dart';
+import 'package:company_scheduler/ui/task/task_display/task_comments/new_comment/new_comment_row.dart';
 import 'package:flutter/material.dart';
 import 'package:company_scheduler/ui/shared/custom_spinning_indicator.dart';
 import 'package:company_scheduler/logic/api/task/task_comment_model.dart';
@@ -9,6 +9,7 @@ class TaskComments extends StatefulWidget {
   final String taskID;
 
   TaskComments({@required this.taskID});
+
   @override
   State<StatefulWidget> createState() {
     return _TaskCommentsState();
@@ -16,10 +17,10 @@ class TaskComments extends StatefulWidget {
 }
 
 class _TaskCommentsState extends State<TaskComments> {
-  final TextEditingController _newCommentController = TextEditingController();
-
   Future<List> _getTaskComments() async =>
       await TaskAPI.getTaskComments(widget.taskID);
+
+  void _updateComments() => setState(() {});
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +32,7 @@ class _TaskCommentsState extends State<TaskComments> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(
-              padding: const EdgeInsets.only(bottom: 14),
+              padding: const EdgeInsets.only(bottom: 6),
               child: Text(
                 'Comments',
                 style: const TextStyle(
@@ -39,7 +40,10 @@ class _TaskCommentsState extends State<TaskComments> {
                 ),
               ),
             ),
-            NewCommentField(controller: _newCommentController),
+            NewCommentRow(
+              taskID: widget.taskID,
+              updateComments: _updateComments,
+            ),
             if (comments.connectionState != ConnectionState.done)
               SizedBox(
                 height: 80,
@@ -56,11 +60,5 @@ class _TaskCommentsState extends State<TaskComments> {
         ),
       ),
     );
-  }
-
-  @override
-  void dispose() {
-    _newCommentController.dispose();
-    super.dispose();
   }
 }

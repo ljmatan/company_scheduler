@@ -73,7 +73,6 @@ class _CompanyDisplayState extends State<CompanyDisplay> {
   @override
   void dispose() {
     Copied.dispose();
-    // TODO: implement dispose
     super.dispose();
   }
 }

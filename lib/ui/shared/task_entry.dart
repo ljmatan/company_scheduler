@@ -84,14 +84,16 @@ class TaskEntry extends StatelessWidget {
                                   (startTime.month < 10
                                       ? '0' + startTime.month.toString()
                                       : startTime.month.toString()) +
-                                  ' - ' +
-                                  (endTime.day < 10
-                                      ? '0' + endTime.day.toString()
-                                      : endTime.day.toString()) +
-                                  '/' +
-                                  (endTime.month < 10
-                                      ? '0' + endTime.month.toString()
-                                      : endTime.month.toString())
+                                  (startTime.isAtSameMomentAs(endTime)
+                                      ? ''
+                                      : (' - ' +
+                                          (endTime.day < 10
+                                              ? '0' + endTime.day.toString()
+                                              : endTime.day.toString()) +
+                                          '/' +
+                                          (endTime.month < 10
+                                              ? '0' + endTime.month.toString()
+                                              : endTime.month.toString())))
                               : '',
                         ),
                       ],

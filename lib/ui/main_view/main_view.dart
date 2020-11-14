@@ -1,4 +1,3 @@
-import 'package:company_scheduler/logic/local_storage/data/user_info.dart';
 import 'package:company_scheduler/ui/dashboard/dashboard_screen.dart';
 import 'package:company_scheduler/ui/login/login_screen.dart';
 import 'package:flutter/material.dart';

@@ -70,8 +70,8 @@ class _LoginButtonState extends State<LoginButton> {
                       await LoginAPI.login(widget.username, widget.password);
                   if (response['id'] != null) {
                     await Prefs.setLocalData(
-                      response['username'],
-                      response['password'],
+                      widget.username,
+                      widget.password,
                       response['id'].toString(),
                     );
                     widget.animationController.forward();

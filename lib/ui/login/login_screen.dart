@@ -1,3 +1,4 @@
+import 'package:company_scheduler/logic/local_storage/data/user_info.dart';
 import 'package:company_scheduler/ui/login/bloc/textfield_enabled.dart';
 import 'package:company_scheduler/ui/login/login_button.dart';
 import 'package:company_scheduler/ui/login/password_field.dart';
@@ -16,8 +17,10 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  final TextEditingController _usernameController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _usernameController =
+      TextEditingController(text: UserInfo.username ?? '');
+  final TextEditingController _passwordController =
+      TextEditingController(text: UserInfo.password ?? '');
 
   @override
   Widget build(BuildContext context) {

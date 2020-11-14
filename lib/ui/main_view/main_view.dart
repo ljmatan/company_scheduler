@@ -14,7 +14,8 @@ class MainView extends StatefulWidget {
 
 class _MainViewState extends State<MainView>
     with SingleTickerProviderStateMixin {
-  bool _loggedIn = UserInfo.id != null;
+  // Set below boolean to UserInfo.id != null for the user to stay logged in
+  bool _loggedIn = false;
 
   AnimationController _animationController;
   Animation<double> _offset;

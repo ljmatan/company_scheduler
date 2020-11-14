@@ -80,8 +80,7 @@ class _LoginButtonState extends State<LoginButton> {
                         content: Text('Error: ' + response['message'])));
                     _changeState(false);
                   } else
-                    throw ErrorSummary(
-                        Internationalization.login('unknown error'));
+                    throw Internationalization.login('unknown error');
                 } catch (e) {
                   _changeState(false);
                   ScaffoldMessenger.of(context).showSnackBar(SnackBar(

@@ -36,6 +36,8 @@ class _CalendarScreenState extends State<CalendarScreen> {
             _pageIndex - 240,
           );
           DateSelection.change(_currentDate);
+        }
+        if (_pageController.page % 1 == 0)
           DaySelection.change(
             DateTime(
               _currentDate.year,
@@ -43,7 +45,6 @@ class _CalendarScreenState extends State<CalendarScreen> {
               DaySelection.selected.day,
             ),
           );
-        }
       },
     );
   }
@@ -118,7 +119,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
                                   ),
                                 ),
                               )
-                            else
+                            else if (_pageController.page % 1 == 0)
                               for (var task in _taskList) TaskEntry(task: task),
                             const SizedBox(height: 16),
                           ],

@@ -117,4 +117,34 @@ class CalendarProvider {
           dt.second, dt.millisecond, dt.microsecond);
     }
   }
+
+  static List<TaskDetails> getTaskList(
+    List tasks,
+    DateTime currentDate,
+  ) {
+    List<TaskDetails> _taskList = <TaskDetails>[];
+    for (var task in tasks) {
+      DateTime startTime;
+      if (task.startTime != null)
+        startTime = DateTime.fromMillisecondsSinceEpoch(task.startTime);
+      DateTime endTime;
+      if (task.endTime != null)
+        endTime = DateTime.fromMillisecondsSinceEpoch(task.endTime);
+      if (startTime != null &&
+          endTime != null &&
+          (startTime.compareTo(currentDate) <= 0 &&
+                  startTime.month == currentDate.month &&
+                  startTime.year == currentDate.year ||
+              startTime.year == currentDate.year &&
+                  startTime.month == currentDate.month &&
+                  startTime.day == currentDate.day) &&
+          (endTime.compareTo(currentDate) >= 0 &&
+                  endTime.month == currentDate.month &&
+                  endTime.year == currentDate.year ||
+              endTime.year == endTime.year &&
+                  endTime.month == endTime.month &&
+                  endTime.day == currentDate.day)) _taskList.add(task);
+    }
+    return _taskList;
+  }
 }

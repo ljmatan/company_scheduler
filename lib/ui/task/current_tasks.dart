@@ -1,4 +1,4 @@
-import 'package:company_scheduler/ui/task/task_entry.dart';
+import 'package:company_scheduler/ui/shared/task_entry.dart';
 import 'package:flutter/material.dart';
 
 class CurrentTasks extends StatefulWidget {

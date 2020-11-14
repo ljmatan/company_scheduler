@@ -1,4 +1,5 @@
 import 'package:company_scheduler/logic/api/task/task_details_model.dart';
+import 'package:company_scheduler/logic/calendar/calendar_provider.dart';
 import 'package:company_scheduler/ui/calendar/bloc/day_selection.dart';
 import 'package:flutter/material.dart';
 
@@ -20,40 +21,21 @@ class DayCurrentMonth extends StatefulWidget {
 }
 
 class _DayCurrentMonthState extends State<DayCurrentMonth> {
-  List<TaskDetails> _taskList = <TaskDetails>[];
+  List<TaskDetails> _taskList;
   Color _color;
 
   @override
   void initState() {
     super.initState();
 
-    for (var task in widget.tasks) {
-      DateTime startTime;
-      if (task.startTime != null)
-        startTime = DateTime.fromMillisecondsSinceEpoch(task.startTime);
-      DateTime endTime;
-      if (task.endTime != null)
-        endTime = DateTime.fromMillisecondsSinceEpoch(task.endTime);
-      final DateTime currentDate =
-          DateTime(widget.date.year, widget.date.month, widget.day);
-
-      if (startTime != null &&
-          endTime != null &&
-          (startTime.compareTo(currentDate) <= 0 &&
-                  startTime.month == currentDate.month &&
-                  startTime.year == currentDate.year ||
-              startTime.year == currentDate.year &&
-                  startTime.month == currentDate.month &&
-                  startTime.day == widget.day) &&
-          (endTime.compareTo(currentDate) >= 0 &&
-                  endTime.month == currentDate.month &&
-                  endTime.year == currentDate.year ||
-              endTime.year == endTime.year &&
-                  endTime.month == endTime.month &&
-                  endTime.day == widget.day)) {
-        _taskList.add(task);
-      }
-    }
+    _taskList = CalendarProvider.getTaskList(
+      widget.tasks,
+      DateTime(
+        widget.date.year,
+        widget.date.month,
+        widget.day,
+      ),
+    );
 
     int _highestPriority;
     if (_taskList.isNotEmpty)

@@ -5,7 +5,7 @@ import 'package:company_scheduler/logic/i18n/i18n.dart';
 import 'package:company_scheduler/ui/shared/custom_spinning_indicator.dart';
 import 'package:company_scheduler/ui/task/add_task/add_task_button.dart';
 import 'package:company_scheduler/ui/task/current_tasks.dart';
-import 'package:company_scheduler/ui/task/task_entry.dart';
+import 'package:company_scheduler/ui/shared/task_entry.dart';
 import 'package:flutter/material.dart';
 import 'dart:io' show Platform;
 

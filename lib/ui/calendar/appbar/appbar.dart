@@ -11,56 +11,62 @@ class CalendarAppBar extends StatelessWidget {
       padding: EdgeInsets.only(
         top: MediaQuery.of(context).padding.top,
       ),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          SizedBox(
-            height: kToolbarHeight,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Row(
-                  children: [
-                    IconButton(
-                      icon: Icon(
-                        Platform.isAndroid
-                            ? Icons.arrow_back
-                            : Icons.arrow_back_ios,
+      child: DecoratedBox(
+        decoration: BoxDecoration(
+          boxShadow: kElevationToShadow[1],
+          color: Colors.white,
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            SizedBox(
+              height: kToolbarHeight,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Row(
+                    children: [
+                      IconButton(
+                        icon: Icon(
+                          Platform.isAndroid
+                              ? Icons.arrow_back
+                              : Icons.arrow_back_ios,
+                        ),
+                        onPressed: () => Navigator.pop(context),
                       ),
-                      onPressed: () => Navigator.pop(context),
-                    ),
-                    StreamBuilder(
-                      stream: DateSelection.stream,
-                      initialData: DateTime.now(),
-                      builder: (context, date) => Text(
-                        Internationalization.calendar(
-                              'months',
-                              date.data.month,
-                            ) +
-                            ' ' +
-                            date.data.year.toString(),
-                        style: const TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 18,
+                      StreamBuilder(
+                        stream: DateSelection.stream,
+                        initialData: DateTime.now(),
+                        builder: (context, date) => Text(
+                          Internationalization.calendar(
+                                'months',
+                                date.data.month,
+                              ) +
+                              ' ' +
+                              date.data.year.toString(),
+                          style: const TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 18,
+                          ),
                         ),
                       ),
-                    ),
-                  ],
-                ),
-                IconButton(
-                  icon: Icon(Icons.more_vert),
-                  onPressed: () => Scaffold.of(context).openEndDrawer(),
-                ),
+                    ],
+                  ),
+                  IconButton(
+                    icon: Icon(Icons.more_vert),
+                    onPressed: () => Scaffold.of(context).openEndDrawer(),
+                  ),
+                ],
+              ),
+            ),
+            Row(
+              children: [
+                for (var i = 1; i < 8; i++)
+                  DayName(day: Internationalization.calendar('days', i)),
               ],
             ),
-          ),
-          Row(
-            children: [
-              for (var i = 1; i < 8; i++)
-                DayName(day: Internationalization.calendar('days', i)),
-            ],
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

@@ -1,11 +1,3 @@
-import 'package:company_scheduler/logic/api/api.dart';
-
-List<TaskDetails> taskDetailsFromJson(String str) => List<TaskDetails>.from(
-    APIHelper.jsonCodec.decode(str).map((x) => TaskDetails.fromJson(x)));
-
-String taskDetailsToJson(List<TaskDetails> data) =>
-    APIHelper.jsonCodec.encode(List<dynamic>.from(data.map((x) => x.toJson())));
-
 class TaskDetails {
   TaskDetails({
     this.entityManager,

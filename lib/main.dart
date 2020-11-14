@@ -32,7 +32,7 @@ class CompanyScheduler extends StatelessWidget {
         accentColor: Colors.blue.shade300,
         appBarTheme: AppBarTheme(
           iconTheme: IconThemeData(color: Colors.black),
-          elevation: 2,
+          elevation: 1,
           titleSpacing: 0,
           color: Colors.white,
           textTheme: const TextTheme(

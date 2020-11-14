@@ -1,4 +1,6 @@
 import 'package:company_scheduler/logic/api/task/task_details_model.dart';
+import 'package:company_scheduler/ui/shared/task_priority_color.dart';
+import 'package:company_scheduler/ui/task/task_display/task_display.dart';
 import 'package:flutter/material.dart';
 
 class TaskEntry extends StatelessWidget {
@@ -18,15 +20,6 @@ class TaskEntry extends StatelessWidget {
             task.endTime,
           )
         : null;
-    final Color taskColor = task.priority == 0
-        ? Colors.green.shade300
-        : task.priority == 3
-            ? Colors.amber.shade300
-            : task.priority == 6
-                ? Colors.red.shade300
-                : task.priority == 10
-                    ? Colors.black
-                    : Colors.grey.shade300;
     return Padding(
       padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
       child: InkWell(
@@ -45,7 +38,10 @@ class TaskEntry extends StatelessWidget {
                   DecoratedBox(
                     decoration: BoxDecoration(
                       border: Border(
-                        left: BorderSide(width: 6, color: taskColor),
+                        left: BorderSide(
+                          width: 6,
+                          color: TaskPriorityColor.color(task.priority),
+                        ),
                       ),
                     ),
                     child: Padding(
@@ -106,7 +102,13 @@ class TaskEntry extends StatelessWidget {
             ),
           ),
         ),
-        onTap: () => null,
+        onTap: () => Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (BuildContext context) => TaskDisplay(
+              task: task,
+            ),
+          ),
+        ),
       ),
     );
   }

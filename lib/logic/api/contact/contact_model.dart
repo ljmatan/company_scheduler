@@ -1,10 +1,3 @@
-import 'package:company_scheduler/logic/api/api.dart';
-
-Contact contactFromJson(String str) =>
-    Contact.fromJson(APIHelper.jsonCodec.decode(str));
-
-String contactToJson(Contact data) => APIHelper.jsonCodec.encode(data.toJson());
-
 class Contact {
   Contact({
     this.entityManager,

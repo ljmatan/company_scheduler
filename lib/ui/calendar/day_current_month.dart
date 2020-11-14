@@ -1,6 +1,7 @@
 import 'package:company_scheduler/logic/api/task/task_details_model.dart';
 import 'package:company_scheduler/logic/calendar/calendar_provider.dart';
 import 'package:company_scheduler/ui/calendar/bloc/day_selection.dart';
+import 'package:company_scheduler/ui/shared/task_priority_color.dart';
 import 'package:flutter/material.dart';
 
 class DayCurrentMonth extends StatefulWidget {
@@ -38,7 +39,7 @@ class _DayCurrentMonthState extends State<DayCurrentMonth> {
     );
 
     int _highestPriority;
-    if (_taskList.isNotEmpty)
+    if (_taskList.isNotEmpty) {
       _taskList.forEach(
         (task) {
           if (_highestPriority == null && task.priority != null ||
@@ -46,15 +47,8 @@ class _DayCurrentMonthState extends State<DayCurrentMonth> {
             _highestPriority = task.priority;
         },
       );
-    _color = _highestPriority == 0
-        ? Colors.green.shade300
-        : _highestPriority == 3
-            ? Colors.amber.shade300
-            : _highestPriority == 6
-                ? Colors.red.shade300
-                : _highestPriority == 10
-                    ? Colors.black
-                    : Colors.grey.shade300;
+      _color = TaskPriorityColor.color(_highestPriority);
+    }
   }
 
   @override

@@ -14,7 +14,7 @@ class TaskTime extends StatelessWidget {
         16,
         startTime.isAtSameMomentAs(endTime) ? 0 : 10,
         16,
-        startTime.isAtSameMomentAs(endTime) ? 16 : 26,
+        startTime.isAtSameMomentAs(endTime) ? 16 : 22,
       ),
       child: startTime.isAtSameMomentAs(endTime)
           ? Time(time: startTime)

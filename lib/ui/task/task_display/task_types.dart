@@ -14,7 +14,8 @@ class TaskTypes extends StatefulWidget {
   }
 }
 
-class _TaskTypesState extends State<TaskTypes> {
+class _TaskTypesState extends State<TaskTypes>
+    with AutomaticKeepAliveClientMixin {
   Future<List> _getTaskTypes() async => TaskAPI.getTaskTypes(widget.taskID);
 
   String _value;
@@ -23,6 +24,7 @@ class _TaskTypesState extends State<TaskTypes> {
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return FutureBuilder(
       future: _getTaskTypes().then(
         (types) {
@@ -44,7 +46,6 @@ class _TaskTypesState extends State<TaskTypes> {
             : DropdownButton(
                 value: _value,
                 isExpanded: true,
-                isDense: true,
                 items: types.data ?? <DropdownMenuItem<String>>[],
                 hint: _hint ?? LoadingText(),
                 onChanged: (value) {
@@ -55,4 +56,7 @@ class _TaskTypesState extends State<TaskTypes> {
       ),
     );
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }

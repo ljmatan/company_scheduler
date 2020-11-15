@@ -47,11 +47,14 @@ class SubmitComment extends StatelessWidget {
           children: [
             IconButton(
               icon: Icon(Icons.arrow_back),
-              onPressed: () => pageController.animateToPage(
-                0,
-                duration: const Duration(milliseconds: 200),
-                curve: Curves.linear,
-              ),
+              onPressed: () {
+                FocusScope.of(context).unfocus();
+                pageController.animateToPage(
+                  0,
+                  duration: const Duration(milliseconds: 200),
+                  curve: Curves.linear,
+                );
+              },
             ),
             IconButton(
               icon: Icon(Icons.check),

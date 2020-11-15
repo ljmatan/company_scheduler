@@ -32,12 +32,18 @@ class NewCommentField extends StatelessWidget {
           child: IconButton(
             icon: Icon(Icons.check),
             onPressed: () {
-              FocusScope.of(context).unfocus();
-              pageController.animateToPage(
-                1,
-                duration: const Duration(milliseconds: 200),
-                curve: Curves.linear,
-              );
+              if (controller.text.length < 5)
+                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                  content: Text('Please enter a valid comment'),
+                ));
+              else {
+                FocusScope.of(context).unfocus();
+                pageController.animateToPage(
+                  1,
+                  duration: const Duration(milliseconds: 200),
+                  curve: Curves.linear,
+                );
+              }
             },
           ),
         ),

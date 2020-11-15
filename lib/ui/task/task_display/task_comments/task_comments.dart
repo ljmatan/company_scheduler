@@ -16,7 +16,8 @@ class TaskComments extends StatefulWidget {
   }
 }
 
-class _TaskCommentsState extends State<TaskComments> {
+class _TaskCommentsState extends State<TaskComments>
+    with AutomaticKeepAliveClientMixin {
   Future<List> _getTaskComments() async =>
       await TaskAPI.getTaskComments(widget.taskID);
 
@@ -24,15 +25,16 @@ class _TaskCommentsState extends State<TaskComments> {
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return FutureBuilder(
       future: _getTaskComments(),
       builder: (context, comments) => Padding(
-        padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
+        padding: const EdgeInsets.fromLTRB(16, 0, 16, 8),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(
-              padding: const EdgeInsets.only(bottom: 6),
+              padding: const EdgeInsets.only(bottom: 10),
               child: Text(
                 'Comments',
                 style: const TextStyle(
@@ -61,4 +63,7 @@ class _TaskCommentsState extends State<TaskComments> {
       ),
     );
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }

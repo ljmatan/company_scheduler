@@ -16,7 +16,8 @@ class TaskTypes extends StatefulWidget {
 
 class _TaskTypesState extends State<TaskTypes>
     with AutomaticKeepAliveClientMixin {
-  Future<List> _getTaskTypes() async => TaskAPI.getTaskTypes(widget.taskID);
+  Future<List> _getTaskTypesForTask() async =>
+      TaskAPI.getTaskTypesForTask(widget.taskID);
 
   String _value;
   Text _hint;
@@ -26,7 +27,7 @@ class _TaskTypesState extends State<TaskTypes>
   Widget build(BuildContext context) {
     super.build(context);
     return FutureBuilder(
-      future: _getTaskTypes().then(
+      future: _getTaskTypesForTask().then(
         (types) {
           _hint = Text('Types');
           _items = <DropdownMenuItem<String>>[

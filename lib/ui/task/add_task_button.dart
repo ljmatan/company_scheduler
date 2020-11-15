@@ -1,4 +1,4 @@
-import 'package:company_scheduler/ui/task/add_task/add_task_sheet.dart';
+import 'package:company_scheduler/ui/task/add_task/add_task_screen.dart';
 import 'package:flutter/material.dart';
 
 class AddTaskButton extends StatelessWidget {
@@ -7,10 +7,8 @@ class AddTaskButton extends StatelessWidget {
     return FloatingActionButton(
       elevation: 2,
       child: Icon(Icons.add, color: Colors.white),
-      onPressed: () => showModalBottomSheet(
-        isScrollControlled: true,
-        context: context,
-        builder: (context) => AddTaskSheet(),
+      onPressed: () => Navigator.of(context).push(
+        MaterialPageRoute(builder: (BuildContext context) => AddTaskScreen()),
       ),
     );
   }

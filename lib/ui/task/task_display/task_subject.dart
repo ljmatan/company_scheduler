@@ -18,7 +18,7 @@ class TaskSubject extends StatefulWidget {
 class _TaskSubjectState extends State<TaskSubject>
     with AutomaticKeepAliveClientMixin {
   Future<List> _getTaskSubjects(String type) async =>
-      await TaskAPI.getTaskSubjectForTaskType(widget.taskID, type);
+      await TaskAPI.getTaskSubjectForTask(widget.taskID, type);
 
   @override
   Widget build(BuildContext context) {

@@ -12,6 +12,12 @@ abstract class TaskAPI {
   }
 
   static Future<List> getTaskTypes(String taskID) async {
+    final response = await http.get(APIHelper.url + 'taskTypes');
+
+    return APIHelper.jsonCodec.decode(response.body);
+  }
+
+  static Future<List> getTaskTypesForTask(String taskID) async {
     final response = await http.get(
       APIHelper.url + 'taskTypes&taskId=$taskID',
     );
@@ -19,7 +25,7 @@ abstract class TaskAPI {
     return APIHelper.jsonCodec.decode(response.body);
   }
 
-  static Future<List> getTaskSubjectForTaskType(
+  static Future<List> getTaskSubjectForTask(
     String taskID,
     String taskTypeID,
   ) async {
@@ -31,10 +37,54 @@ abstract class TaskAPI {
     return APIHelper.jsonCodec.decode(response.body);
   }
 
-  static Future<List> getPrincipalList(String taskID) async {
+  static Future<List> getPrincipalListForTask(String taskID) async {
     final response = await http.get(
       APIHelper.url + 'principalList&taskId=$taskID',
     );
+
+    return APIHelper.jsonCodec.decode(response.body);
+  }
+
+  static Future<List> getTaskLogs(String taskID) async {
+    final response = await http.get(
+      APIHelper.url + 'taskLogs&taskId=$taskID',
+    );
+
+    return APIHelper.jsonCodec.decode(response.body);
+  }
+
+  static Future<List> projectSearch(String term) async {
+    final response = await http.get(
+      APIHelper.url + 'projectSearch&searchString=$term',
+    );
+
+    return APIHelper.jsonCodec.decode(response.body);
+  }
+
+  static Future<Map> newTask(
+    String name,
+    String description,
+    int priority,
+    String type,
+    String subject,
+    String project,
+    int startTime,
+    int endTime,
+    List principals,
+  ) async {
+    final body = APIHelper.jsonCodec.encode({
+      'name': name,
+      'description': description,
+      'priority': priority,
+      'type': type,
+      'subject': subject,
+      'project': project,
+      'startTime': startTime,
+      'endTime': endTime,
+      'principalList': principals,
+    });
+
+    final response = await http.post(APIHelper.url + 'newTask', body: body);
 
     return APIHelper.jsonCodec.decode(response.body);
   }

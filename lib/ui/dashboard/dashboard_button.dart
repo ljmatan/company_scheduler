@@ -19,6 +19,7 @@ class DashboardButton extends StatelessWidget {
           decoration: BoxDecoration(
             color: Colors.white,
             boxShadow: kElevationToShadow[1],
+            borderRadius: BorderRadius.circular(4),
           ),
           child: SizedBox(
             width: MediaQuery.of(context).size.width,

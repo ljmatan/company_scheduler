@@ -15,7 +15,8 @@ class PrincipalList extends StatefulWidget {
 
 class _PrincipalListState extends State<PrincipalList>
     with AutomaticKeepAliveClientMixin {
-  Future<List> _getUserList() async => TaskAPI.getPrincipalList(widget.taskID);
+  Future<List> _getUserList() async =>
+      TaskAPI.getPrincipalListForTask(widget.taskID);
 
   @override
   Widget build(BuildContext context) {

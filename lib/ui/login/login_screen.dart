@@ -41,7 +41,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 child: DecoratedBox(
                   decoration: BoxDecoration(
                     color: Colors.white,
-                    borderRadius: BorderRadius.circular(6),
+                    borderRadius: BorderRadius.circular(4),
                     boxShadow: kElevationToShadow[1],
                   ),
                   child: Column(

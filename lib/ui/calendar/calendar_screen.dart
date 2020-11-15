@@ -5,6 +5,8 @@ import 'package:company_scheduler/logic/calendar/calendar_provider.dart';
 import 'package:company_scheduler/ui/calendar/appbar/appbar.dart';
 import 'package:company_scheduler/ui/calendar/bloc/date_selection.dart';
 import 'package:company_scheduler/ui/calendar/bloc/day_selection.dart';
+import 'package:company_scheduler/ui/calendar/bloc/view.dart';
+import 'package:company_scheduler/ui/calendar/day_view/day_view.dart';
 import 'package:company_scheduler/ui/shared/custom_spinning_indicator.dart';
 import 'package:company_scheduler/ui/shared/task_entry.dart';
 import 'package:flutter/material.dart';
@@ -27,6 +29,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
     super.initState();
     DateSelection.init();
     DaySelection.init();
+    CalendarView.init();
     _pageController.addListener(
       () {
         if (_pageController.page.round() != _pageIndex) {
@@ -61,73 +64,93 @@ class _CalendarScreenState extends State<CalendarScreen> {
         ),
         child: CalendarAppBar(),
       ),
-      endDrawerEnableOpenDragGesture: false,
-      endDrawer: Drawer(),
       body: FutureBuilder(
         future: _getTasks(),
         builder: (context, tasks) => tasks.hasData
-            ? PageView.builder(
-                controller: _pageController,
-                itemCount: 481,
-                itemBuilder: (context, index) => ListView(
-                  children: [
-                    DecoratedBox(
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                          width: 0.1,
-                          color: Colors.black38,
+            ? StreamBuilder(
+                stream: CalendarView.stream,
+                initialData: 'month',
+                builder: (context, view) => view.data == 'month'
+                    ? PageView.builder(
+                        controller: _pageController,
+                        itemCount: 481,
+                        itemBuilder: (context, index) => ListView(
+                          children: [
+                            DecoratedBox(
+                              decoration: BoxDecoration(
+                                border: Border.all(
+                                  width: 0.1,
+                                  color: Colors.black38,
+                                ),
+                              ),
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  for (var row in CalendarProvider.weekRows(
+                                    index == 240
+                                        ? DateTime.now()
+                                        : CalendarProvider.addMonths(
+                                            DateTime.now(),
+                                            index - 240,
+                                          ),
+                                    tasks.data,
+                                    _pageController,
+                                  ))
+                                    row
+                                ],
+                              ),
+                            ),
+                            StreamBuilder(
+                              stream: DaySelection.stream,
+                              initialData: DaySelection.selected,
+                              builder: (context, date) {
+                                List<TaskDetails> _taskList =
+                                    CalendarProvider.getTaskList(
+                                  [
+                                    for (var task in tasks.data)
+                                      TaskDetails.fromJson(task),
+                                  ],
+                                  date.data,
+                                );
+                                return Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    if (_taskList.isEmpty)
+                                      Padding(
+                                        padding: const EdgeInsets.only(top: 16),
+                                        child: Text(
+                                          'No tasks found',
+                                          style: const TextStyle(
+                                            color: Colors.black54,
+                                          ),
+                                        ),
+                                      )
+                                    else if (_pageController.page % 1 == 0)
+                                      for (var task in _taskList)
+                                        TaskEntry(task: task),
+                                    const SizedBox(height: 16),
+                                  ],
+                                );
+                              },
+                            ),
+                          ],
+                        ),
+                      )
+                    : StreamBuilder(
+                        stream: DaySelection.stream,
+                        initialData: DaySelection.selected,
+                        builder: (context, date) => PageView.builder(
+                          itemBuilder: (context, i) => DayView(
+                            taskList: CalendarProvider.getTaskList(
+                              [
+                                for (var task in tasks.data)
+                                  TaskDetails.fromJson(task),
+                              ],
+                              date.data,
+                            ),
+                          ),
                         ),
                       ),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          for (var row in CalendarProvider.weekRows(
-                            index == 240
-                                ? DateTime.now()
-                                : CalendarProvider.addMonths(
-                                    DateTime.now(),
-                                    index - 240,
-                                  ),
-                            tasks.data,
-                          ))
-                            row
-                        ],
-                      ),
-                    ),
-                    StreamBuilder(
-                      stream: DaySelection.stream,
-                      initialData: DaySelection.selected,
-                      builder: (context, date) {
-                        List<TaskDetails> _taskList =
-                            CalendarProvider.getTaskList(
-                          [
-                            for (var task in tasks.data)
-                              TaskDetails.fromJson(task),
-                          ],
-                          date.data,
-                        );
-                        return Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            if (_taskList.isEmpty)
-                              Padding(
-                                padding: const EdgeInsets.only(top: 16),
-                                child: Text(
-                                  'No tasks found',
-                                  style: const TextStyle(
-                                    color: Colors.black54,
-                                  ),
-                                ),
-                              )
-                            else if (_pageController.page % 1 == 0)
-                              for (var task in _taskList) TaskEntry(task: task),
-                            const SizedBox(height: 16),
-                          ],
-                        );
-                      },
-                    ),
-                  ],
-                ),
               )
             : Center(child: CustomSpinningIndicator()),
       ),
@@ -137,6 +160,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
   @override
   void dispose() {
     _pageController.dispose();
+    CalendarView.dispose();
     DateSelection.dispose();
     DaySelection.dispose();
     super.dispose();

@@ -2,7 +2,7 @@ import 'dart:math' as math;
 import 'package:company_scheduler/logic/api/task/task_details_model.dart';
 import 'package:company_scheduler/ui/calendar/day_current_month.dart';
 import 'package:company_scheduler/ui/calendar/day_p_n_month.dart';
-import 'package:flutter/widgets.dart' show Widget, Row;
+import 'package:flutter/widgets.dart' show Widget, Row, PageController;
 
 class CalendarProvider {
   static const _daysInMonthList = const [
@@ -30,7 +30,11 @@ class CalendarProvider {
     return result;
   }
 
-  static List weekRows(DateTime selectedDate, List tasks) {
+  static List weekRows(
+    DateTime selectedDate,
+    List tasks,
+    PageController pageController,
+  ) {
     List weekRows = [];
 
     final int month = selectedDate.month;
@@ -91,6 +95,8 @@ class CalendarProvider {
                     dateDay,
                   ),
                   tasks: [for (var task in tasks) TaskDetails.fromJson(task)],
+                  previousMonth: !_inNextMonth,
+                  pageController: pageController,
                 ),
         );
       }

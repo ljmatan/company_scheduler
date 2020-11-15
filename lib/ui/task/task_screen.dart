@@ -19,7 +19,9 @@ class TaskScreen extends StatefulWidget {
 class _TaskScreenState extends State<TaskScreen> {
   Future<List> _getTasks() async => await TaskAPI.getTaskList();
 
-  void _refreshList() => setState(() {});
+  void _refreshList() => setState(() {
+        print('aaaaaaaaaaaa');
+      });
 
   @override
   Widget build(BuildContext context) {

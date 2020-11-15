@@ -27,7 +27,6 @@ class TaskEntry extends StatelessWidget {
           decoration: BoxDecoration(
             boxShadow: kElevationToShadow[1],
             color: Colors.white,
-            borderRadius: BorderRadius.circular(4),
           ),
           child: SizedBox(
             height: 56,

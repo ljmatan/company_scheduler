@@ -9,7 +9,7 @@ class TaskDescription extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       elevation: 1,
-      margin: const EdgeInsets.all(16),
+      margin: const EdgeInsets.fromLTRB(16, 16, 16, 8),
       child: Padding(
         padding: const EdgeInsets.all(10),
         child: Text(

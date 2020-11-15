@@ -1,3 +1,4 @@
+import 'package:company_scheduler/ui/task/add_task/data.dart';
 import 'package:flutter/material.dart';
 import 'package:company_scheduler/logic/api/task/project_model.dart';
 
@@ -71,6 +72,7 @@ class ProjectEntry extends StatelessWidget {
           ),
         ),
         onTap: () {
+          NewTaskData.setProjectName(project.name);
           FocusScope.of(context).unfocus();
           pageController.animateToPage(
             1,

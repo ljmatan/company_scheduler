@@ -1,3 +1,6 @@
+import 'package:company_scheduler/ui/task/add_task/info_entry/types_and_subjects/add_dialog.dart';
+import 'package:company_scheduler/ui/task/add_task/info_entry/types_and_subjects/bloc/task_and_types_input.dart';
+import 'package:company_scheduler/ui/task/add_task/info_entry/types_and_subjects/bloc/task_type_selection.dart';
 import 'package:flutter/material.dart';
 
 class TypesAndSubjects extends StatefulWidget {
@@ -8,7 +11,12 @@ class TypesAndSubjects extends StatefulWidget {
 }
 
 class _TypesAndSubjectsState extends State<TypesAndSubjects> {
-  final TextEditingController _searchController = TextEditingController();
+  @override
+  void initState() {
+    super.initState();
+    TaskTypeSelection.init();
+    TaskAndTypesInput.init();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +36,10 @@ class _TypesAndSubjectsState extends State<TypesAndSubjects> {
                 ),
                 IconButton(
                   icon: Icon(Icons.add, color: Colors.green),
-                  onPressed: () => null,
+                  onPressed: () => showDialog(
+                    context: context,
+                    builder: (context) => AddDialog(),
+                  ),
                 ),
               ],
             ),
@@ -40,7 +51,8 @@ class _TypesAndSubjectsState extends State<TypesAndSubjects> {
 
   @override
   void dispose() {
-    _searchController.dispose();
+    TaskTypeSelection.dispose();
+    TaskAndTypesInput.dispose();
     super.dispose();
   }
 }

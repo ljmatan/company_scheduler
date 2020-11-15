@@ -3,6 +3,7 @@ import 'package:company_scheduler/logic/api/task/project_model.dart';
 import 'package:company_scheduler/logic/api/task/task_api.dart';
 import 'package:company_scheduler/ui/other/scroll_overflow.dart';
 import 'package:company_scheduler/ui/shared/custom_spinning_indicator.dart';
+import 'package:company_scheduler/ui/task/add_task/data.dart';
 import 'package:company_scheduler/ui/task/add_task/project_search/project_entry.dart';
 import 'package:flutter/material.dart';
 
@@ -108,6 +109,7 @@ class _ProjectSearchState extends State<ProjectSearch> {
   void dispose() {
     _textEditingController.dispose();
     _textStreamController.close();
+    NewTaskData.clear();
     super.dispose();
   }
 }

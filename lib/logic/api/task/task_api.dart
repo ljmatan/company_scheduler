@@ -11,7 +11,7 @@ abstract class TaskAPI {
     return APIHelper.jsonCodec.decode(response.body);
   }
 
-  static Future<List> getTaskTypes(String taskID) async {
+  static Future<List> getTaskTypes() async {
     final response = await http.get(APIHelper.url + 'taskTypes');
 
     return APIHelper.jsonCodec.decode(response.body);
@@ -25,6 +25,14 @@ abstract class TaskAPI {
     return APIHelper.jsonCodec.decode(response.body);
   }
 
+  static Future<List> getTaskSubjectForTaskType(String taskTypeID) async {
+    final response = await http.get(
+      APIHelper.url + 'taskSubjectForTaskType&taskType=$taskTypeID',
+    );
+
+    return APIHelper.jsonCodec.decode(response.body);
+  }
+
   static Future<List> getTaskSubjectForTask(
     String taskID,
     String taskTypeID,
@@ -33,6 +41,12 @@ abstract class TaskAPI {
       APIHelper.url +
           'taskSubjectForTaskType&taskId=$taskID&taskType=$taskTypeID',
     );
+
+    return APIHelper.jsonCodec.decode(response.body);
+  }
+
+  static Future<List> getPrincipalList() async {
+    final response = await http.get(APIHelper.url + 'principalList');
 
     return APIHelper.jsonCodec.decode(response.body);
   }

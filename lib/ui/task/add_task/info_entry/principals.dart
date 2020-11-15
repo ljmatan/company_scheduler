@@ -1,3 +1,5 @@
+import 'package:company_scheduler/ui/task/add_task/info_entry/people_search/bloc/people_added.dart';
+import 'package:company_scheduler/ui/task/add_task/info_entry/people_search/add_dialog.dart';
 import 'package:flutter/material.dart';
 
 class Principals extends StatefulWidget {
@@ -8,7 +10,11 @@ class Principals extends StatefulWidget {
 }
 
 class _PrincipalsState extends State<Principals> {
-  final TextEditingController _searchController = TextEditingController();
+  @override
+  void initState() {
+    super.initState();
+    PeopleAdded.init();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,10 +34,47 @@ class _PrincipalsState extends State<Principals> {
                 ),
                 IconButton(
                   icon: Icon(Icons.add, color: Colors.green),
-                  onPressed: () => null,
+                  onPressed: () => showDialog(
+                    context: context,
+                    builder: (context) => AddDialog(),
+                  ),
                 ),
               ],
             ),
+          ),
+          StreamBuilder(
+            stream: PeopleAdded.stream,
+            initialData: PeopleAdded.list,
+            builder: (context, selected) => selected.data.isEmpty
+                ? Padding(
+                    padding: const EdgeInsets.only(left: 12, bottom: 12),
+                    child: Text(
+                      'Tap on the + icon to add people',
+                      style: const TextStyle(
+                        color: Colors.black54,
+                      ),
+                    ),
+                  )
+                : Padding(
+                    padding: const EdgeInsets.only(left: 12),
+                    child: Column(
+                      children: [
+                        for (var principal in selected.data)
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(principal.name.startsWith('user')
+                                  ? principal.name.substring(5)
+                                  : principal.name),
+                              IconButton(
+                                icon: Icon(Icons.close),
+                                onPressed: () => PeopleAdded.remove(principal),
+                              ),
+                            ],
+                          ),
+                      ],
+                    ),
+                  ),
           ),
         ],
       ),
@@ -40,7 +83,7 @@ class _PrincipalsState extends State<Principals> {
 
   @override
   void dispose() {
-    _searchController.dispose();
+    PeopleAdded.dispose();
     super.dispose();
   }
 }

@@ -17,29 +17,9 @@ abstract class TaskAPI {
     return APIHelper.jsonCodec.decode(response.body);
   }
 
-  static Future<List> getTaskTypesForTask(String taskID) async {
-    final response = await http.get(
-      APIHelper.url + 'taskTypes&taskId=$taskID',
-    );
-
-    return APIHelper.jsonCodec.decode(response.body);
-  }
-
   static Future<List> getTaskSubjectForTaskType(String taskTypeID) async {
     final response = await http.get(
       APIHelper.url + 'taskSubjectForTaskType&taskType=$taskTypeID',
-    );
-
-    return APIHelper.jsonCodec.decode(response.body);
-  }
-
-  static Future<List> getTaskSubjectForTask(
-    String taskID,
-    String taskTypeID,
-  ) async {
-    final response = await http.get(
-      APIHelper.url +
-          'taskSubjectForTaskType&taskId=$taskID&taskType=$taskTypeID',
     );
 
     return APIHelper.jsonCodec.decode(response.body);
@@ -79,9 +59,9 @@ abstract class TaskAPI {
     String name,
     String description,
     int priority,
-    String type,
-    String subject,
-    String project,
+    int type,
+    int subject,
+    int project,
     int startTime,
     int endTime,
     List principals,

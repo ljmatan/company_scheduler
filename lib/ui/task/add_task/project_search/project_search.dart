@@ -109,7 +109,6 @@ class _ProjectSearchState extends State<ProjectSearch> {
   void dispose() {
     _textEditingController.dispose();
     _textStreamController.close();
-    NewTaskData.clear();
     super.dispose();
   }
 }

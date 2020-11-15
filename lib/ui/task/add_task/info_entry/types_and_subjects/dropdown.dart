@@ -1,6 +1,5 @@
 import 'package:company_scheduler/logic/api/task/task_api.dart';
 import 'package:company_scheduler/logic/api/task/task_types.dart';
-import 'package:company_scheduler/ui/task/add_task/info_entry/types_and_subjects/bloc/task_and_types_input.dart';
 import 'package:company_scheduler/ui/task/add_task/info_entry/types_and_subjects/bloc/task_type_selection.dart';
 import 'package:company_scheduler/ui/task/task_display/loading_text.dart';
 import 'package:flutter/material.dart';
@@ -42,6 +41,7 @@ class _TaskTypesState extends State<TaskTypes> {
               isExpanded: true,
               items: types.data ?? <DropdownMenuItem<String>>[],
               hint: _hint ?? LoadingText(),
+              onTap: () => FocusManager.instance.primaryFocus.unfocus(),
               onChanged: (value) {
                 TaskTypeSelection.change(value);
                 TaskTypeSelection.setTypeString(

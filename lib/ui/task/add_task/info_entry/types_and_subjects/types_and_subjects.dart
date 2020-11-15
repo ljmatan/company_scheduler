@@ -33,10 +33,13 @@ class _TypesAndSubjectsState extends State<TypesAndSubjects> {
                 Text('Type and subject'),
                 IconButton(
                   icon: Icon(Icons.add, color: Colors.green),
-                  onPressed: () => showDialog(
-                    context: context,
-                    builder: (context) => AddDialog(),
-                  ),
+                  onPressed: () {
+                    FocusScope.of(context).unfocus();
+                    showDialog(
+                      context: context,
+                      builder: (context) => AddDialog(),
+                    );
+                  },
                 ),
               ],
             ),

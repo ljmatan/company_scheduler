@@ -7,8 +7,8 @@ class TimeFields extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
-        TimeField(label: 'from'),
-        TimeField(label: 'to'),
+        TimeField(from: true),
+        TimeField(),
       ],
     );
   }

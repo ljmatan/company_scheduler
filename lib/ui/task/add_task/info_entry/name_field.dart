@@ -1,3 +1,4 @@
+import 'package:company_scheduler/ui/task/add_task/data.dart';
 import 'package:flutter/material.dart';
 
 class NameField extends StatelessWidget {
@@ -12,6 +13,7 @@ class NameField extends StatelessWidget {
       decoration: InputDecoration(
         labelText: 'Task name',
       ),
+      onChanged: (text) => NewTaskData.setTaskName(text),
     );
   }
 }

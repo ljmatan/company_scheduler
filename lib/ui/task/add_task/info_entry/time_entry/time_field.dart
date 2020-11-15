@@ -1,10 +1,11 @@
+import 'package:company_scheduler/ui/task/add_task/data.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class TimeField extends StatefulWidget {
-  final String label;
+  final bool from;
 
-  TimeField({@required this.label});
+  TimeField({this.from: false});
 
   @override
   State<StatefulWidget> createState() {
@@ -14,6 +15,14 @@ class TimeField extends StatefulWidget {
 
 class _TimeFieldState extends State<TimeField> {
   DateTime _time = DateTime.now();
+
+  @override
+  void initState() {
+    super.initState();
+    widget.from
+        ? NewTaskData.setStartTime(_time.millisecondsSinceEpoch)
+        : NewTaskData.setEndTime(_time.millisecondsSinceEpoch);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +36,7 @@ class _TimeFieldState extends State<TimeField> {
               Padding(
                 padding: const EdgeInsets.only(bottom: 5),
                 child: Text(
-                  widget.label,
+                  widget.from ? 'from' : 'to',
                   style: const TextStyle(color: Colors.grey),
                 ),
               ),
@@ -55,23 +64,29 @@ class _TimeFieldState extends State<TimeField> {
           ),
         ),
       ),
-      onTap: () => showModalBottomSheet(
-        context: context,
-        builder: (context) => CupertinoApp(
-          debugShowCheckedModeBanner: false,
-          theme: CupertinoThemeData(brightness: Brightness.light),
-          home: CupertinoDatePicker(
-            use24hFormat: true,
-            initialDateTime: DateTime.now().add(Duration(hours: 1)),
-            minimumDate: DateTime(
-                DateTime.now().year, DateTime.now().month, DateTime.now().day),
-            maximumDate: DateTime(10000),
-            onDateTimeChanged: (date) {
-              setState(() => _time = date);
-            },
+      onTap: () {
+        FocusScope.of(context).unfocus();
+        showModalBottomSheet(
+          context: context,
+          builder: (context) => CupertinoApp(
+            debugShowCheckedModeBanner: false,
+            theme: CupertinoThemeData(brightness: Brightness.light),
+            home: CupertinoDatePicker(
+              use24hFormat: true,
+              initialDateTime: DateTime.now().add(Duration(hours: 1)),
+              minimumDate: DateTime(DateTime.now().year, DateTime.now().month,
+                  DateTime.now().day),
+              maximumDate: DateTime(10000),
+              onDateTimeChanged: (date) {
+                widget.from
+                    ? NewTaskData.setStartTime(date.millisecondsSinceEpoch)
+                    : NewTaskData.setEndTime(date.millisecondsSinceEpoch);
+                setState(() => _time = date);
+              },
+            ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 }

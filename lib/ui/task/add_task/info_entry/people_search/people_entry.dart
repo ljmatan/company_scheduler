@@ -4,8 +4,12 @@ import 'package:flutter/material.dart';
 
 class PeopleEntry extends StatefulWidget {
   final Principal principal;
+  final ScrollController scrollController;
 
-  PeopleEntry({@required this.principal});
+  PeopleEntry({
+    @required this.principal,
+    @required this.scrollController,
+  });
 
   @override
   State<StatefulWidget> createState() {
@@ -56,6 +60,11 @@ class _PeopleEntryState extends State<PeopleEntry> {
             onPressed: () async {
               PeopleAdded.add(widget.principal);
               setState(() => _added = true);
+              widget.scrollController.animateTo(
+                widget.scrollController.position.maxScrollExtent,
+                duration: const Duration(milliseconds: 200),
+                curve: Curves.linear,
+              );
             },
           );
   }

@@ -9,8 +9,17 @@ import 'package:company_scheduler/ui/shared/task_entry.dart';
 import 'package:flutter/material.dart';
 import 'dart:io' show Platform;
 
-class TaskScreen extends StatelessWidget {
+class TaskScreen extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() {
+    return _TaskScreenState();
+  }
+}
+
+class _TaskScreenState extends State<TaskScreen> {
   Future<List> _getTasks() async => await TaskAPI.getTaskList();
+
+  void _refreshList() => setState(() {});
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +58,7 @@ class TaskScreen extends StatelessWidget {
                     ],
                   ),
       ),
-      floatingActionButton: AddTaskButton(),
+      floatingActionButton: AddTaskButton(updateList: _refreshList),
     );
   }
 }

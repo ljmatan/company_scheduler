@@ -11,17 +11,21 @@ abstract class NewTaskData {
   static int get priority => _priority;
   static void setPriority(int value) => _priority = value;
 
-  static String _type;
-  static String get type => _type;
-  static void setType(String value) => _type = value;
+  static int _type;
+  static int get type => _type;
+  static void setType(int value) => _type = value;
 
-  static String _subject;
-  static String get subject => _subject;
-  static void setSubject(String value) => _subject = value;
+  static int _subject;
+  static int get subject => _subject;
+  static void setSubject(int value) => _subject = value;
 
   static String _projectName;
   static String get projectName => _projectName;
   static void setProjectName(String value) => _projectName = value;
+
+  static int _project;
+  static int get project => _project;
+  static void setProject(int value) => _project = value;
 
   static int _startTime;
   static int get startTime => _startTime;
@@ -42,6 +46,7 @@ abstract class NewTaskData {
     setType(null);
     setSubject(null);
     setProjectName(null);
+    setProject(null);
     setStartTime(null);
     setEndTime(null);
     setPrincipals(null);

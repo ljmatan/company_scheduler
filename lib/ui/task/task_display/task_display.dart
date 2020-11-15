@@ -63,7 +63,8 @@ class _TaskDisplayState extends State<TaskDisplay> {
       body: ListView(
         children: [
           TaskDescription(description: widget.task.description),
-          TaskTypeAndSubject(task: widget.task),
+          if (widget.task.type != null || widget.task.subject != null)
+            TaskTypeAndSubject(task: widget.task),
           PrincipalList(taskID: widget.task.id.toString()),
           if (startTime != null && endTime != null)
             TaskTime(

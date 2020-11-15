@@ -18,12 +18,14 @@ class InfoEntry extends StatefulWidget {
 class _InfoEntryState extends State<InfoEntry> {
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _descriptionController = TextEditingController();
+  final ScrollController _scrollController = ScrollController();
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: ListView(
+        controller: _scrollController,
         children: [
           Padding(
             padding: const EdgeInsets.only(top: 16, bottom: 12),
@@ -44,7 +46,7 @@ class _InfoEntryState extends State<InfoEntry> {
           PriorityField(),
           TypesAndSubjects(),
           TimeFields(),
-          Principals(),
+          Principals(scrollController: _scrollController),
           SubmitButton(),
         ],
       ),

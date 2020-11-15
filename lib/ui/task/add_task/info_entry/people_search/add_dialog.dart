@@ -7,14 +7,11 @@ import 'package:company_scheduler/ui/task/add_task/info_entry/people_search/peop
 import 'package:flutter/material.dart';
 import 'dart:async';
 
-class AddDialog extends StatefulWidget {
-  @override
-  State<StatefulWidget> createState() {
-    return _AddDialogState();
-  }
-}
+class AddDialog extends StatelessWidget {
+  final ScrollController scrollController;
 
-class _AddDialogState extends State<AddDialog> {
+  AddDialog({@required this.scrollController});
+
   Future<List> _search() async => await TaskAPI.getPrincipalList();
 
   @override
@@ -70,6 +67,7 @@ class _AddDialogState extends State<AddDialog> {
                                       principal: Principal.fromJson(
                                         principal,
                                       ),
+                                      scrollController: scrollController,
                                     )
                               ];
                               PeopleAdded.list.forEach(

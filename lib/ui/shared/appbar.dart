@@ -8,8 +8,7 @@ class ContactCompanyDisplayAppBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
+    return SafeArea(
       child: SizedBox(
         height: kToolbarHeight,
         child: Row(

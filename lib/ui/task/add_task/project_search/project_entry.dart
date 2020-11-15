@@ -72,6 +72,7 @@ class ProjectEntry extends StatelessWidget {
           ),
         ),
         onTap: () {
+          NewTaskData.setProject(project.id);
           NewTaskData.setProjectName(project.name);
           FocusScope.of(context).unfocus();
           pageController.animateToPage(

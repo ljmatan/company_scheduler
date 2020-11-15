@@ -1,18 +1,11 @@
 import 'package:company_scheduler/logic/api/task/task_details_model.dart';
 import 'package:flutter/material.dart';
 
-class TaskTypeAndSubject extends StatefulWidget {
+class TaskTypeAndSubject extends StatelessWidget {
   final TaskDetails task;
 
   TaskTypeAndSubject({@required this.task});
 
-  @override
-  State<StatefulWidget> createState() {
-    return _TaskTypeAndSubjectState();
-  }
-}
-
-class _TaskTypeAndSubjectState extends State<TaskTypeAndSubject> {
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -20,7 +13,10 @@ class _TaskTypeAndSubjectState extends State<TaskTypeAndSubject> {
       child: Padding(
         padding: const EdgeInsets.all(10),
         child: Text(
-          widget.task.type.name + ' - ' + widget.task.subject.name,
+          (task.type == null
+                  ? ''
+                  : task.type.name + (task.subject == null ? '' : ' - ')) +
+              (task.subject == null ? '' : task.subject.name),
         ),
       ),
     );

@@ -1,3 +1,4 @@
+import 'package:company_scheduler/ui/task/add_task/data.dart';
 import 'package:flutter/material.dart';
 
 class PriorityField extends StatefulWidget {
@@ -40,6 +41,7 @@ class _PriorityFieldState extends State<PriorityField> {
             ),
           ],
           onChanged: (value) {
+            NewTaskData.setPriority(value);
             setState(() => _value = value);
           },
           underline: const SizedBox(),

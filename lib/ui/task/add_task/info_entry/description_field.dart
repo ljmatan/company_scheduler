@@ -1,3 +1,4 @@
+import 'package:company_scheduler/ui/task/add_task/data.dart';
 import 'package:flutter/material.dart';
 
 class DescriptionField extends StatelessWidget {
@@ -9,11 +10,10 @@ class DescriptionField extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextFormField(
       controller: controller,
-      maxLines: 2,
-      minLines: 2,
       decoration: InputDecoration(
         labelText: 'Description',
       ),
+      onChanged: (text) => NewTaskData.setDescription(text),
     );
   }
 }

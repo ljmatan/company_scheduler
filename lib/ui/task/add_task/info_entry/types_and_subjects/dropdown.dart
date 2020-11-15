@@ -25,9 +25,6 @@ class _TaskTypesState extends State<TaskTypes> {
       future: _search().then(
         (types) {
           _hint = Text('Types');
-          TaskAndTypesInput.setMap(
-            {for (var type in types) TaskType.fromJson(type).name: {}},
-          );
           _items = <DropdownMenuItem<String>>[
             for (var type in types)
               DropdownMenuItem(
@@ -47,6 +44,8 @@ class _TaskTypesState extends State<TaskTypes> {
               hint: _hint ?? LoadingText(),
               onChanged: (value) {
                 TaskTypeSelection.change(value);
+                TaskTypeSelection.setTypeString(
+                    types.data.singleWhere((e) => e.value == value).child.data);
                 setState(() => _value = value);
               },
             ),

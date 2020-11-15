@@ -3,6 +3,7 @@ import 'package:company_scheduler/logic/api/task/task_subject_model.dart';
 import 'package:company_scheduler/ui/other/scroll_overflow.dart';
 import 'package:company_scheduler/ui/shared/custom_spinning_indicator.dart';
 import 'package:company_scheduler/ui/task/add_task/info_entry/types_and_subjects/bloc/task_type_selection.dart';
+
 import 'package:company_scheduler/ui/task/add_task/info_entry/types_and_subjects/dropdown.dart';
 import 'package:company_scheduler/ui/task/add_task/info_entry/types_and_subjects/subject_entry.dart';
 import 'package:flutter/material.dart';

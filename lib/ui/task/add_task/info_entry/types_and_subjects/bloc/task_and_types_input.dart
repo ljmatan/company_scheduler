@@ -1,20 +1,14 @@
 import 'dart:async';
 
-abstract class TaskAndTypesInput {
-  static Map _list;
-  static Map get list => _list;
-  static void setMap(Map value) => _list = value;
+abstract class TypeAndSubject {
+  static StreamController<String> _streamController;
 
-  static StreamController<Map> _streamController;
-
-  static void init() => _streamController = StreamController<Map>.broadcast();
+  static void init() =>
+      _streamController = StreamController<String>.broadcast();
 
   static Stream get stream => _streamController.stream;
 
-  static void update() => _streamController.add(_list);
+  static void update(String value) => _streamController.add(value);
 
-  static void dispose() {
-    _streamController.close();
-    _list = null;
-  }
+  static void dispose() => _streamController.close();
 }

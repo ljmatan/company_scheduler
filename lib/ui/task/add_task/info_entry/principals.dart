@@ -28,10 +28,7 @@ class _PrincipalsState extends State<Principals> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
-                  'People',
-                  style: const TextStyle(fontWeight: FontWeight.bold),
-                ),
+                Text('People'),
                 IconButton(
                   icon: Icon(Icons.add, color: Colors.green),
                   onPressed: () => showDialog(

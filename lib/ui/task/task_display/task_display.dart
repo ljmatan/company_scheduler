@@ -1,12 +1,10 @@
 import 'package:company_scheduler/logic/api/task/task_details_model.dart';
 import 'package:company_scheduler/ui/shared/task_priority_color.dart';
-import 'package:company_scheduler/ui/task/task_display/bloc/task_type_selection.dart';
 import 'package:company_scheduler/ui/task/task_display/principal_list.dart';
 import 'package:company_scheduler/ui/task/task_display/task_comments/task_comments.dart';
 import 'package:company_scheduler/ui/task/task_display/task_description.dart';
-import 'package:company_scheduler/ui/task/task_display/task_subject.dart';
 import 'package:company_scheduler/ui/task/task_display/task_time/task_time.dart';
-import 'package:company_scheduler/ui/task/task_display/task_types.dart';
+import 'package:company_scheduler/ui/task/task_display/task_type_and_subject.dart';
 import 'package:flutter/material.dart';
 
 class TaskDisplay extends StatefulWidget {
@@ -25,7 +23,6 @@ class _TaskDisplayState extends State<TaskDisplay> {
   @override
   void initState() {
     super.initState();
-    TaskTypeSelection.init();
     if (widget.task.startTime != null)
       startTime = DateTime.fromMillisecondsSinceEpoch(
         widget.task.startTime,
@@ -66,8 +63,7 @@ class _TaskDisplayState extends State<TaskDisplay> {
       body: ListView(
         children: [
           TaskDescription(description: widget.task.description),
-          TaskTypes(taskID: widget.task.id.toString()),
-          TaskSubject(taskID: widget.task.id.toString()),
+          TaskTypeAndSubject(task: widget.task),
           PrincipalList(taskID: widget.task.id.toString()),
           if (startTime != null && endTime != null)
             TaskTime(
@@ -78,11 +74,5 @@ class _TaskDisplayState extends State<TaskDisplay> {
         ],
       ),
     );
-  }
-
-  @override
-  void dispose() {
-    TaskTypeSelection.dispose();
-    super.dispose();
   }
 }

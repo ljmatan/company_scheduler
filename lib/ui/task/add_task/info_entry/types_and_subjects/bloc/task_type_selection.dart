@@ -11,10 +11,9 @@ class TaskTypeSelection {
 
   static Stream get stream => _streamController.stream;
 
-  static void change(String value) {
-    _streamController.add(value);
-    _type = value;
-  }
+  static void setTypeString(String value) => _type = value;
+
+  static void change(String value) => _streamController.add(value);
 
   static void dispose() {
     _streamController.close();

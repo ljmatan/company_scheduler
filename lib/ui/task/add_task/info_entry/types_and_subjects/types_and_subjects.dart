@@ -15,7 +15,7 @@ class _TypesAndSubjectsState extends State<TypesAndSubjects> {
   void initState() {
     super.initState();
     TaskTypeSelection.init();
-    TaskAndTypesInput.init();
+    TypeAndSubject.init();
   }
 
   @override
@@ -30,10 +30,7 @@ class _TypesAndSubjectsState extends State<TypesAndSubjects> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
-                  'Types and subjects',
-                  style: const TextStyle(fontWeight: FontWeight.bold),
-                ),
+                Text('Type and subject'),
                 IconButton(
                   icon: Icon(Icons.add, color: Colors.green),
                   onPressed: () => showDialog(
@@ -44,6 +41,18 @@ class _TypesAndSubjectsState extends State<TypesAndSubjects> {
               ],
             ),
           ),
+          StreamBuilder(
+            stream: TypeAndSubject.stream,
+            builder: (context, info) => Padding(
+              padding: const EdgeInsets.fromLTRB(12, 0, 12, 12),
+              child: info.hasData
+                  ? Text(info.data.split(' ').join(' - '))
+                  : Text(
+                      'Tap on the + icon to select task and type',
+                      style: const TextStyle(color: Colors.black54),
+                    ),
+            ),
+          ),
         ],
       ),
     );
@@ -52,7 +61,7 @@ class _TypesAndSubjectsState extends State<TypesAndSubjects> {
   @override
   void dispose() {
     TaskTypeSelection.dispose();
-    TaskAndTypesInput.dispose();
+    TypeAndSubject.dispose();
     super.dispose();
   }
 }

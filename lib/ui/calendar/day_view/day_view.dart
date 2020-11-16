@@ -11,7 +11,7 @@ class DayView extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListView(
       children: [
-        const SizedBox(height: 10),
+        const SizedBox(height: 16),
         for (var i = 0; i < 25; i++)
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -76,6 +76,50 @@ class DayView extends StatelessWidget {
                                           0.9) /
                                       taskList.length,
                                   height: 60,
+                                  child: i ==
+                                          DateTime.fromMillisecondsSinceEpoch(
+                                                  task.startTime)
+                                              .hour
+                                      ? Center(
+                                          child: Flexible(
+                                            child: Text(
+                                              task.name,
+                                              style: const TextStyle(
+                                                color: Colors.white,
+                                              ),
+                                            ),
+                                          ),
+                                        )
+                                      : null,
+                                ),
+                              )
+                            else if (DateTime.fromMillisecondsSinceEpoch(
+                                        task.startTime)
+                                    .isAtSameMomentAs(
+                                        DateTime.fromMillisecondsSinceEpoch(
+                                            task.endTime)) &&
+                                i ==
+                                    DateTime.fromMillisecondsSinceEpoch(
+                                            task.startTime)
+                                        .hour)
+                              SizedBox(
+                                width:
+                                    ((MediaQuery.of(context).size.width * 0.8 -
+                                                20) *
+                                            0.9) /
+                                        taskList.length,
+                                height: 60,
+                                child: Center(
+                                  child: Flexible(
+                                    child: Text(
+                                      task.name,
+                                      style: TextStyle(
+                                        color: TaskPriorityColor.color(
+                                          task.priority,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
                                 ),
                               ),
                         ],
@@ -85,6 +129,7 @@ class DayView extends StatelessWidget {
               ),
             ],
           ),
+        const SizedBox(height: 16),
       ],
     );
   }

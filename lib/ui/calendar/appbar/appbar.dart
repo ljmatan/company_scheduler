@@ -21,85 +21,56 @@ class CalendarAppBar extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            SizedBox(
-              height: kToolbarHeight,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Row(
-                    children: [
-                      IconButton(
-                        icon: Icon(
-                          Platform.isAndroid
-                              ? Icons.arrow_back
-                              : Icons.arrow_back_ios,
-                        ),
-                        onPressed: () => Navigator.pop(context),
-                      ),
-                      StreamBuilder(
-                        stream: CalendarView.stream,
-                        initialData: 'month',
-                        builder: (context, view) => view.data == 'month'
-                            ? StreamBuilder(
-                                stream: DateSelection.stream,
-                                initialData: DateTime.now(),
-                                builder: (context, date) => Text(
+            Row(
+              children: [
+                IconButton(
+                  icon: Icon(
+                    Platform.isAndroid
+                        ? Icons.arrow_back
+                        : Icons.arrow_back_ios,
+                  ),
+                  onPressed: () => Navigator.pop(context),
+                ),
+                StreamBuilder(
+                  stream: CalendarView.stream,
+                  initialData: 'month',
+                  builder: (context, view) => view.data == 'month'
+                      ? StreamBuilder(
+                          stream: DateSelection.stream,
+                          initialData: DateTime.now(),
+                          builder: (context, date) => Text(
+                            Internationalization.calendar(
+                                  'months',
+                                  date.data.month,
+                                ) +
+                                ' ' +
+                                date.data.year.toString(),
+                            style: const TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 18,
+                            ),
+                          ),
+                        )
+                      : Builder(
+                          builder: (context) => StreamBuilder(
+                            stream: DaySelection.stream,
+                            initialData: DaySelection.selected,
+                            builder: (context, date) => Text(
+                              date.data.day.toString() +
+                                  '. ' +
                                   Internationalization.calendar(
-                                        'months',
-                                        date.data.month,
-                                      ) +
-                                      ' ' +
-                                      date.data.year.toString(),
-                                  style: const TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 18,
+                                    'months',
+                                    date.data.month,
                                   ),
-                                ),
-                              )
-                            : Builder(
-                                builder: (context) => StreamBuilder(
-                                  stream: DaySelection.stream,
-                                  initialData: DaySelection.selected,
-                                  builder: (context, date) => Text(
-                                    date.data.day.toString() +
-                                        '. ' +
-                                        Internationalization.calendar(
-                                          'months',
-                                          date.data.month,
-                                        ),
-                                    style: const TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 18,
-                                    ),
-                                  ),
-                                ),
+                              style: const TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 18,
                               ),
-                      ),
-                    ],
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(right: 8),
-                    child: DropdownButton(
-                      hint: Text(
-                        'View',
-                        style: const TextStyle(color: Colors.black),
-                      ),
-                      items: [
-                        DropdownMenuItem(
-                          child: Text('Month'),
-                          value: 'month',
+                            ),
+                          ),
                         ),
-                        DropdownMenuItem(
-                          child: Text('Day'),
-                          value: 'day',
-                        ),
-                      ],
-                      onChanged: (value) => CalendarView.change(value),
-                      underline: const SizedBox(),
-                    ),
-                  ),
-                ],
-              ),
+                ),
+              ],
             ),
             StreamBuilder(
               stream: CalendarView.stream,

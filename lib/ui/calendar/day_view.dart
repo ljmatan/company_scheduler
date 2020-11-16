@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:company_scheduler/logic/api/task/task_details_model.dart';
+import 'package:company_scheduler/ui/calendar/bloc/view.dart';
 import 'package:company_scheduler/ui/shared/task_priority_color.dart';
 import 'package:flutter/material.dart';
 
@@ -158,9 +159,30 @@ class _DayViewState extends State<DayView> {
                   ),
                 ],
               ),
+            const SizedBox(height: 16),
           ],
         ),
-        const SizedBox(height: 16),
+        Positioned(
+          bottom: 20,
+          right: 20,
+          child: GestureDetector(
+            child: DecoratedBox(
+              decoration: BoxDecoration(
+                color: Theme.of(context).primaryColor,
+                shape: BoxShape.circle,
+                boxShadow: kElevationToShadow[1],
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(16),
+                child: Icon(
+                  Icons.close,
+                  color: Colors.white,
+                ),
+              ),
+            ),
+            onTap: () => CalendarView.change('month'),
+          ),
+        ),
       ],
     );
   }

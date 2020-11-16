@@ -6,7 +6,7 @@ import 'package:company_scheduler/ui/calendar/appbar/appbar.dart';
 import 'package:company_scheduler/ui/calendar/bloc/date_selection.dart';
 import 'package:company_scheduler/ui/calendar/bloc/day_selection.dart';
 import 'package:company_scheduler/ui/calendar/bloc/view.dart';
-import 'package:company_scheduler/ui/calendar/day_view/day_view.dart';
+import 'package:company_scheduler/ui/calendar/day_view.dart';
 import 'package:company_scheduler/ui/shared/custom_spinning_indicator.dart';
 import 'package:company_scheduler/ui/shared/task_entry.dart';
 import 'package:flutter/material.dart';
@@ -20,6 +20,11 @@ class CalendarScreen extends StatefulWidget {
 
 class _CalendarScreenState extends State<CalendarScreen> {
   PageController _pageController;
+
+  int _pageIndex = 240;
+  DateTime _currentDate = DateTime.now();
+  double _scrollValue = 240;
+
   void _addPageControllerListener() => _pageController.addListener(
         () {
           _scrollValue = _pageController.page;
@@ -41,12 +46,6 @@ class _CalendarScreenState extends State<CalendarScreen> {
             );
         },
       );
-
-  final PageController _dayPageController = PageController();
-
-  int _pageIndex = 240;
-  DateTime _currentDate = DateTime.now();
-  double _scrollValue = 240;
 
   @override
   void initState() {
@@ -123,6 +122,38 @@ class _CalendarScreenState extends State<CalendarScreen> {
                               return Column(
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
+                                  if (_taskList.isNotEmpty &&
+                                      _scrollValue % 1 == 0)
+                                    Padding(
+                                      padding: const EdgeInsets.fromLTRB(
+                                        16,
+                                        16,
+                                        16,
+                                        0,
+                                      ),
+                                      child: InkWell(
+                                        child: Ink(
+                                          decoration: BoxDecoration(
+                                            color:
+                                                Theme.of(context).primaryColor,
+                                            boxShadow: kElevationToShadow[1],
+                                          ),
+                                          child: SizedBox(
+                                            height: 44,
+                                            child: Center(
+                                              child: Text(
+                                                'Detailed info',
+                                                style: const TextStyle(
+                                                  color: Colors.white,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                        onTap: () => CalendarView.change('day'),
+                                      ),
+                                    ),
                                   if (_taskList.isEmpty)
                                     Padding(
                                       padding: const EdgeInsets.only(top: 16),
@@ -150,8 +181,8 @@ class _CalendarScreenState extends State<CalendarScreen> {
                       stream: DaySelection.stream,
                       initialData: DaySelection.selected,
                       builder: (context, date) => WillPopScope(
-                        child: PageView.builder(
-                          itemBuilder: (context, i) {
+                        child: Builder(
+                          builder: (context) {
                             List _taskList = CalendarProvider.getTaskList(
                               [
                                 TaskDetails(
@@ -190,7 +221,6 @@ class _CalendarScreenState extends State<CalendarScreen> {
   @override
   void dispose() {
     _pageController.dispose();
-    _dayPageController.dispose();
     CalendarView.dispose();
     DateSelection.dispose();
     DaySelection.dispose();

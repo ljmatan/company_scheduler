@@ -55,7 +55,7 @@ class _TypesAndSubjectsState extends State<TypesAndSubjects> {
               builder: (context, info) => Padding(
                 padding: const EdgeInsets.fromLTRB(12, 0, 12, 12),
                 child: info.hasData
-                    ? Text(info.data.split(' ').join(' - '))
+                    ? Text(info.data.split('+').join(' - '))
                     : Text(
                         'Tap on the + icon to select task and type',
                         style: const TextStyle(color: Colors.black54),

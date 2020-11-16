@@ -14,7 +14,7 @@ class SubjectEntry extends StatelessWidget {
     return StreamBuilder(
       stream: TypeAndSubject.stream,
       builder: (context, selected) => FlatButton(
-        color: selected.hasData && selected.data.split(' ')[1] == subject.name
+        color: selected.hasData && selected.data.split('+')[1] == subject.name
             ? Colors.green
             : Theme.of(context).primaryColor,
         child: Text(
@@ -28,7 +28,7 @@ class SubjectEntry extends StatelessWidget {
           NewTaskData.setType(TaskTypeSelection.value);
           NewTaskData.setSubject(subject.id);
           TypeAndSubject.update(
-            TaskTypeSelection.type + ' ' + subject.name,
+            TaskTypeSelection.type + '+' + subject.name,
           );
         },
       ),

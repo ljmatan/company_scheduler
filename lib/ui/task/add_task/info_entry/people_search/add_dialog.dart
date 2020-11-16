@@ -75,7 +75,7 @@ class AddDialog extends StatelessWidget {
                           return DecoratedBox(
                             decoration: BoxDecoration(
                               border: Border.all(),
-                              color: Colors.grey[100],
+                              color: Colors.grey[50],
                             ),
                             child: ListView(
                               children: [

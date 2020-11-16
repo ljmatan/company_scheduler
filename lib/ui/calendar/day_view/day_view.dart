@@ -65,32 +65,38 @@ class DayView extends StatelessWidget {
                                             task.endTime)
                                         .hour >
                                     i)
-                              DecoratedBox(
-                                decoration: BoxDecoration(
-                                  color: TaskPriorityColor.color(task.priority),
-                                ),
-                                child: SizedBox(
-                                  width: ((MediaQuery.of(context).size.width *
-                                                  0.8 -
-                                              20) *
-                                          0.9) /
-                                      taskList.length,
-                                  height: 60,
-                                  child: i ==
-                                          DateTime.fromMillisecondsSinceEpoch(
-                                                  task.startTime)
-                                              .hour
-                                      ? Center(
-                                          child: Flexible(
-                                            child: Text(
-                                              task.name,
-                                              style: const TextStyle(
-                                                color: Colors.white,
+                              Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 2),
+                                child: DecoratedBox(
+                                  decoration: BoxDecoration(
+                                    color:
+                                        TaskPriorityColor.color(task.priority),
+                                  ),
+                                  child: SizedBox(
+                                    width: ((MediaQuery.of(context).size.width *
+                                                    0.8 -
+                                                20) *
+                                            0.9) /
+                                        taskList.length,
+                                    height: 60,
+                                    child: i ==
+                                            DateTime.fromMillisecondsSinceEpoch(
+                                                    task.startTime)
+                                                .hour
+                                        ? Center(
+                                            child: Flexible(
+                                              child: Text(
+                                                task.name,
+                                                textAlign: TextAlign.center,
+                                                style: const TextStyle(
+                                                  color: Colors.white,
+                                                ),
                                               ),
                                             ),
-                                          ),
-                                        )
-                                      : null,
+                                          )
+                                        : null,
+                                  ),
                                 ),
                               )
                             else if (DateTime.fromMillisecondsSinceEpoch(
@@ -102,20 +108,25 @@ class DayView extends StatelessWidget {
                                     DateTime.fromMillisecondsSinceEpoch(
                                             task.startTime)
                                         .hour)
-                              SizedBox(
-                                width:
-                                    ((MediaQuery.of(context).size.width * 0.8 -
-                                                20) *
-                                            0.9) /
-                                        taskList.length,
-                                height: 60,
-                                child: Center(
-                                  child: Flexible(
-                                    child: Text(
-                                      task.name,
-                                      style: TextStyle(
-                                        color: TaskPriorityColor.color(
-                                          task.priority,
+                              Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 2),
+                                child: SizedBox(
+                                  width: ((MediaQuery.of(context).size.width *
+                                                  0.8 -
+                                              20) *
+                                          0.9) /
+                                      taskList.length,
+                                  height: 60,
+                                  child: Center(
+                                    child: Flexible(
+                                      child: Text(
+                                        task.name,
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                          color: TaskPriorityColor.color(
+                                            task.priority,
+                                          ),
                                         ),
                                       ),
                                     ),

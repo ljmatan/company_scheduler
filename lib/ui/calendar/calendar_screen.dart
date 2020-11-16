@@ -122,6 +122,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
                                         padding: const EdgeInsets.only(top: 16),
                                         child: Text(
                                           'No tasks found',
+                                          textAlign: TextAlign.center,
                                           style: const TextStyle(
                                             color: Colors.black54,
                                           ),
@@ -145,8 +146,9 @@ class _CalendarScreenState extends State<CalendarScreen> {
                           itemBuilder: (context, i) => DayView(
                             taskList: CalendarProvider.getTaskList(
                               [
-                                for (var task in tasks.data)
-                                  TaskDetails.fromJson(task),
+                                for (var i = 0; i < 3; i++)
+                                  for (var task in tasks.data)
+                                    TaskDetails.fromJson(task),
                               ],
                               date.data,
                             ),

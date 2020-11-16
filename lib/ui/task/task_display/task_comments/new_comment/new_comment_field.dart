@@ -21,7 +21,12 @@ class NewCommentField extends StatelessWidget {
               filled: true,
               fillColor: Colors.white,
               hintText: 'New comment',
-              border: OutlineInputBorder(),
+              border: OutlineInputBorder(
+                borderSide: BorderSide(width: 0.1),
+              ),
+              enabledBorder: OutlineInputBorder(
+                borderSide: BorderSide(width: 0.1),
+              ),
             ),
           ),
         ),

@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:company_scheduler/logic/api/task/task_details_model.dart';
 import 'package:company_scheduler/ui/shared/task_priority_color.dart';
 import 'package:flutter/material.dart';

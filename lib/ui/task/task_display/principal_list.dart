@@ -23,40 +23,47 @@ class _PrincipalListState extends State<PrincipalList>
     super.build(context);
     return FutureBuilder(
       future: _getUserList(),
-      builder: (context, users) => Card(
-        margin: const EdgeInsets.fromLTRB(16, 0, 16, 16),
-        child: Padding(
-          padding: const EdgeInsets.all(9),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(bottom: 6),
-                child: Text(
-                  'People',
-                  style: const TextStyle(
-                    fontWeight: FontWeight.bold,
+      builder: (context, users) => Padding(
+        padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
+        child: DecoratedBox(
+          decoration: BoxDecoration(
+            color: Colors.white,
+            border: Border.all(width: 0.1),
+            borderRadius: BorderRadius.circular(4),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(9),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 6),
+                  child: Text(
+                    'People',
+                    style: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
-              ),
-              if (!users.hasData && !users.hasError)
-                SizedBox(
-                  height: 80,
-                  child: Center(child: CustomSpinningIndicator(size: 40)),
-                )
-              else if (users.hasError)
-                Text('Error: ' + users.error.toString())
-              else if (users.hasData && users.data.isNotEmpty)
-                for (var user in users.data)
-                  Text(
-                    '- ' +
-                        (Principal.fromJson(user).name.startsWith('user')
-                            ? Principal.fromJson(user).name.substring(5)
-                            : Principal.fromJson(user).name),
+                if (!users.hasData && !users.hasError)
+                  SizedBox(
+                    height: 80,
+                    child: Center(child: CustomSpinningIndicator(size: 40)),
                   )
-              else if (users.hasData && users.data.isEmpty)
-                Text('None'),
-            ],
+                else if (users.hasError)
+                  Text('Error: ' + users.error.toString())
+                else if (users.hasData && users.data.isNotEmpty)
+                  for (var user in users.data)
+                    Text(
+                      '- ' +
+                          (Principal.fromJson(user).name.startsWith('user')
+                              ? Principal.fromJson(user).name.substring(5)
+                              : Principal.fromJson(user).name),
+                    )
+                else if (users.hasData && users.data.isEmpty)
+                  Text('None'),
+              ],
+            ),
           ),
         ),
       ),

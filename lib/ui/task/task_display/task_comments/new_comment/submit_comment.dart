@@ -31,7 +31,12 @@ class SubmitComment extends StatelessWidget {
                 autofocus: true,
                 keyboardType: TextInputType.number,
                 decoration: InputDecoration(
-                  border: OutlineInputBorder(),
+                  border: OutlineInputBorder(
+                    borderSide: BorderSide(width: 0.1),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(width: 0.1),
+                  ),
                 ),
               ),
             ),

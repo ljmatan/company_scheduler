@@ -18,6 +18,8 @@ class _TaskLogsState extends State<TaskLogs>
     with AutomaticKeepAliveClientMixin {
   Future<List> _getTaskLogs() async => TaskAPI.getTaskLogs(widget.taskID);
 
+  DateTime _time(int time) => DateTime.fromMillisecondsSinceEpoch(time);
+
   @override
   Widget build(BuildContext context) {
     super.build(context);
@@ -70,35 +72,35 @@ class _TaskLogsState extends State<TaskLogs>
                                 ),
                                 TextSpan(
                                   text: '\n' +
-                                      DateTime.fromMillisecondsSinceEpoch(
-                                              TaskLog.fromJson(log).taskLogTime)
+                                      _time(TaskLog.fromJson(log).taskLogTime)
                                           .day
                                           .toString() +
                                       '.' +
-                                      DateTime.fromMillisecondsSinceEpoch(
-                                              TaskLog.fromJson(log).taskLogTime)
+                                      _time(TaskLog.fromJson(log).taskLogTime)
                                           .month
                                           .toString() +
                                       ' ' +
-                                      (DateTime.fromMillisecondsSinceEpoch(TaskLog.fromJson(log).taskLogTime)
+                                      (_time(TaskLog.fromJson(log).taskLogTime)
                                                   .hour <
                                               10
                                           ? '0' +
-                                              DateTime.fromMillisecondsSinceEpoch(TaskLog.fromJson(log).taskLogTime)
+                                              _time(TaskLog.fromJson(log).taskLogTime)
                                                   .hour
                                                   .toString()
-                                          : DateTime.fromMillisecondsSinceEpoch(TaskLog.fromJson(log).taskLogTime)
+                                          : _time(TaskLog.fromJson(log).taskLogTime)
                                               .hour
                                               .toString()) +
                                       ':' +
-                                      (DateTime.fromMillisecondsSinceEpoch(TaskLog.fromJson(log).taskLogTime).minute <
+                                      (_time(TaskLog.fromJson(log).taskLogTime)
+                                                  .minute <
                                               10
                                           ? '0' +
-                                              DateTime.fromMillisecondsSinceEpoch(TaskLog.fromJson(log).taskLogTime)
+                                              _time(TaskLog.fromJson(log)
+                                                      .taskLogTime)
                                                   .minute
                                                   .toString()
-                                          : DateTime.fromMillisecondsSinceEpoch(
-                                                  TaskLog.fromJson(log).taskLogTime)
+                                          : _time(TaskLog.fromJson(log)
+                                                  .taskLogTime)
                                               .minute
                                               .toString()) +
                                       'h',

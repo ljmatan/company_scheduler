@@ -27,6 +27,8 @@ class _DayViewState extends State<DayView> {
         .addListener(() => _streamController.add(_scrollController.offset));
   }
 
+  DateTime _time(int time) => DateTime.fromMillisecondsSinceEpoch(time);
+
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -53,40 +55,30 @@ class _DayViewState extends State<DayView> {
                           children: [
                             Padding(
                               padding: EdgeInsets.only(
-                                top: 60 *
-                                    (DateTime.fromMillisecondsSinceEpoch(
-                                                task.startTime)
-                                            .hour)
-                                        .toDouble(),
+                                top: 60 * _time(task.startTime).hour.toDouble(),
                               ),
                               child: Padding(
                                 padding:
                                     const EdgeInsets.symmetric(horizontal: 2),
                                 child: DecoratedBox(
                                   decoration: BoxDecoration(
-                                    color: DateTime.fromMillisecondsSinceEpoch(
-                                                task.startTime)
-                                            .isAtSameMomentAs(DateTime
-                                                .fromMillisecondsSinceEpoch(
-                                                    task.endTime))
+                                    color: _time(task.startTime)
+                                            .isAtSameMomentAs(
+                                                _time(task.endTime))
                                         ? null
                                         : TaskPriorityColor.color(
                                             task.priority,
                                           ),
                                   ),
                                   child: SizedBox(
-                                    height: DateTime.fromMillisecondsSinceEpoch(
-                                                task.startTime)
-                                            .isAtSameMomentAs(DateTime
-                                                .fromMillisecondsSinceEpoch(
-                                                    task.endTime))
+                                    height: _time(task.startTime)
+                                            .isAtSameMomentAs(
+                                                _time(task.endTime))
                                         ? 60
                                         : 60 *
-                                            (DateTime.fromMillisecondsSinceEpoch(
-                                                        task.endTime)
-                                                    .difference(DateTime
-                                                        .fromMillisecondsSinceEpoch(
-                                                            task.startTime))
+                                            (_time(task.endTime)
+                                                    .difference(
+                                                        _time(task.startTime))
                                                     .inHours)
                                                 .toDouble(),
                                     width: MediaQuery.of(context).size.width,
@@ -96,12 +88,9 @@ class _DayViewState extends State<DayView> {
                                         task.name,
                                         textAlign: TextAlign.center,
                                         style: TextStyle(
-                                          color: DateTime
-                                                      .fromMillisecondsSinceEpoch(
-                                                          task.startTime)
-                                                  .isAtSameMomentAs(DateTime
-                                                      .fromMillisecondsSinceEpoch(
-                                                          task.endTime))
+                                          color: _time(task.startTime)
+                                                  .isAtSameMomentAs(
+                                                      _time(task.endTime))
                                               ? TaskPriorityColor.color(
                                                   task.priority,
                                                 )

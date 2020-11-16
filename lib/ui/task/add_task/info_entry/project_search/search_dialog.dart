@@ -30,6 +30,7 @@ class _SearchDialogState extends State<SearchDialog> {
       padding: MediaQuery.of(context).viewInsets,
       child: Material(
         color: Colors.grey[50],
+        borderRadius: BorderRadius.circular(4),
         elevation: 2,
         child: Stack(
           children: [

@@ -18,6 +18,7 @@ class AddDialog extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 16),
         child: Material(
           color: Colors.grey[50],
+          borderRadius: BorderRadius.circular(4),
           elevation: 2,
           child: SizedBox(
             height: MediaQuery.of(context).size.height * 0.66,

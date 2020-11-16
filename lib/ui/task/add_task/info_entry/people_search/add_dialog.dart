@@ -19,6 +19,7 @@ class AddDialog extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16),
         child: Material(
+          borderRadius: BorderRadius.circular(4),
           color: Colors.white,
           elevation: 2,
           child: SizedBox(

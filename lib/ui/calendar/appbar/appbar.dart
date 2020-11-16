@@ -76,27 +76,24 @@ class CalendarAppBar extends StatelessWidget {
                     ],
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(right: 16),
-                    child: SizedBox(
-                      width: 70,
-                      child: DropdownButton(
-                        hint: Text(
-                          'View',
-                          style: const TextStyle(color: Colors.black),
-                        ),
-                        items: [
-                          DropdownMenuItem(
-                            child: Text('Month'),
-                            value: 'month',
-                          ),
-                          DropdownMenuItem(
-                            child: Text('Day'),
-                            value: 'day',
-                          ),
-                        ],
-                        onChanged: (value) => CalendarView.change(value),
-                        underline: const SizedBox(),
+                    padding: const EdgeInsets.only(right: 8),
+                    child: DropdownButton(
+                      hint: Text(
+                        'View',
+                        style: const TextStyle(color: Colors.black),
                       ),
+                      items: [
+                        DropdownMenuItem(
+                          child: Text('Month'),
+                          value: 'month',
+                        ),
+                        DropdownMenuItem(
+                          child: Text('Day'),
+                          value: 'day',
+                        ),
+                      ],
+                      onChanged: (value) => CalendarView.change(value),
+                      underline: const SizedBox(),
                     ),
                   ),
                 ],

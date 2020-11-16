@@ -19,10 +19,6 @@ abstract class NewTaskData {
   static int get subject => _subject;
   static void setSubject(int value) => _subject = value;
 
-  static String _projectName;
-  static String get projectName => _projectName;
-  static void setProjectName(String value) => _projectName = value;
-
   static int _project;
   static int get project => _project;
   static void setProject(int value) => _project = value;
@@ -45,7 +41,6 @@ abstract class NewTaskData {
     setPriority(null);
     setType(null);
     setSubject(null);
-    setProjectName(null);
     setProject(null);
     setStartTime(null);
     setEndTime(null);

@@ -74,7 +74,7 @@ class SubmitComment extends StatelessWidget {
                   final response = await TaskAPI.newTaskComment(
                     int.parse(taskID),
                     commentController.text,
-                    DateTime.now().toIso8601String().substring(0, 16),
+                    DateTime.now().millisecondsSinceEpoch,
                     double.parse(controller.text),
                   );
                   if (response['id'] != null)

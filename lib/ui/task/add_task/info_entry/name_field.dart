@@ -12,6 +12,9 @@ class NameField extends StatelessWidget {
       controller: controller,
       decoration: InputDecoration(
         labelText: 'Task name',
+        enabledBorder: UnderlineInputBorder(
+          borderSide: BorderSide(width: 0.1),
+        ),
       ),
       onChanged: (text) => NewTaskData.setTaskName(text),
     );

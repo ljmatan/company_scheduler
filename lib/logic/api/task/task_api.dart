@@ -102,7 +102,7 @@ abstract class TaskAPI {
   static Future<Map> newTaskComment(
     int taskID,
     String comment,
-    String commentDateTime,
+    int commentDateTime,
     double hoursWorked,
   ) async {
     final body = APIHelper.jsonCodec.encode({

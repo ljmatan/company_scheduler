@@ -19,7 +19,7 @@ class _ContactScreenState extends State<ContactScreen> {
   final TextEditingController _textEditingController = TextEditingController();
   final StreamController _textStreamController = StreamController.broadcast();
 
-  Future<void> _search(String term) async => await ContactAPI.getContacts(term);
+  Future<List> _search(String term) async => await ContactAPI.getContacts(term);
 
   @override
   Widget build(BuildContext context) {

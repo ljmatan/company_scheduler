@@ -20,8 +20,8 @@ class _SubmitButtonState extends State<SubmitButton> {
         child: Ink(
           decoration: BoxDecoration(
             color: Theme.of(context).primaryColor,
+            border: Border.all(width: 0.1),
             borderRadius: BorderRadius.circular(4),
-            boxShadow: kElevationToShadow[1],
           ),
           child: SizedBox(
             height: 48,
@@ -96,6 +96,7 @@ class _SubmitButtonState extends State<SubmitButton> {
                         content: Text('Error: ' + response['message']),
                       ));
                     else {
+                      NewTaskData.clear();
                       Navigator.pop(context, true);
                     }
                   } catch (e) {

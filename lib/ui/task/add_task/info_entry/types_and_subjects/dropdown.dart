@@ -41,7 +41,6 @@ class _TaskTypesState extends State<TaskTypes> {
               isExpanded: true,
               items: types.data ?? <DropdownMenuItem<String>>[],
               hint: _hint ?? LoadingText(),
-              onTap: () => FocusManager.instance.primaryFocus.unfocus(),
               onChanged: (value) {
                 TaskTypeSelection.change(value);
                 TaskTypeSelection.setTypeString(

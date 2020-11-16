@@ -10,8 +10,13 @@ class DescriptionField extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextFormField(
       controller: controller,
+      minLines: 2,
+      maxLines: 2,
       decoration: InputDecoration(
         labelText: 'Description',
+        enabledBorder: UnderlineInputBorder(
+          borderSide: BorderSide(width: 0.1),
+        ),
       ),
       onChanged: (text) => NewTaskData.setDescription(text),
     );

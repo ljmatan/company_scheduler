@@ -20,43 +20,50 @@ class _TypesAndSubjectsState extends State<TypesAndSubjects> {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      margin: const EdgeInsets.only(bottom: 16),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(left: 12),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text('Type and subject'),
-                IconButton(
-                  icon: Icon(Icons.add, color: Colors.green),
-                  onPressed: () {
-                    FocusScope.of(context).unfocus();
-                    showDialog(
-                      context: context,
-                      builder: (context) => AddDialog(),
-                    );
-                  },
-                ),
-              ],
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 16),
+      child: DecoratedBox(
+        decoration: BoxDecoration(
+          color: Colors.white,
+          border: Border.all(width: 0.1),
+          borderRadius: BorderRadius.circular(4),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(left: 12),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text('Type and subject'),
+                  IconButton(
+                    icon: Icon(Icons.add, color: Colors.green),
+                    onPressed: () {
+                      FocusScope.of(context).unfocus();
+                      showDialog(
+                        context: context,
+                        builder: (context) => AddDialog(),
+                      );
+                    },
+                  ),
+                ],
+              ),
             ),
-          ),
-          StreamBuilder(
-            stream: TypeAndSubject.stream,
-            builder: (context, info) => Padding(
-              padding: const EdgeInsets.fromLTRB(12, 0, 12, 12),
-              child: info.hasData
-                  ? Text(info.data.split(' ').join(' - '))
-                  : Text(
-                      'Tap on the + icon to select task and type',
-                      style: const TextStyle(color: Colors.black54),
-                    ),
+            StreamBuilder(
+              stream: TypeAndSubject.stream,
+              builder: (context, info) => Padding(
+                padding: const EdgeInsets.fromLTRB(12, 0, 12, 12),
+                child: info.hasData
+                    ? Text(info.data.split(' ').join(' - '))
+                    : Text(
+                        'Tap on the + icon to select task and type',
+                        style: const TextStyle(color: Colors.black54),
+                      ),
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

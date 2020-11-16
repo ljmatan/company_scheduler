@@ -22,50 +22,47 @@ class _PeopleEntryState extends State<PeopleEntry> {
 
   @override
   Widget build(BuildContext context) {
-    return _added
-        ? Padding(
-            padding: const EdgeInsets.symmetric(vertical: 6),
-            child: DecoratedBox(
-              decoration: BoxDecoration(
-                color: Colors.green,
-                borderRadius: BorderRadius.circular(2),
+    return GestureDetector(
+      child: DecoratedBox(
+        decoration: BoxDecoration(
+          border: Border(
+            bottom: BorderSide(width: 0.5),
+          ),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(12),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                widget.principal.name.startsWith('user')
+                    ? widget.principal.name.substring(5)
+                    : widget.principal.name,
+                style: TextStyle(fontWeight: FontWeight.bold),
               ),
-              child: Padding(
-                padding: const EdgeInsets.fromLTRB(16, 10, 16, 10),
-                child: Text(
-                  (widget.principal.name.startsWith('user')
-                          ? widget.principal.name.substring(5)
-                          : widget.principal.name) +
-                      ' added',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
+              Icon(
+                _added ? Icons.close : Icons.add,
+                color: _added ? Colors.red.shade300 : null,
               ),
-            ),
-          )
-        : FlatButton(
-            color: Theme.of(context).primaryColor,
-            child: Text(
-              widget.principal.name.startsWith('user')
-                  ? widget.principal.name.substring(5)
-                  : widget.principal.name,
-              style: TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            onPressed: () async {
-              PeopleAdded.add(widget.principal);
-              setState(() => _added = true);
-              widget.scrollController.animateTo(
-                widget.scrollController.position.maxScrollExtent,
-                duration: const Duration(milliseconds: 200),
-                curve: Curves.linear,
-              );
-            },
+            ],
+          ),
+        ),
+      ),
+      onTap: () async {
+        if (_added) {
+          setState(() => _added = false);
+          PeopleAdded.remove(widget.principal);
+          widget.scrollController.jumpTo(
+            widget.scrollController.position.maxScrollExtent,
           );
+        } else {
+          PeopleAdded.add(widget.principal);
+          setState(() => _added = true);
+          widget.scrollController.jumpTo(
+            widget.scrollController.position.maxScrollExtent,
+          );
+        }
+      },
+    );
   }
 }

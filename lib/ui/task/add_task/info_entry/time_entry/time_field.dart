@@ -27,8 +27,12 @@ class _TimeFieldState extends State<TimeField> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      child: Card(
-        margin: const EdgeInsets.only(),
+      child: DecoratedBox(
+        decoration: BoxDecoration(
+          color: Colors.white,
+          border: Border.all(width: 0.1),
+          borderRadius: BorderRadius.circular(4),
+        ),
         child: Padding(
           padding: const EdgeInsets.all(12),
           child: Column(
@@ -66,7 +70,40 @@ class _TimeFieldState extends State<TimeField> {
       ),
       onTap: () {
         FocusScope.of(context).unfocus();
-        showModalBottomSheet(
+        FocusManager.instance.primaryFocus.unfocus();
+        showDatePicker(
+          context: context,
+          initialDate: DateTime.now(),
+          firstDate: DateTime(2000, 12),
+          lastDate: DateTime(2040, 10),
+        ).then(
+          (date) {
+            _time = date;
+            showTimePicker(
+              context: context,
+              initialTime: TimeOfDay(
+                hour: _time.hour,
+                minute: _time.minute,
+              ),
+            ).then(
+              (time) {
+                setState(
+                  () => _time = DateTime(
+                    _time.year,
+                    _time.month,
+                    _time.day,
+                    time.hour,
+                    time.minute,
+                  ),
+                );
+                widget.from
+                    ? NewTaskData.setStartTime(_time.millisecondsSinceEpoch)
+                    : NewTaskData.setEndTime(_time.millisecondsSinceEpoch);
+              },
+            );
+          },
+        );
+        /*showModalBottomSheet(
           context: context,
           builder: (context) => CupertinoApp(
             debugShowCheckedModeBanner: false,
@@ -85,7 +122,7 @@ class _TimeFieldState extends State<TimeField> {
               },
             ),
           ),
-        );
+        );*/
       },
     );
   }

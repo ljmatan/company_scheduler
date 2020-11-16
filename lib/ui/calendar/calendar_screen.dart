@@ -142,7 +142,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
                                             height: 44,
                                             child: Center(
                                               child: Text(
-                                                'Detailed info',
+                                                'Day view',
                                                 style: const TextStyle(
                                                   color: Colors.white,
                                                   fontWeight: FontWeight.bold,
@@ -154,7 +154,8 @@ class _CalendarScreenState extends State<CalendarScreen> {
                                         onTap: () => CalendarView.change('day'),
                                       ),
                                     ),
-                                  if (_taskList.isEmpty)
+                                  if (_taskList.isEmpty &&
+                                      _scrollValue % 1 == 0)
                                     Padding(
                                       padding: const EdgeInsets.only(top: 16),
                                       child: Text(
@@ -186,9 +187,9 @@ class _CalendarScreenState extends State<CalendarScreen> {
                             List _taskList = CalendarProvider.getTaskList(
                               [
                                 TaskDetails(
-                                  startTime: DateTime(2020, 10, 15, 8)
+                                  startTime: DateTime(2020, 10, 15, 8, 26)
                                       .millisecondsSinceEpoch,
-                                  endTime: DateTime(2020, 10, 15, 19)
+                                  endTime: DateTime(2020, 10, 15, 19, 45)
                                       .millisecondsSinceEpoch,
                                   name: 'aaaaaaaa',
                                 ),

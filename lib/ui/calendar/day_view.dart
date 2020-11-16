@@ -33,83 +33,6 @@ class _DayViewState extends State<DayView> {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        if (widget.taskList.isNotEmpty)
-          Positioned(
-            left: MediaQuery.of(context).size.width * 0.2,
-            right: 20,
-            top: 16,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                for (var task in widget.taskList)
-                  SizedBox(
-                    width: (MediaQuery.of(context).size.width * 0.8 - 20) /
-                        widget.taskList.length,
-                    child: StreamBuilder(
-                      stream: _streamController.stream,
-                      initialData: 0.0,
-                      builder: (context, offset) => Transform.translate(
-                        offset: Offset(0, -offset.data),
-                        child: Column(
-                          children: [
-                            Padding(
-                              padding: EdgeInsets.only(
-                                top: 60 * _time(task.startTime).hour.toDouble(),
-                              ),
-                              child: Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 2),
-                                child: DecoratedBox(
-                                  decoration: BoxDecoration(
-                                    color: _time(task.startTime)
-                                            .isAtSameMomentAs(
-                                                _time(task.endTime))
-                                        ? null
-                                        : TaskPriorityColor.color(
-                                            task.priority,
-                                          ),
-                                  ),
-                                  child: SizedBox(
-                                    height: _time(task.startTime)
-                                            .isAtSameMomentAs(
-                                                _time(task.endTime))
-                                        ? 60
-                                        : 60 *
-                                            (_time(task.endTime)
-                                                    .difference(
-                                                        _time(task.startTime))
-                                                    .inHours)
-                                                .toDouble(),
-                                    width: MediaQuery.of(context).size.width,
-                                    child: Align(
-                                      alignment: Alignment.topCenter,
-                                      child: Text(
-                                        task.name,
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                          color: _time(task.startTime)
-                                                  .isAtSameMomentAs(
-                                                      _time(task.endTime))
-                                              ? TaskPriorityColor.color(
-                                                  task.priority,
-                                                )
-                                              : Colors.white,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-              ],
-            ),
-          ),
         ListView(
           controller: _scrollController,
           children: [
@@ -162,6 +85,99 @@ class _DayViewState extends State<DayView> {
             const SizedBox(height: 16),
           ],
         ),
+        if (widget.taskList.isNotEmpty)
+          Positioned(
+            left: MediaQuery.of(context).size.width * 0.2,
+            right: 20,
+            top: 16,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                for (var task in widget.taskList)
+                  SizedBox(
+                    width: (MediaQuery.of(context).size.width * 0.8 - 20) /
+                        widget.taskList.length,
+                    child: StreamBuilder(
+                      stream: _streamController.stream,
+                      initialData: 0.0,
+                      builder: (context, offset) => Transform.translate(
+                        offset: Offset(0, -offset.data),
+                        child: Column(
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.only(
+                                top:
+                                    60 * _time(task.startTime).hour.toDouble() +
+                                                _time(task.startTime).minute >
+                                            0
+                                        ? _time(task.startTime).minute
+                                        : 0,
+                              ),
+                              child: Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 2),
+                                child: DecoratedBox(
+                                  decoration: BoxDecoration(
+                                    color: _time(task.startTime)
+                                            .isAtSameMomentAs(
+                                                _time(task.endTime))
+                                        ? null
+                                        : TaskPriorityColor.color(
+                                            task.priority,
+                                          ),
+                                  ),
+                                  child: SizedBox(
+                                    height: _time(task.startTime)
+                                            .isAtSameMomentAs(
+                                                _time(task.endTime))
+                                        ? 60
+                                        : 60 *
+                                                        (_time(task.endTime)
+                                                                .difference(
+                                                                    _time(task
+                                                                        .startTime))
+                                                                .inHours)
+                                                            .toDouble() -
+                                                    (_time(task.startTime)
+                                                                .minute >
+                                                            0
+                                                        ? _time(task.endTime)
+                                                            .minute
+                                                        : 0) +
+                                                    _time(task.endTime).minute >
+                                                0
+                                            ? _time(task.startTime).minute
+                                            : 0,
+                                    width: MediaQuery.of(context).size.width,
+                                    child: Align(
+                                      alignment: Alignment.topCenter,
+                                      child: Text(
+                                        task.name,
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                          color: _time(task.startTime)
+                                                  .isAtSameMomentAs(
+                                                      _time(task.endTime))
+                                              ? TaskPriorityColor.color(
+                                                  task.priority,
+                                                )
+                                              : Colors.white,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+              ],
+            ),
+          ),
         Positioned(
           bottom: 20,
           right: 20,

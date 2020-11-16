@@ -143,16 +143,28 @@ class _CalendarScreenState extends State<CalendarScreen> {
                         stream: DaySelection.stream,
                         initialData: DaySelection.selected,
                         builder: (context, date) => PageView.builder(
-                          itemBuilder: (context, i) => DayView(
-                            taskList: CalendarProvider.getTaskList(
+                          itemBuilder: (context, i) {
+                            List _taskList = CalendarProvider.getTaskList(
                               [
-                                for (var i = 0; i < 3; i++)
-                                  for (var task in tasks.data)
-                                    TaskDetails.fromJson(task),
+                                TaskDetails(
+                                  startTime: DateTime(2020, 10, 15, 8)
+                                      .millisecondsSinceEpoch,
+                                  endTime: DateTime(2020, 10, 15, 19)
+                                      .millisecondsSinceEpoch,
+                                  name: 'aaaaaaaa',
+                                ),
+                                for (var task in tasks.data)
+                                  TaskDetails.fromJson(task),
                               ],
                               date.data,
-                            ),
-                          ),
+                            );
+                            _taskList.sort(
+                              (a, b) => a.startTime.compareTo(b.startTime),
+                            );
+                            return DayView(
+                              taskList: _taskList,
+                            );
+                          },
                         ),
                       ),
               )

@@ -58,7 +58,7 @@ class CalendarAppBar extends StatelessWidget {
                               )
                             : StreamBuilder(
                                 stream: DaySelection.stream,
-                                initialData: DaySelection.selected,
+                                initialData: DaySelection.selected(),
                                 builder: (context, date) => Text(
                                   date.data.day.toString() +
                                       '. ' +

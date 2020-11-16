@@ -23,6 +23,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
 
   int _pageIndex = 240;
   DateTime _currentDate = DateTime.now();
+  double _scrollValue = 240;
 
   @override
   void initState() {
@@ -32,6 +33,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
     CalendarView.init();
     _pageController.addListener(
       () {
+        _scrollValue = _pageController.page;
         if (_pageController.page.round() != _pageIndex) {
           _pageIndex = _pageController.page.round();
           _currentDate = CalendarProvider.addMonths(
@@ -45,7 +47,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
             DateTime(
               _currentDate.year,
               _currentDate.month,
-              DaySelection.selected.day,
+              DaySelection.selected().day,
             ),
           );
       },
@@ -125,7 +127,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
                                           ),
                                         ),
                                       )
-                                    else if (_pageController.page % 1 == 0)
+                                    else if (_scrollValue % 1 == 0)
                                       for (var task in _taskList)
                                         TaskEntry(task: task),
                                     const SizedBox(height: 16),

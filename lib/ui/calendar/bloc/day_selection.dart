@@ -2,7 +2,7 @@ import 'dart:async';
 
 abstract class DaySelection {
   static DateTime _selected = DateTime.now();
-  static DateTime get selected => _selected;
+  static DateTime selected() => _selected;
 
   static StreamController<DateTime> _streamController;
 

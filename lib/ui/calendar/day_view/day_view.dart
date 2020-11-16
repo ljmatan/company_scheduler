@@ -1,4 +1,5 @@
 import 'package:company_scheduler/logic/api/task/task_details_model.dart';
+import 'package:company_scheduler/ui/shared/task_priority_color.dart';
 import 'package:flutter/material.dart';
 
 class DayView extends StatelessWidget {
@@ -10,6 +11,7 @@ class DayView extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListView(
       children: [
+        const SizedBox(height: 10),
         for (var i = 0; i < 25; i++)
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -20,13 +22,10 @@ class DayView extends StatelessWidget {
                   children: [
                     SizedBox(
                       height: 60,
-                      child: Padding(
-                        padding: const EdgeInsets.only(top: 10),
-                        child: Text(
-                          (i < 10 ? '0$i' : '$i') + ':00',
-                          style: const TextStyle(
-                            color: Colors.black54,
-                          ),
+                      child: Text(
+                        (i < 10 ? '0$i' : '$i') + ':00',
+                        style: const TextStyle(
+                          color: Colors.black54,
                         ),
                       ),
                     ),
@@ -34,16 +33,13 @@ class DayView extends StatelessWidget {
                 ),
               ),
               SizedBox(
+                width: MediaQuery.of(context).size.width * 0.8 - 20,
                 height: 60,
                 child: Stack(
                   children: [
-                    SizedBox(
-                      width: MediaQuery.of(context).size.width * 0.8,
-                      child: Divider(
-                        height: 26,
-                        thickness: 2,
-                        endIndent: 20,
-                      ),
+                    Divider(
+                      height: 0,
+                      thickness: 2,
                     ),
                     if (taskList.isEmpty && i == 0)
                       Positioned(
@@ -56,25 +52,33 @@ class DayView extends StatelessWidget {
                           ),
                         ),
                       )
-                    else if (taskList.contains((e) =>
-                        DateTime.fromMillisecondsSinceEpoch(e.startTime).hour <=
-                            i ||
-                        DateTime.fromMillisecondsSinceEpoch(e.endTime).hour >=
-                            i))
-                      Positioned(
-                        left: 0,
-                        right: 0,
-                        top: 0,
-                        bottom: 0,
-                        child: DecoratedBox(
-                          decoration: BoxDecoration(
-                            color: Colors.green,
-                          ),
-                          child: SizedBox(
-                            width: MediaQuery.of(context).size.width * 0.4,
-                            height: 60,
-                          ),
-                        ),
+                    else
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          for (var task in taskList)
+                            if (DateTime.fromMillisecondsSinceEpoch(
+                                            task.startTime)
+                                        .hour <=
+                                    i &&
+                                DateTime.fromMillisecondsSinceEpoch(
+                                            task.endTime)
+                                        .hour >
+                                    i)
+                              DecoratedBox(
+                                decoration: BoxDecoration(
+                                  color: TaskPriorityColor.color(task.priority),
+                                ),
+                                child: SizedBox(
+                                  width: ((MediaQuery.of(context).size.width *
+                                                  0.8 -
+                                              20) *
+                                          0.9) /
+                                      taskList.length,
+                                  height: 60,
+                                ),
+                              ),
+                        ],
                       ),
                   ],
                 ),

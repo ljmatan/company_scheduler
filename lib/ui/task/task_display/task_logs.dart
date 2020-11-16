@@ -49,64 +49,69 @@ class _TaskLogsState extends State<TaskLogs>
                 Text('Error: ' + logs.error.toString())
               else if (logs.hasData && logs.data.isNotEmpty)
                 for (var log in logs.data)
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text('- '),
-                      Flexible(
-                        child: RichText(
-                          text: TextSpan(
-                            style: const TextStyle(color: Colors.black),
-                            children: [
-                              TextSpan(
-                                text: TaskLog.fromJson(log)
-                                    .description
-                                    .split('<br />')
-                                    .first
-                                    .split('<br/>')
-                                    .first,
-                              ),
-                              TextSpan(
-                                text: ' ' +
-                                    DateTime.fromMillisecondsSinceEpoch(
-                                            TaskLog.fromJson(log).taskLogTime)
-                                        .day
-                                        .toString() +
-                                    '.' +
-                                    DateTime.fromMillisecondsSinceEpoch(
-                                            TaskLog.fromJson(log).taskLogTime)
-                                        .month
-                                        .toString() +
-                                    ' ' +
-                                    (DateTime.fromMillisecondsSinceEpoch(TaskLog.fromJson(log).taskLogTime).hour < 10
-                                        ? '0' +
-                                            DateTime.fromMillisecondsSinceEpoch(TaskLog.fromJson(log).taskLogTime)
-                                                .hour
-                                                .toString()
-                                        : DateTime.fromMillisecondsSinceEpoch(TaskLog.fromJson(log).taskLogTime)
-                                            .hour
-                                            .toString()) +
-                                    ':' +
-                                    (DateTime.fromMillisecondsSinceEpoch(TaskLog.fromJson(log).taskLogTime).minute < 10
-                                        ? '0' +
-                                            DateTime.fromMillisecondsSinceEpoch(TaskLog.fromJson(log)
-                                                    .taskLogTime)
-                                                .minute
-                                                .toString()
-                                        : DateTime.fromMillisecondsSinceEpoch(
-                                                TaskLog.fromJson(log).taskLogTime)
-                                            .minute
-                                            .toString()) +
-                                    'h',
-                                style: const TextStyle(
-                                  color: Colors.black54,
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 6),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text('- '),
+                        Flexible(
+                          child: RichText(
+                            text: TextSpan(
+                              style: const TextStyle(color: Colors.black),
+                              children: [
+                                TextSpan(
+                                  text: TaskLog.fromJson(log)
+                                      .description
+                                      .split('<br />')
+                                      .first
+                                      .split('<br/>')
+                                      .first,
                                 ),
-                              ),
-                            ],
+                                TextSpan(
+                                  text: '\n' +
+                                      DateTime.fromMillisecondsSinceEpoch(
+                                              TaskLog.fromJson(log).taskLogTime)
+                                          .day
+                                          .toString() +
+                                      '.' +
+                                      DateTime.fromMillisecondsSinceEpoch(
+                                              TaskLog.fromJson(log).taskLogTime)
+                                          .month
+                                          .toString() +
+                                      ' ' +
+                                      (DateTime.fromMillisecondsSinceEpoch(TaskLog.fromJson(log).taskLogTime)
+                                                  .hour <
+                                              10
+                                          ? '0' +
+                                              DateTime.fromMillisecondsSinceEpoch(TaskLog.fromJson(log).taskLogTime)
+                                                  .hour
+                                                  .toString()
+                                          : DateTime.fromMillisecondsSinceEpoch(TaskLog.fromJson(log).taskLogTime)
+                                              .hour
+                                              .toString()) +
+                                      ':' +
+                                      (DateTime.fromMillisecondsSinceEpoch(TaskLog.fromJson(log).taskLogTime).minute <
+                                              10
+                                          ? '0' +
+                                              DateTime.fromMillisecondsSinceEpoch(TaskLog.fromJson(log).taskLogTime)
+                                                  .minute
+                                                  .toString()
+                                          : DateTime.fromMillisecondsSinceEpoch(
+                                                  TaskLog.fromJson(log).taskLogTime)
+                                              .minute
+                                              .toString()) +
+                                      'h',
+                                  style: const TextStyle(
+                                    color: Colors.black54,
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   )
               else if (logs.hasData && logs.data.isEmpty)
                 Text('None'),

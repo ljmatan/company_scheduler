@@ -47,7 +47,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
             DateTime(
               _currentDate.year,
               _currentDate.month,
-              DaySelection.selected().day,
+              DaySelection.selected.day,
             ),
           );
       },

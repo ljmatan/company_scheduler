@@ -56,19 +56,21 @@ class CalendarAppBar extends StatelessWidget {
                                   ),
                                 ),
                               )
-                            : StreamBuilder(
-                                stream: DaySelection.stream,
-                                initialData: DaySelection.selected(),
-                                builder: (context, date) => Text(
-                                  date.data.day.toString() +
-                                      '. ' +
-                                      Internationalization.calendar(
-                                        'months',
-                                        date.data.month,
-                                      ),
-                                  style: const TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 18,
+                            : Builder(
+                                builder: (context) => StreamBuilder(
+                                  stream: DaySelection.stream,
+                                  initialData: DaySelection.selected,
+                                  builder: (context, date) => Text(
+                                    date.data.day.toString() +
+                                        '. ' +
+                                        Internationalization.calendar(
+                                          'months',
+                                          date.data.month,
+                                        ),
+                                    style: const TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 18,
+                                    ),
                                   ),
                                 ),
                               ),

@@ -13,8 +13,7 @@ class TaskDescription extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.all(10),
         child: Text(
-          description.split('<br/>').join('\n'),
-          textAlign: TextAlign.center,
+          description.split('<br/>').join('\n').split('<br />').join('\n'),
         ),
       ),
     );

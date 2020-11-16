@@ -3,6 +3,7 @@ import 'package:company_scheduler/ui/shared/task_priority_color.dart';
 import 'package:company_scheduler/ui/task/task_display/principal_list.dart';
 import 'package:company_scheduler/ui/task/task_display/task_comments/task_comments.dart';
 import 'package:company_scheduler/ui/task/task_display/task_description.dart';
+import 'package:company_scheduler/ui/task/task_display/task_logs.dart';
 import 'package:company_scheduler/ui/task/task_display/task_time/task_time.dart';
 import 'package:company_scheduler/ui/task/task_display/task_type_and_subject.dart';
 import 'package:flutter/material.dart';
@@ -66,6 +67,7 @@ class _TaskDisplayState extends State<TaskDisplay> {
           if (widget.task.type != null || widget.task.subject != null)
             TaskTypeAndSubject(task: widget.task),
           PrincipalList(taskID: widget.task.id.toString()),
+          TaskLogs(taskID: widget.task.id.toString()),
           if (startTime != null && endTime != null)
             TaskTime(
               startTime: startTime,

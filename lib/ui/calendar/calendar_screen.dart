@@ -19,7 +19,30 @@ class CalendarScreen extends StatefulWidget {
 }
 
 class _CalendarScreenState extends State<CalendarScreen> {
-  final PageController _pageController = PageController(initialPage: 240);
+  PageController _pageController;
+  void _addPageControllerListener() => _pageController.addListener(
+        () {
+          _scrollValue = _pageController.page;
+          if (_pageController.page.round() != _pageIndex) {
+            _pageIndex = _pageController.page.round();
+            _currentDate = CalendarProvider.addMonths(
+              DateTime.now(),
+              _pageIndex - 240,
+            );
+            DateSelection.change(_currentDate);
+          }
+          if (_pageController.page % 1 == 0)
+            DaySelection.change(
+              DateTime(
+                _currentDate.year,
+                _currentDate.month,
+                DaySelection.selected.day,
+              ),
+            );
+        },
+      );
+
+  final PageController _dayPageController = PageController();
 
   int _pageIndex = 240;
   DateTime _currentDate = DateTime.now();
@@ -31,27 +54,6 @@ class _CalendarScreenState extends State<CalendarScreen> {
     DateSelection.init();
     DaySelection.init();
     CalendarView.init();
-    _pageController.addListener(
-      () {
-        _scrollValue = _pageController.page;
-        if (_pageController.page.round() != _pageIndex) {
-          _pageIndex = _pageController.page.round();
-          _currentDate = CalendarProvider.addMonths(
-            DateTime.now(),
-            _pageIndex - 240,
-          );
-          DateSelection.change(_currentDate);
-        }
-        if (_pageController.page % 1 == 0)
-          DaySelection.change(
-            DateTime(
-              _currentDate.year,
-              _currentDate.month,
-              DaySelection.selected.day,
-            ),
-          );
-      },
-    );
   }
 
   Future<List> _getTasks() async => await TaskAPI.getTaskList();
@@ -72,107 +74,113 @@ class _CalendarScreenState extends State<CalendarScreen> {
             ? StreamBuilder(
                 stream: CalendarView.stream,
                 initialData: 'month',
-                builder: (context, view) => view.data == 'month'
-                    ? PageView.builder(
-                        controller: _pageController,
-                        itemCount: 481,
-                        itemBuilder: (context, index) => ListView(
-                          children: [
-                            DecoratedBox(
-                              decoration: BoxDecoration(
-                                border: Border.all(
-                                  width: 0.1,
-                                  color: Colors.black38,
-                                ),
-                              ),
-                              child: Column(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  for (var row in CalendarProvider.weekRows(
-                                    index == 240
-                                        ? DateTime.now()
-                                        : CalendarProvider.addMonths(
-                                            DateTime.now(),
-                                            index - 240,
-                                          ),
-                                    tasks.data,
-                                    _pageController,
-                                  ))
-                                    row
-                                ],
+                builder: (context, view) {
+                  if (view.data == 'month') {
+                    if (_pageController != null) _pageController.dispose();
+                    _pageController = PageController(initialPage: _pageIndex);
+                    _addPageControllerListener();
+                    return PageView.builder(
+                      controller: _pageController,
+                      itemCount: 481,
+                      itemBuilder: (context, index) => ListView(
+                        children: [
+                          DecoratedBox(
+                            decoration: BoxDecoration(
+                              border: Border.all(
+                                width: 0.1,
+                                color: Colors.black38,
                               ),
                             ),
-                            StreamBuilder(
-                              stream: DaySelection.stream,
-                              initialData: DaySelection.selected,
-                              builder: (context, date) {
-                                List<TaskDetails> _taskList =
-                                    CalendarProvider.getTaskList(
-                                  [
-                                    for (var task in tasks.data)
-                                      TaskDetails.fromJson(task),
-                                  ],
-                                  date.data,
-                                );
-                                return Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    if (_taskList.isEmpty)
-                                      Padding(
-                                        padding: const EdgeInsets.only(top: 16),
-                                        child: Text(
-                                          'No tasks found',
-                                          textAlign: TextAlign.center,
-                                          style: const TextStyle(
-                                            color: Colors.black54,
-                                          ),
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                for (var row in CalendarProvider.weekRows(
+                                  index == 240
+                                      ? DateTime.now()
+                                      : CalendarProvider.addMonths(
+                                          DateTime.now(),
+                                          index - 240,
                                         ),
-                                      )
-                                    else if (_scrollValue % 1 == 0)
-                                      for (var task in _taskList)
-                                        TaskEntry(task: task),
-                                    const SizedBox(height: 16),
-                                  ],
-                                );
-                              },
+                                  tasks.data,
+                                  _pageController,
+                                ))
+                                  row
+                              ],
                             ),
-                          ],
-                        ),
-                      )
-                    : StreamBuilder(
-                        stream: DaySelection.stream,
-                        initialData: DaySelection.selected,
-                        builder: (context, date) => WillPopScope(
-                          child: PageView.builder(
-                            itemBuilder: (context, i) {
-                              List _taskList = CalendarProvider.getTaskList(
+                          ),
+                          StreamBuilder(
+                            stream: DaySelection.stream,
+                            initialData: DaySelection.selected,
+                            builder: (context, date) {
+                              List<TaskDetails> _taskList =
+                                  CalendarProvider.getTaskList(
                                 [
-                                  TaskDetails(
-                                    startTime: DateTime(2020, 10, 15, 8)
-                                        .millisecondsSinceEpoch,
-                                    endTime: DateTime(2020, 10, 15, 19)
-                                        .millisecondsSinceEpoch,
-                                    name: 'aaaaaaaa',
-                                  ),
                                   for (var task in tasks.data)
                                     TaskDetails.fromJson(task),
                                 ],
                                 date.data,
                               );
-                              _taskList.sort(
-                                (a, b) => a.startTime.compareTo(b.startTime),
-                              );
-                              return DayView(
-                                taskList: _taskList,
+                              return Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  if (_taskList.isEmpty)
+                                    Padding(
+                                      padding: const EdgeInsets.only(top: 16),
+                                      child: Text(
+                                        'No tasks found',
+                                        textAlign: TextAlign.center,
+                                        style: const TextStyle(
+                                          color: Colors.black54,
+                                        ),
+                                      ),
+                                    )
+                                  else if (_scrollValue % 1 == 0)
+                                    for (var task in _taskList)
+                                      TaskEntry(task: task),
+                                  const SizedBox(height: 16),
+                                ],
                               );
                             },
                           ),
-                          onWillPop: () async {
-                            CalendarView.change('month');
-                            return false;
+                        ],
+                      ),
+                    );
+                  } else
+                    return StreamBuilder(
+                      stream: DaySelection.stream,
+                      initialData: DaySelection.selected,
+                      builder: (context, date) => WillPopScope(
+                        child: PageView.builder(
+                          itemBuilder: (context, i) {
+                            List _taskList = CalendarProvider.getTaskList(
+                              [
+                                TaskDetails(
+                                  startTime: DateTime(2020, 10, 15, 8)
+                                      .millisecondsSinceEpoch,
+                                  endTime: DateTime(2020, 10, 15, 19)
+                                      .millisecondsSinceEpoch,
+                                  name: 'aaaaaaaa',
+                                ),
+                                for (var task in tasks.data)
+                                  TaskDetails.fromJson(task),
+                              ],
+                              date.data,
+                            );
+                            _taskList.sort(
+                              (a, b) => a.startTime.compareTo(b.startTime),
+                            );
+                            return DayView(
+                              taskList: _taskList,
+                            );
                           },
                         ),
+                        onWillPop: () async {
+                          CalendarView.change('month');
+                          return false;
+                        },
                       ),
+                    );
+                },
               )
             : Center(child: CustomSpinningIndicator()),
       ),
@@ -182,6 +190,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
   @override
   void dispose() {
     _pageController.dispose();
+    _dayPageController.dispose();
     CalendarView.dispose();
     DateSelection.dispose();
     DaySelection.dispose();

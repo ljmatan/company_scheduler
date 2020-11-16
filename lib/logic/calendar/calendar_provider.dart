@@ -24,7 +24,7 @@ class CalendarProvider {
   static bool _isLeapYear(int value) =>
       value % 400 == 0 || (value % 4 == 0 && value % 100 != 0);
 
-  static int _daysInMonth(int year, int month) {
+  static int daysInMonth(int year, int month) {
     var result = _daysInMonthList[month];
     if (month == 2 && _isLeapYear(year)) result++;
     return result;
@@ -40,7 +40,7 @@ class CalendarProvider {
     final int month = selectedDate.month;
     final int year = selectedDate.year;
     final int firstInMonthday = DateTime(year, month).weekday;
-    final int daysInMonth = _daysInMonth(year, month);
+    final int daysInThisMonth = daysInMonth(year, month);
 
     for (int i = 0; i < 6; i++) {
       List<Widget> days = [];
@@ -50,7 +50,7 @@ class CalendarProvider {
           dayNr++) {
         // Set below to dayNr - 2 * firstInMonthday + 1 for sun - mon display
         final int day = dayNr - 2 * firstInMonthday + 2;
-        final int inNextMonth = day - daysInMonth;
+        final int inNextMonth = day - daysInThisMonth;
         final int inDateDay = month < 8
             ? day +
                 (month == 1
@@ -59,30 +59,30 @@ class CalendarProvider {
                         ? year % 4 == 0
                             ? 29
                             : 28
-                        : daysInMonth == 31
-                            ? daysInMonth - 1
+                        : daysInThisMonth == 31
+                            ? daysInThisMonth - 1
                             : month != 2
-                                ? daysInMonth + 1
+                                ? daysInThisMonth + 1
                                 : year % 4 == 0
-                                    ? daysInMonth + 2
-                                    : daysInMonth + 3)
+                                    ? daysInThisMonth + 2
+                                    : daysInThisMonth + 3)
             : day +
-                (daysInMonth == 31 && month == 8
+                (daysInThisMonth == 31 && month == 8
                     ? 31
-                    : daysInMonth == 31
-                        ? daysInMonth - 1
+                    : daysInThisMonth == 31
+                        ? daysInThisMonth - 1
                         : month != 2
-                            ? daysInMonth + 1
+                            ? daysInThisMonth + 1
                             : year % 4 == 0
-                                ? daysInMonth + 2
-                                : daysInMonth + 3);
+                                ? daysInThisMonth + 2
+                                : daysInThisMonth + 3);
 
-        final bool _inNextMonth = day > daysInMonth;
+        final bool _inNextMonth = day > daysInThisMonth;
 
         final int dateDay = _inNextMonth ? inNextMonth : inDateDay;
 
         days.add(
-          day > 0 && day <= daysInMonth
+          day > 0 && day <= daysInThisMonth
               ? DayCurrentMonth(
                   day: day,
                   date: selectedDate,
@@ -114,7 +114,7 @@ class CalendarProvider {
       newYear++;
       newMonth -= 12;
     }
-    var newDay = math.min(dt.day, _daysInMonth(newYear, newMonth));
+    var newDay = math.min(dt.day, daysInMonth(newYear, newMonth));
     if (dt.isUtc) {
       return new DateTime.utc(newYear, newMonth, newDay, dt.hour, dt.minute,
           dt.second, dt.millisecond, dt.microsecond);

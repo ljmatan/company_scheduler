@@ -57,7 +57,10 @@ class _TaskCommentsState extends State<TaskComments>
               for (var comment in comments.data)
                 Comment(comment: TaskComment.fromJson(comment))
             else if (comments.hasData && comments.data.isEmpty)
-              Text('None')
+              Padding(
+                padding: const EdgeInsets.only(bottom: 8),
+                child: Text('None'),
+              ),
           ],
         ),
       ),

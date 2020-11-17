@@ -20,12 +20,8 @@ class NewCommentRow extends StatefulWidget {
 class _NewCommentRowState extends State<NewCommentRow> {
   final PageController _pageController = PageController();
   final TextEditingController _newCommentController = TextEditingController();
-  final TextEditingController _timeWorkedController = TextEditingController();
-
-  @override
-  void initState() {
-    super.initState();
-  }
+  final TextEditingController _timeWorkedController =
+      TextEditingController(text: '0');
 
   @override
   Widget build(BuildContext context) {

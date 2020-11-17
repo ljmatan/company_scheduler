@@ -80,7 +80,7 @@ class SubmitComment extends StatelessWidget {
                     int.parse(taskID),
                     commentController.text,
                     DateTime.now().millisecondsSinceEpoch,
-                    double.parse(controller.text),
+                    double.parse(controller.text == '' ? '0' : controller.text),
                   );
                   if (response['id'] != null)
                     ScaffoldMessenger.of(context).showSnackBar(

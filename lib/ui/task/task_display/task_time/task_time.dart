@@ -1,5 +1,4 @@
 import 'package:company_scheduler/ui/task/task_display/task_time/from_to_time.dart';
-import 'package:company_scheduler/ui/task/task_display/task_time/time.dart';
 import 'package:flutter/material.dart';
 
 class TaskTime extends StatelessWidget {
@@ -10,21 +9,14 @@ class TaskTime extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.fromLTRB(
-        16,
-        startTime.isAtSameMomentAs(endTime) ? 0 : 10,
-        16,
-        startTime.isAtSameMomentAs(endTime) ? 16 : 22,
+      padding: EdgeInsets.fromLTRB(16, 10, 16, 22),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          FromToTime(time: startTime, label: 'from'),
+          FromToTime(time: endTime, label: 'to'),
+        ],
       ),
-      child: startTime.isAtSameMomentAs(endTime)
-          ? Time(time: startTime)
-          : Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                FromToTime(time: startTime, label: 'from'),
-                FromToTime(time: endTime, label: 'to'),
-              ],
-            ),
     );
   }
 }

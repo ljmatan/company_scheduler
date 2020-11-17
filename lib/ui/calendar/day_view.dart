@@ -20,11 +20,35 @@ class _DayViewState extends State<DayView> {
   final StreamController<double> _streamController =
       StreamController<double>.broadcast();
 
+  final _onError = FlutterError.onError;
+
   @override
   void initState() {
     super.initState();
     _scrollController
         .addListener(() => _streamController.add(_scrollController.offset));
+    // Ignore overflow on this screen due to custom view implemented
+    Function ignoreOverflowErrors = (
+      FlutterErrorDetails details, {
+      bool forceReport = false,
+    }) {
+      assert(details != null);
+      assert(details.exception != null);
+      // ---
+
+      bool ifIsOverflowError = false;
+
+      // Detect overflow error.
+      var exception = details.exception;
+      if (exception is FlutterError)
+        ifIsOverflowError = !exception.diagnostics.any(
+            (e) => e.value.toString().startsWith("A RenderFlex overflowed by"));
+
+      // Ignore if is overflow error.
+      if (!ifIsOverflowError)
+        FlutterError.dumpErrorToConsole(details, forceReport: forceReport);
+    };
+    FlutterError.onError = ignoreOverflowErrors;
   }
 
   DateTime _time(int time) => DateTime.fromMillisecondsSinceEpoch(time);
@@ -33,57 +57,45 @@ class _DayViewState extends State<DayView> {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        ListView(
-          controller: _scrollController,
-          children: [
-            const SizedBox(height: 16),
-            for (var i = 0; i < 24; i++)
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
+        Padding(
+          padding:
+              EdgeInsets.only(left: MediaQuery.of(context).size.width * 0.2),
+          child: StreamBuilder(
+            stream: _streamController.stream,
+            initialData: 0.0,
+            builder: (context, offset) => Transform.translate(
+              offset: Offset(0, -offset.data),
+              child: Column(
                 children: [
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.2,
-                    child: Column(
-                      children: [
-                        SizedBox(
-                          height: 60,
-                          child: Text(
-                            (i < 10 ? '0$i' : '$i') + ':00',
-                            style: const TextStyle(
-                              color: Colors.black54,
-                            ),
+                  const SizedBox(height: 16),
+                  for (var i = 0; i < 24; i++)
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width * 0.8 - 20,
+                      height: 60,
+                      child: Stack(
+                        children: [
+                          Divider(
+                            height: 0,
+                            thickness: 2,
                           ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.8 - 20,
-                    height: 60,
-                    child: Stack(
-                      children: [
-                        Divider(
-                          height: 0,
-                          thickness: 2,
-                        ),
-                        if (widget.taskList.isEmpty && i == 0)
-                          Positioned(
-                            left: 0,
-                            right: 0,
-                            child: SizedBox(
-                              height: 60,
-                              child: Center(
-                                child: Text('No tasks'),
+                          if (widget.taskList.isEmpty && i == 0)
+                            Positioned(
+                              left: 0,
+                              right: 0,
+                              child: SizedBox(
+                                height: 60,
+                                child: Center(
+                                  child: Text('No tasks'),
+                                ),
                               ),
                             ),
-                          ),
-                      ],
+                        ],
+                      ),
                     ),
-                  ),
                 ],
               ),
-            const SizedBox(height: 16),
-          ],
+            ),
+          ),
         ),
         if (widget.taskList.isNotEmpty)
           Positioned(
@@ -107,12 +119,9 @@ class _DayViewState extends State<DayView> {
                           children: [
                             Padding(
                               padding: EdgeInsets.only(
-                                top:
-                                    60 * _time(task.startTime).hour.toDouble() +
-                                                _time(task.startTime).minute >
-                                            0
-                                        ? _time(task.startTime).minute
-                                        : 0,
+                                top: (60 *
+                                        _time(task.startTime).hour.toDouble()) +
+                                    _time(task.startTime).minute.toDouble(),
                               ),
                               child: Padding(
                                 padding:
@@ -132,23 +141,18 @@ class _DayViewState extends State<DayView> {
                                             .isAtSameMomentAs(
                                                 _time(task.endTime))
                                         ? 60
-                                        : 60 *
-                                                        (_time(task.endTime)
-                                                                .difference(
-                                                                    _time(task
-                                                                        .startTime))
-                                                                .inHours)
-                                                            .toDouble() -
-                                                    (_time(task.startTime)
-                                                                .minute >
-                                                            0
-                                                        ? _time(task.endTime)
-                                                            .minute
-                                                        : 0) +
-                                                    _time(task.endTime).minute >
-                                                0
-                                            ? _time(task.startTime).minute
-                                            : 0,
+                                        : (60 *
+                                                (_time(task.endTime)
+                                                        .difference(_time(
+                                                            task.startTime))
+                                                        .inHours)
+                                                    .toDouble()) -
+                                            _time(task.startTime)
+                                                .minute
+                                                .toDouble() +
+                                            _time(task.endTime)
+                                                .minute
+                                                .toDouble(),
                                     width: MediaQuery.of(context).size.width,
                                     child: Align(
                                       alignment: Alignment.topCenter,
@@ -178,6 +182,35 @@ class _DayViewState extends State<DayView> {
               ],
             ),
           ),
+        ListView(
+          controller: _scrollController,
+          children: [
+            const SizedBox(height: 16),
+            for (var i = 0; i < 24; i++)
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.2,
+                    child: Column(
+                      children: [
+                        SizedBox(
+                          height: 60,
+                          child: Text(
+                            (i < 10 ? '0$i' : '$i') + ':00',
+                            style: const TextStyle(
+                              color: Colors.black54,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            const SizedBox(height: 16),
+          ],
+        ),
         Positioned(
           bottom: 20,
           right: 20,
@@ -205,6 +238,7 @@ class _DayViewState extends State<DayView> {
 
   @override
   void dispose() {
+    FlutterError.onError = _onError;
     _scrollController.dispose();
     _streamController.close();
     super.dispose();

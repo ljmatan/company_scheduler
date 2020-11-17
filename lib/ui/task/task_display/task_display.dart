@@ -67,13 +67,13 @@ class _TaskDisplayState extends State<TaskDisplay> {
           if (widget.task.type != null || widget.task.subject != null)
             TaskTypeAndSubject(task: widget.task),
           PrincipalList(taskID: widget.task.id.toString()),
-          TaskLogs(taskID: widget.task.id.toString()),
           if (startTime != null && endTime != null)
             TaskTime(
               startTime: startTime,
               endTime: endTime,
             ),
           TaskComments(taskID: widget.task.id.toString()),
+          TaskLogs(taskID: widget.task.id.toString()),
         ],
       ),
     );

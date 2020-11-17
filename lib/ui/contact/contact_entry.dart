@@ -56,11 +56,8 @@ class ContactEntry extends StatelessWidget {
         ),
         onTap: () {
           FocusScope.of(context).unfocus();
-          showModalBottomSheet(
-            isScrollControlled: true,
-            context: context,
-            builder: (context) => ContactDisplay(contact: contact),
-          );
+          Navigator.of(context).push(MaterialPageRoute(
+              builder: (context) => ContactDisplay(contact: contact)));
         },
       ),
     );

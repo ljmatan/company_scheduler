@@ -63,11 +63,9 @@ class CompanyEntry extends StatelessWidget {
         ),
         onTap: () {
           FocusScope.of(context).unfocus();
-          showModalBottomSheet(
-            isScrollControlled: true,
-            context: context,
+          Navigator.of(context).push(MaterialPageRoute(
             builder: (context) => CompanyDisplay(company: company),
-          );
+          ));
         },
       ),
     );

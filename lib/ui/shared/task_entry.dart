@@ -29,7 +29,7 @@ class TaskEntry extends StatelessWidget {
             color: Colors.white,
           ),
           child: SizedBox(
-            height: 56,
+            height: 64,
             child: DefaultTextStyle(
               style: const TextStyle(color: Colors.black54),
               child: Row(
@@ -75,27 +75,49 @@ class TaskEntry extends StatelessWidget {
                         Text(task.percent == null
                             ? ''
                             : (task.percent.toString() + '%')),
-                        Text(
-                          startTime != null && endTime != null
-                              ? (startTime.day < 10
-                                      ? '0' + startTime.day.toString()
-                                      : startTime.day.toString()) +
-                                  '/' +
-                                  (startTime.month < 10
-                                      ? '0' + startTime.month.toString()
-                                      : startTime.month.toString()) +
-                                  (startTime.isAtSameMomentAs(endTime)
-                                      ? ''
-                                      : (' - ' +
-                                          (endTime.day < 10
-                                              ? '0' + endTime.day.toString()
-                                              : endTime.day.toString()) +
-                                          '/' +
-                                          (endTime.month < 10
-                                              ? '0' + endTime.month.toString()
-                                              : endTime.month.toString())))
-                              : '',
-                        ),
+                        if (startTime != null && endTime != null)
+                          Padding(
+                            padding: const EdgeInsets.only(top: 4),
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Text(
+                                  (startTime.day < 10
+                                          ? '0' + startTime.day.toString()
+                                          : startTime.day.toString()) +
+                                      '/' +
+                                      (startTime.month < 10
+                                          ? '0' + startTime.month.toString()
+                                          : startTime.month.toString()) +
+                                      ' ' +
+                                      (startTime.hour < 10
+                                          ? '0' + startTime.hour.toString()
+                                          : startTime.hour.toString()) +
+                                      ':' +
+                                      (startTime.minute < 10
+                                          ? '0' + startTime.minute.toString()
+                                          : startTime.minute.toString()),
+                                ),
+                                Text(
+                                  (endTime.day < 10
+                                          ? '0' + endTime.day.toString()
+                                          : endTime.day.toString()) +
+                                      '/' +
+                                      (endTime.month < 10
+                                          ? '0' + endTime.month.toString()
+                                          : endTime.month.toString()) +
+                                      ' ' +
+                                      (endTime.hour < 10
+                                          ? '0' + endTime.hour.toString()
+                                          : endTime.hour.toString()) +
+                                      ':' +
+                                      (endTime.minute < 10
+                                          ? '0' + endTime.minute.toString()
+                                          : endTime.minute.toString()),
+                                ),
+                              ],
+                            ),
+                          ),
                       ],
                     ),
                   ),

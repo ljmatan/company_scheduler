@@ -4,6 +4,7 @@ import 'package:company_scheduler/logic/local_storage/prefs.dart';
 import 'package:company_scheduler/ui/other/scroll_behavior.dart';
 import 'package:company_scheduler/ui/main_view/main_view.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 void main() async {
   // Required by framework
@@ -50,6 +51,14 @@ class CompanyScheduler extends StatelessWidget {
         behavior: CustomScrollBehavior(),
         child: child,
       ),
+      // Language support
+      localizationsDelegates: [
+        GlobalMaterialLocalizations.delegate,
+      ],
+      supportedLocales: [
+        const Locale('en'),
+        const Locale('rs'),
+      ],
     );
   }
 }

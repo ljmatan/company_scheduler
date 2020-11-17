@@ -1,4 +1,5 @@
 import 'package:company_scheduler/logic/api/task/task_api.dart';
+import 'package:company_scheduler/logic/i18n/i18n.dart';
 import 'package:flutter/material.dart';
 import 'package:company_scheduler/ui/shared/custom_spinning_indicator.dart';
 import 'package:company_scheduler/logic/api/task/principal_model.dart';
@@ -39,7 +40,7 @@ class _PrincipalListState extends State<PrincipalList>
                 Padding(
                   padding: const EdgeInsets.only(bottom: 6),
                   child: Text(
-                    'People',
+                    Internationalization.task('people'),
                     style: const TextStyle(
                       fontWeight: FontWeight.bold,
                     ),
@@ -51,7 +52,11 @@ class _PrincipalListState extends State<PrincipalList>
                     child: Center(child: CustomSpinningIndicator(size: 40)),
                   )
                 else if (users.hasError)
-                  Text('Error: ' + users.error.toString())
+                  Text(
+                    Internationalization.misc('error') +
+                        ': ' +
+                        users.error.toString(),
+                  )
                 else if (users.hasData && users.data.isNotEmpty)
                   for (var user in users.data)
                     Text(
@@ -61,7 +66,7 @@ class _PrincipalListState extends State<PrincipalList>
                               : Principal.fromJson(user).name),
                     )
                 else if (users.hasData && users.data.isEmpty)
-                  Text('None'),
+                  Text(Internationalization.task('none')),
               ],
             ),
           ),

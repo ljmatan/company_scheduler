@@ -1,3 +1,4 @@
+import 'package:company_scheduler/logic/i18n/i18n.dart';
 import 'package:company_scheduler/ui/shared/button_row/action_button.dart';
 import 'package:flutter/material.dart';
 
@@ -23,12 +24,12 @@ class ButtonRow extends StatelessWidget {
         children: [
           ActionButton(
             icon: Icons.call,
-            label: 'Call',
+            label: Internationalization.results('call'),
             url: houseNumber != null ? 'tel:$houseNumber' : null,
           ),
           ActionButton(
             icon: Icons.message,
-            label: 'Text',
+            label: Internationalization.results('text'),
             url: phoneNumber != null ? 'sms:$phoneNumber' : null,
           ),
           ActionButton(

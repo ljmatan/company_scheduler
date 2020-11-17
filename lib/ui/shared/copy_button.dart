@@ -1,3 +1,4 @@
+import 'package:company_scheduler/logic/i18n/i18n.dart';
 import 'package:company_scheduler/ui/shared/bloc/copied.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -30,7 +31,7 @@ class _CopyButtonState extends State<CopyButton> {
                 child: Padding(
                   padding: const EdgeInsets.fromLTRB(16, 10, 16, 10),
                   child: Text(
-                    'Copied',
+                    Internationalization.results('copied'),
                     style: TextStyle(
                       color: Colors.white,
                       fontWeight: FontWeight.bold,

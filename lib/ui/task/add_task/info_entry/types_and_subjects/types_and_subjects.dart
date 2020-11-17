@@ -1,3 +1,4 @@
+import 'package:company_scheduler/logic/i18n/i18n.dart';
 import 'package:company_scheduler/ui/task/add_task/info_entry/types_and_subjects/add_dialog.dart';
 import 'package:company_scheduler/ui/task/add_task/info_entry/types_and_subjects/bloc/task_and_types_input.dart';
 import 'package:company_scheduler/ui/task/add_task/info_entry/types_and_subjects/bloc/task_type_selection.dart';
@@ -36,7 +37,7 @@ class _TypesAndSubjectsState extends State<TypesAndSubjects> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text('Type and subject'),
+                  Text(Internationalization.task('type and subject')),
                   IconButton(
                     icon: Icon(Icons.add, color: Colors.green),
                     onPressed: () {
@@ -57,7 +58,8 @@ class _TypesAndSubjectsState extends State<TypesAndSubjects> {
                 child: info.hasData
                     ? Text(info.data.split('+').join(' - '))
                     : Text(
-                        'Tap on the + icon to select task and type',
+                        Internationalization.task(
+                            'tap on the + icon to select task and type'),
                         style: const TextStyle(color: Colors.black54),
                       ),
               ),

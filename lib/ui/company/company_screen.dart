@@ -79,7 +79,8 @@ class _CompanyScreenState extends State<CompanyScreen> {
                                     companies.data[0]['status'] == 400
                             ? Center(
                                 child: Text(
-                                  'Error: ' +
+                                  Internationalization.misc('error') +
+                                      ': ' +
                                       (companies.hasData &&
                                               companies.data.isNotEmpty &&
                                               companies.data[0]['status'] == 400
@@ -92,10 +93,13 @@ class _CompanyScreenState extends State<CompanyScreen> {
                                 ? Center(
                                     child: Text(
                                       text.data == ''
-                                          ? 'Enter a search term'
+                                          ? Internationalization.search(
+                                              'enter a search term')
                                           : text.data.trim().length < 3
-                                              ? 'Enter at least 3 characters'
-                                              : 'No companies found',
+                                              ? Internationalization.search(
+                                                  'enter at least 3 characters')
+                                              : Internationalization.search(
+                                                  'no results'),
                                       textAlign: TextAlign.center,
                                     ),
                                   )

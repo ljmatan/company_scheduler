@@ -43,7 +43,9 @@ class _TaskScreenState extends State<TaskScreen> {
         builder: (context, tasks) => tasks.hasError
             ? Center(
                 child: Text(
-                  'Error: ' + tasks.error.toString(),
+                  Internationalization.misc('error') +
+                      ': ' +
+                      tasks.error.toString(),
                   textAlign: TextAlign.center,
                 ),
               )

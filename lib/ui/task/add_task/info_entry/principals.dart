@@ -1,3 +1,4 @@
+import 'package:company_scheduler/logic/i18n/i18n.dart';
 import 'package:company_scheduler/ui/task/add_task/data.dart';
 import 'package:company_scheduler/ui/task/add_task/info_entry/people_search/bloc/people_added.dart';
 import 'package:company_scheduler/ui/task/add_task/info_entry/people_search/add_dialog.dart';
@@ -39,7 +40,7 @@ class _PrincipalsState extends State<Principals> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text('People'),
+                  Text(Internationalization.task('people')),
                   IconButton(
                     icon: Icon(Icons.add, color: Colors.green),
                     onPressed: () {
@@ -66,7 +67,9 @@ class _PrincipalsState extends State<Principals> {
                   ? Padding(
                       padding: const EdgeInsets.fromLTRB(12, 0, 12, 12),
                       child: Text(
-                        'Tap on the + icon to add people',
+                        Internationalization.task(
+                          'tap on the + icon to add people',
+                        ),
                         style: const TextStyle(
                           color: Colors.black54,
                         ),

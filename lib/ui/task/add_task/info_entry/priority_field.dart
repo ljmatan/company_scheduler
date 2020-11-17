@@ -1,3 +1,4 @@
+import 'package:company_scheduler/logic/i18n/i18n.dart';
 import 'package:company_scheduler/ui/task/add_task/data.dart';
 import 'package:flutter/material.dart';
 
@@ -25,25 +26,25 @@ class _PriorityFieldState extends State<PriorityField> {
           padding: const EdgeInsets.all(12),
           child: DropdownButton(
             value: _value,
-            hint: Text('Priority'),
+            hint: Text(Internationalization.task('priority')),
             isExpanded: true,
             isDense: true,
             items: [
               DropdownMenuItem(
                 value: 0,
-                child: Text('Low priority'),
+                child: Text(Internationalization.task('low priority')),
               ),
               DropdownMenuItem(
                 value: 3,
-                child: Text('Medium priority'),
+                child: Text(Internationalization.task('medium priority')),
               ),
               DropdownMenuItem(
                 value: 6,
-                child: Text('High priority'),
+                child: Text(Internationalization.task('high priority')),
               ),
               DropdownMenuItem(
                 value: 10,
-                child: Text('Critical priority'),
+                child: Text(Internationalization.task('critical priority')),
               ),
             ],
             onChanged: (value) {

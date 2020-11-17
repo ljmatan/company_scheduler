@@ -1,3 +1,4 @@
+import 'package:company_scheduler/logic/i18n/i18n.dart';
 import 'package:company_scheduler/ui/task/add_task/info_entry/project_search/search_dialog.dart';
 import 'package:flutter/material.dart';
 
@@ -15,7 +16,7 @@ class ProjectSearchButton extends StatelessWidget {
           enabled: false,
           controller: textEditingController,
           decoration: InputDecoration(
-            hintText: 'Project',
+            hintText: Internationalization.task('project'),
             filled: true,
             fillColor: Colors.white,
             suffixIcon: Icon(Icons.search),

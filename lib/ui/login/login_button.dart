@@ -77,7 +77,9 @@ class _LoginButtonState extends State<LoginButton> {
                     widget.animationController.forward();
                   } else if (response['status'] == 400) {
                     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                        content: Text('Error: ' + response['message'])));
+                        content: Text(Internationalization.misc('error') +
+                            ': ' +
+                            response['message'])));
                     _changeState(false);
                   } else
                     throw Internationalization.login('unknown error');
@@ -85,7 +87,7 @@ class _LoginButtonState extends State<LoginButton> {
                   _changeState(false);
                   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                       content: Text(
-                    Internationalization.login('error') + ': ' + e.toString(),
+                    Internationalization.misc('error') + ': ' + e.toString(),
                   )));
                 }
               },

@@ -1,3 +1,4 @@
+import 'package:company_scheduler/logic/i18n/i18n.dart';
 import 'package:company_scheduler/ui/shared/copy_button.dart';
 import 'package:flutter/material.dart';
 
@@ -32,7 +33,7 @@ class InfoRow extends StatelessWidget {
                   ? CopyButton(details: details)
                   : Text(details)
               : Text(
-                  'no info',
+                  Internationalization.results('no info'),
                   style: const TextStyle(
                     color: Colors.black54,
                   ),

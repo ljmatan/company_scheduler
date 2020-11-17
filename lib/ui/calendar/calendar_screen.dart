@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:company_scheduler/logic/api/task/task_api.dart';
 import 'package:company_scheduler/logic/api/task/task_details_model.dart';
 import 'package:company_scheduler/logic/calendar/calendar_provider.dart';
+import 'package:company_scheduler/logic/i18n/i18n.dart';
 import 'package:company_scheduler/ui/calendar/appbar/appbar.dart';
 import 'package:company_scheduler/ui/calendar/bloc/date_selection.dart';
 import 'package:company_scheduler/ui/calendar/bloc/day_selection.dart';
@@ -142,7 +143,10 @@ class _CalendarScreenState extends State<CalendarScreen> {
                                             height: 44,
                                             child: Center(
                                               child: Text(
-                                                'Day view',
+                                                Internationalization.calendar(
+                                                  'misc',
+                                                  'day view',
+                                                ),
                                                 style: const TextStyle(
                                                   color: Colors.white,
                                                   fontWeight: FontWeight.bold,
@@ -159,7 +163,10 @@ class _CalendarScreenState extends State<CalendarScreen> {
                                     Padding(
                                       padding: const EdgeInsets.only(top: 16),
                                       child: Text(
-                                        'No tasks found',
+                                        Internationalization.calendar(
+                                          'misc',
+                                          'no tasks found',
+                                        ),
                                         textAlign: TextAlign.center,
                                         style: const TextStyle(
                                           color: Colors.black54,

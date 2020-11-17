@@ -1,3 +1,4 @@
+import 'package:company_scheduler/logic/i18n/i18n.dart';
 import 'package:flutter/material.dart';
 
 class NewCommentField extends StatelessWidget {
@@ -20,7 +21,7 @@ class NewCommentField extends StatelessWidget {
             decoration: InputDecoration(
               filled: true,
               fillColor: Colors.white,
-              hintText: 'New comment',
+              hintText: Internationalization.task('new comment'),
               border: OutlineInputBorder(
                 borderSide: BorderSide(width: 0.1),
               ),

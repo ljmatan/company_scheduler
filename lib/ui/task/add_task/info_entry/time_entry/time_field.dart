@@ -1,3 +1,4 @@
+import 'package:company_scheduler/logic/i18n/i18n.dart';
 import 'package:company_scheduler/ui/task/add_task/data.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -40,7 +41,9 @@ class _TimeFieldState extends State<TimeField> {
               Padding(
                 padding: const EdgeInsets.only(bottom: 5),
                 child: Text(
-                  widget.from ? 'from' : 'to',
+                  Internationalization.task(
+                    widget.from ? 'from' : 'to',
+                  ),
                   style: const TextStyle(color: Colors.grey),
                 ),
               ),
@@ -73,6 +76,7 @@ class _TimeFieldState extends State<TimeField> {
         FocusManager.instance.primaryFocus.unfocus();
         showDatePicker(
           context: context,
+          locale: Locale(Internationalization.languageCode),
           initialDate: DateTime.now(),
           firstDate: DateTime(2000, 12),
           lastDate: DateTime(2040, 10),
@@ -103,26 +107,6 @@ class _TimeFieldState extends State<TimeField> {
             );
           },
         );
-        /*showModalBottomSheet(
-          context: context,
-          builder: (context) => CupertinoApp(
-            debugShowCheckedModeBanner: false,
-            theme: CupertinoThemeData(brightness: Brightness.light),
-            home: CupertinoDatePicker(
-              use24hFormat: true,
-              initialDateTime: DateTime.now().add(Duration(hours: 1)),
-              minimumDate: DateTime(DateTime.now().year, DateTime.now().month,
-                  DateTime.now().day),
-              maximumDate: DateTime(10000),
-              onDateTimeChanged: (date) {
-                widget.from
-                    ? NewTaskData.setStartTime(date.millisecondsSinceEpoch)
-                    : NewTaskData.setEndTime(date.millisecondsSinceEpoch);
-                setState(() => _time = date);
-              },
-            ),
-          ),
-        );*/
       },
     );
   }

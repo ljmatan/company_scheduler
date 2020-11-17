@@ -1,4 +1,5 @@
 import 'package:company_scheduler/logic/api/task/task_api.dart';
+import 'package:company_scheduler/logic/i18n/i18n.dart';
 import 'package:company_scheduler/ui/task/task_display/task_comments/comment.dart';
 import 'package:company_scheduler/ui/task/task_display/task_comments/new_comment/new_comment_row.dart';
 import 'package:flutter/material.dart';
@@ -36,7 +37,7 @@ class _TaskCommentsState extends State<TaskComments>
             Padding(
               padding: const EdgeInsets.only(bottom: 10),
               child: Text(
-                'Comments',
+                Internationalization.task('comments'),
                 style: const TextStyle(
                   fontWeight: FontWeight.bold,
                 ),
@@ -52,14 +53,18 @@ class _TaskCommentsState extends State<TaskComments>
                 child: Center(child: CustomSpinningIndicator(size: 40)),
               )
             else if (comments.hasError)
-              Text('Error: ' + comments.error.toString())
+              Text(
+                Internationalization.misc('error') +
+                    ': ' +
+                    comments.error.toString(),
+              )
             else if (comments.hasData && comments.data.isNotEmpty)
               for (var comment in comments.data)
                 Comment(comment: TaskComment.fromJson(comment))
             else if (comments.hasData && comments.data.isEmpty)
               Padding(
                 padding: const EdgeInsets.only(bottom: 8),
-                child: Text('None'),
+                child: Text(Internationalization.task('none')),
               ),
           ],
         ),

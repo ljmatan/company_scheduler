@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:company_scheduler/logic/i18n/i18n.dart';
 import 'package:flutter/material.dart';
 
 class LoadingText extends StatefulWidget {
@@ -9,7 +10,7 @@ class LoadingText extends StatefulWidget {
 }
 
 class _LoadingTextState extends State<LoadingText> {
-  String _text = 'Loading';
+  String _text = Internationalization.task('loading');
 
   Timer _timer;
 
@@ -23,22 +24,22 @@ class _LoadingTextState extends State<LoadingText> {
           switch (_text.length) {
             case 7:
               {
-                _text = 'Loading.';
+                _text = Internationalization.task('loading') + '.';
               }
               break;
             case 8:
               {
-                _text = 'Loading..';
+                _text = Internationalization.task('loading') + '..';
               }
               break;
             case 9:
               {
-                _text = 'Loading...';
+                _text = Internationalization.task('loading') + '...';
               }
               break;
             default:
               {
-                _text = 'Loading';
+                _text = Internationalization.task('loading');
               }
           }
         },

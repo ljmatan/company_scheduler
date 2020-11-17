@@ -1,5 +1,6 @@
 import 'package:company_scheduler/logic/api/task/task_api.dart';
 import 'package:company_scheduler/logic/api/task/task_log_model.dart';
+import 'package:company_scheduler/logic/i18n/i18n.dart';
 import 'package:company_scheduler/ui/shared/custom_spinning_indicator.dart';
 import 'package:flutter/material.dart';
 
@@ -42,7 +43,7 @@ class _TaskLogsState extends State<TaskLogs>
                 Padding(
                   padding: const EdgeInsets.only(bottom: 6),
                   child: Text(
-                    'Logs',
+                    Internationalization.task('logs'),
                     style: const TextStyle(
                       fontWeight: FontWeight.bold,
                     ),
@@ -54,7 +55,11 @@ class _TaskLogsState extends State<TaskLogs>
                     child: Center(child: CustomSpinningIndicator(size: 40)),
                   )
                 else if (logs.hasError)
-                  Text('Error: ' + logs.error.toString())
+                  Text(
+                    Internationalization.misc('error') +
+                        ': ' +
+                        logs.error.toString(),
+                  )
                 else if (logs.hasData && logs.data.isNotEmpty)
                   for (var log in logs.data)
                     Padding(
@@ -122,7 +127,7 @@ class _TaskLogsState extends State<TaskLogs>
                       ),
                     )
                 else if (logs.hasData && logs.data.isEmpty)
-                  Text('None'),
+                  Text(Internationalization.task('none')),
               ],
             ),
           ),

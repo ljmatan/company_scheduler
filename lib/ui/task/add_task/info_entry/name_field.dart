@@ -1,3 +1,4 @@
+import 'package:company_scheduler/logic/i18n/i18n.dart';
 import 'package:company_scheduler/ui/task/add_task/data.dart';
 import 'package:flutter/material.dart';
 
@@ -11,7 +12,7 @@ class NameField extends StatelessWidget {
     return TextFormField(
       controller: controller,
       decoration: InputDecoration(
-        labelText: 'Task name',
+        labelText: Internationalization.task('task name'),
         enabledBorder: UnderlineInputBorder(
           borderSide: BorderSide(width: 0.1),
         ),

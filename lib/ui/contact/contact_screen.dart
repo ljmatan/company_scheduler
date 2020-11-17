@@ -77,7 +77,8 @@ class _ContactScreenState extends State<ContactScreen> {
                                     contacts.data[0]['status'] == 400
                             ? Center(
                                 child: Text(
-                                  'Error: ' +
+                                  Internationalization.misc('error') +
+                                      ': ' +
                                       (contacts.hasData &&
                                               contacts.data.isNotEmpty &&
                                               contacts.data[0]['status'] == 400
@@ -90,10 +91,13 @@ class _ContactScreenState extends State<ContactScreen> {
                                 ? Center(
                                     child: Text(
                                       text.data == ''
-                                          ? 'Enter a search term'
+                                          ? Internationalization.search(
+                                              'enter a search term')
                                           : text.data.trim().length < 3
-                                              ? 'Enter at least 3 characters'
-                                              : 'No contacts found',
+                                              ? Internationalization.search(
+                                                  'enter at least 3 characters')
+                                              : Internationalization.search(
+                                                  'no results'),
                                       textAlign: TextAlign.center,
                                     ),
                                   )

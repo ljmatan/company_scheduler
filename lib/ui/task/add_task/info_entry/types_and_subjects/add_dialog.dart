@@ -1,5 +1,6 @@
 import 'package:company_scheduler/logic/api/task/task_api.dart';
 import 'package:company_scheduler/logic/api/task/task_subject_model.dart';
+import 'package:company_scheduler/logic/i18n/i18n.dart';
 import 'package:company_scheduler/ui/other/scroll_overflow.dart';
 import 'package:company_scheduler/ui/shared/custom_spinning_indicator.dart';
 import 'package:company_scheduler/ui/task/add_task/info_entry/types_and_subjects/bloc/task_type_selection.dart';
@@ -46,7 +47,8 @@ class AddDialog extends StatelessWidget {
                                       task.data[0]['status'] == 400)
                                 return Center(
                                   child: Text(
-                                    'Error: ' +
+                                    Internationalization.misc('error') +
+                                        ': ' +
                                         (task.hasData &&
                                                 task.data.isNotEmpty &&
                                                 task.data[0]['status'] == 400
@@ -58,7 +60,9 @@ class AddDialog extends StatelessWidget {
                               else if (!task.hasData || task.data.isEmpty)
                                 return Center(
                                   child: Text(
-                                    'Select a task type from the dropdown menu',
+                                    Internationalization.task(
+                                      'select a task type',
+                                    ),
                                     textAlign: TextAlign.center,
                                   ),
                                 );

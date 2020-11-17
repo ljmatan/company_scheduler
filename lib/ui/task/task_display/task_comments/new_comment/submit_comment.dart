@@ -1,4 +1,5 @@
 import 'package:company_scheduler/logic/api/task/task_api.dart';
+import 'package:company_scheduler/logic/i18n/i18n.dart';
 import 'package:company_scheduler/ui/shared/custom_spinning_indicator.dart';
 import 'package:flutter/material.dart';
 
@@ -84,11 +85,13 @@ class SubmitComment extends StatelessWidget {
                   );
                   if (response['id'] != null)
                     ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: Text('Success')),
+                      SnackBar(
+                          content: Text(Internationalization.task('success'))),
                     );
                   else
-                    ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(content: Text('Comment not added')));
+                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                        content: Text(
+                            Internationalization.task('comment not added'))));
                   Navigator.pop(context);
                   commentController.clear();
                   controller.clear();
@@ -100,7 +103,11 @@ class SubmitComment extends StatelessWidget {
                   updateComments();
                 } catch (e) {
                   ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(content: Text('Error: ' + e.toString())),
+                    SnackBar(
+                      content: Text(Internationalization.misc('error') +
+                          ': ' +
+                          e.toString()),
+                    ),
                   );
                 }
               },

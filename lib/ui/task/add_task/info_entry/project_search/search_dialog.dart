@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:company_scheduler/logic/api/task/task_api.dart';
 import 'package:company_scheduler/logic/api/task/project_model.dart';
+import 'package:company_scheduler/logic/i18n/i18n.dart';
 import 'package:company_scheduler/ui/shared/custom_spinning_indicator.dart';
 import 'package:company_scheduler/ui/task/add_task/info_entry/project_search/project_entry.dart';
 import 'package:flutter/material.dart';
@@ -42,7 +43,7 @@ class _SearchDialogState extends State<SearchDialog> {
                     controller: _textEditingController,
                     autofocus: true,
                     decoration: InputDecoration(
-                      hintText: 'Project',
+                      hintText: Internationalization.task('project'),
                       filled: true,
                       fillColor: Colors.white,
                       border: OutlineInputBorder(),
@@ -75,7 +76,8 @@ class _SearchDialogState extends State<SearchDialog> {
                                           projects.data[0]['status'] == 400
                                   ? Center(
                                       child: Text(
-                                        'Error: ' +
+                                        Internationalization.misc('error') +
+                                            ': ' +
                                             (projects.hasData &&
                                                     projects.data.isNotEmpty &&
                                                     projects.data[0]
@@ -90,10 +92,13 @@ class _SearchDialogState extends State<SearchDialog> {
                                       ? Center(
                                           child: Text(
                                             text.data == ''
-                                                ? 'Search for a project'
+                                                ? Internationalization.search(
+                                                    'enter a search term')
                                                 : text.data.trim().length < 3
-                                                    ? 'Enter at least 3 characters'
-                                                    : 'No projects found',
+                                                    ? Internationalization.search(
+                                                        'enter at least 3 characters')
+                                                    : Internationalization
+                                                        .search('no results'),
                                             textAlign: TextAlign.center,
                                           ),
                                         )

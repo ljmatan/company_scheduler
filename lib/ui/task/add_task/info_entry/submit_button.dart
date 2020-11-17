@@ -1,4 +1,5 @@
 import 'package:company_scheduler/logic/api/task/task_api.dart';
+import 'package:company_scheduler/logic/i18n/i18n.dart';
 import 'package:company_scheduler/ui/task/add_task/data.dart';
 import 'package:flutter/material.dart';
 
@@ -37,7 +38,7 @@ class _SubmitButtonState extends State<SubmitButton> {
                       ),
                     )
                   : Text(
-                      'Submit',
+                      Internationalization.task('submit'),
                       style: const TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.bold,
@@ -93,7 +94,11 @@ class _SubmitButtonState extends State<SubmitButton> {
                     );
                     if (response['id'] == null)
                       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                        content: Text('Error: ' + response['message']),
+                        content: Text(
+                          Internationalization.misc('error') +
+                              ': ' +
+                              response['message'],
+                        ),
                       ));
                     else {
                       NewTaskData.clear();
@@ -102,7 +107,11 @@ class _SubmitButtonState extends State<SubmitButton> {
                   } catch (e) {
                     setState(() => _sending = !_sending);
                     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                      content: Text('Error: ' + e.toString()),
+                      content: Text(
+                        Internationalization.misc('error') +
+                            ': ' +
+                            e.toString(),
+                      ),
                     ));
                   }
                 }

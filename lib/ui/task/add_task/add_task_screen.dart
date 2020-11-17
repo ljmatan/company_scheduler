@@ -1,3 +1,4 @@
+import 'package:company_scheduler/logic/i18n/i18n.dart';
 import 'package:company_scheduler/ui/task/add_task/info_entry/info_entry.dart';
 import 'package:flutter/material.dart';
 import 'dart:io' show Platform;
@@ -16,7 +17,7 @@ class AddTaskScreen extends StatelessWidget {
               ),
               onPressed: () => Navigator.pop(context),
             ),
-            Text('New task'),
+            Text(Internationalization.task('new task')),
           ],
         ),
       ),

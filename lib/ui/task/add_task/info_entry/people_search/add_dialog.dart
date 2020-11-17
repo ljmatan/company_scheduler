@@ -1,5 +1,6 @@
 import 'package:company_scheduler/logic/api/task/principal_model.dart';
 import 'package:company_scheduler/logic/api/task/task_api.dart';
+import 'package:company_scheduler/logic/i18n/i18n.dart';
 import 'package:company_scheduler/ui/shared/custom_spinning_indicator.dart';
 import 'package:company_scheduler/ui/task/add_task/info_entry/people_search/bloc/people_added.dart';
 import 'package:company_scheduler/ui/task/add_task/info_entry/people_search/people_entry.dart';
@@ -41,7 +42,8 @@ class AddDialog extends StatelessWidget {
                                 people.data[0]['status'] == 400)
                           return Center(
                             child: Text(
-                              'Error: ' +
+                              Internationalization.misc('error') +
+                                  ': ' +
                                   (people.hasData &&
                                           people.data.isNotEmpty &&
                                           people.data[0]['status'] == 400
@@ -53,7 +55,7 @@ class AddDialog extends StatelessWidget {
                         else if (!people.hasData || people.data.isEmpty)
                           return Center(
                             child: Text(
-                              'No people found',
+                              Internationalization.task('none'),
                               textAlign: TextAlign.center,
                             ),
                           );

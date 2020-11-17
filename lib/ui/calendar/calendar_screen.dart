@@ -142,7 +142,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
                                             height: 44,
                                             child: Center(
                                               child: Text(
-                                                'Hourly view',
+                                                'Day view',
                                                 style: const TextStyle(
                                                   color: Colors.white,
                                                   fontWeight: FontWeight.bold,

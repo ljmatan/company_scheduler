@@ -82,29 +82,31 @@ class _TimeFieldState extends State<TimeField> {
           lastDate: DateTime(2040, 10),
         ).then(
           (date) {
-            _time = date;
-            showTimePicker(
-              context: context,
-              initialTime: TimeOfDay(
-                hour: _time.hour,
-                minute: _time.minute,
-              ),
-            ).then(
-              (time) {
-                setState(
-                  () => _time = DateTime(
-                    _time.year,
-                    _time.month,
-                    _time.day,
-                    time.hour,
-                    time.minute,
-                  ),
-                );
-                widget.from
-                    ? NewTaskData.setStartTime(_time.millisecondsSinceEpoch)
-                    : NewTaskData.setEndTime(_time.millisecondsSinceEpoch);
-              },
-            );
+            if (date != null) {
+              _time = date;
+              showTimePicker(
+                context: context,
+                initialTime: TimeOfDay(
+                  hour: _time.hour,
+                  minute: _time.minute,
+                ),
+              ).then(
+                (time) {
+                  setState(
+                    () => _time = DateTime(
+                      _time.year,
+                      _time.month,
+                      _time.day,
+                      time.hour,
+                      time.minute,
+                    ),
+                  );
+                  widget.from
+                      ? NewTaskData.setStartTime(_time.millisecondsSinceEpoch)
+                      : NewTaskData.setEndTime(_time.millisecondsSinceEpoch);
+                },
+              );
+            }
           },
         );
       },

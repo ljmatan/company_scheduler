@@ -1,8 +1,8 @@
 import 'package:company_scheduler/logic/i18n/string_values.dart';
 
 abstract class Internationalization {
-  // To change app language to Serbian, set below string to 'rs'
-  static const String languageCode = 'rs';
+  // To change app language to English, set below string to 'en'
+  static const String languageCode = 'sr';
 
   static String login(String value) =>
       StringValues.values[languageCode]['login'][value];

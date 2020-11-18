@@ -54,10 +54,12 @@ class CompanyScheduler extends StatelessWidget {
       // Language support
       localizationsDelegates: [
         GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
       ],
       supportedLocales: [
         const Locale('en'),
-        const Locale('rs'),
+        const Locale('sr'),
       ],
     );
   }

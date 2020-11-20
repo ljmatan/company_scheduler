@@ -28,42 +28,43 @@ class TaskEntry extends StatelessWidget {
             boxShadow: kElevationToShadow[1],
             color: Colors.white,
           ),
-          child: SizedBox(
-            height: 64,
-            child: DefaultTextStyle(
-              style: const TextStyle(color: Colors.black54),
+          child: DefaultTextStyle(
+            style: const TextStyle(color: Colors.black54),
+            child: DecoratedBox(
+              decoration: BoxDecoration(
+                border: Border(
+                  left: BorderSide(
+                    width: 6,
+                    color: TaskPriorityColor.color(task.priority),
+                  ),
+                ),
+              ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  DecoratedBox(
-                    decoration: BoxDecoration(
-                      border: Border(
-                        left: BorderSide(
-                          width: 6,
-                          color: TaskPriorityColor.color(task.priority),
+                  Padding(
+                    padding: EdgeInsets.fromLTRB(12, 6, 0, 6),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          task.name == null ? '' : task.name,
+                          style: const TextStyle(
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
-                      ),
-                    ),
-                    child: Padding(
-                      padding: EdgeInsets.fromLTRB(12, 6, 0, 6),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            task.name == null ? '' : task.name,
-                            style: const TextStyle(
-                              color: Colors.black,
-                              fontWeight: FontWeight.bold,
-                            ),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 4),
+                          child: Text(
+                            '\n' +
+                                (task.project.projectType.name == null
+                                    ? ''
+                                    : task.project.projectType.name.toString()),
                           ),
-                          Text(
-                            task.project.projectType.name == null
-                                ? ''
-                                : task.project.projectType.name.toString(),
-                          ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
                   ),
                   Padding(

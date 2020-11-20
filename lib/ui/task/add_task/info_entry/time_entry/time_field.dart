@@ -76,7 +76,11 @@ class _TimeFieldState extends State<TimeField> {
         FocusManager.instance.primaryFocus.unfocus();
         showDatePicker(
           context: context,
-          locale: Locale(Internationalization.languageCode),
+          locale: Locale.fromSubtags(
+            languageCode: Internationalization.languageCode,
+            scriptCode:
+                Internationalization.languageCode == 'sr' ? 'Latn' : null,
+          ),
           initialDate: DateTime.now(),
           firstDate: DateTime(2000, 12),
           lastDate: DateTime(2040, 10),

@@ -59,7 +59,7 @@ class CompanyScheduler extends StatelessWidget {
       ],
       supportedLocales: [
         const Locale('en'),
-        const Locale('sr_Latn'),
+        const Locale('sr'),
       ],
     );
   }

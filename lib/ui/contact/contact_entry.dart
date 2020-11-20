@@ -21,36 +21,36 @@ class ContactEntry extends StatelessWidget {
               ),
             ),
           ),
-          child: SizedBox(
-            height: 56,
-            child: Padding(
-              padding: const EdgeInsets.all(6),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        contact.name,
-                        style: const TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 16,
-                        ),
+          child: Padding(
+            padding: const EdgeInsets.all(6),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      contact.name,
+                      style: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16,
                       ),
-                      Text(
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 16),
+                      child: Text(
                         contact.contactType.name + ', ' + contact.address.city,
                       ),
-                    ],
-                  ),
-                  Text(
-                    contact.client.name,
-                    style: const TextStyle(color: Colors.black54),
-                  ),
-                ],
-              ),
+                    ),
+                  ],
+                ),
+                Text(
+                  contact.client.name,
+                  style: const TextStyle(color: Colors.black54),
+                ),
+              ],
             ),
           ),
         ),

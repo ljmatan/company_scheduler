@@ -21,43 +21,43 @@ class CompanyEntry extends StatelessWidget {
               ),
             ),
           ),
-          child: SizedBox(
-            height: 56,
-            child: Padding(
-              padding: const EdgeInsets.all(6),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        company.name,
-                        style: const TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 16,
-                        ),
+          child: Padding(
+            padding: const EdgeInsets.all(6),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      company.name,
+                      style: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16,
                       ),
-                      Text(company.address.city),
-                    ],
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        company.account.name,
-                        style: const TextStyle(color: Colors.black54),
-                      ),
-                      Text(
-                        company.clientType.name,
-                        style: TextStyle(color: Theme.of(context).primaryColor),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 16),
+                      child: Text(company.address.city),
+                    ),
+                  ],
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      company.account.name,
+                      style: const TextStyle(color: Colors.black54),
+                    ),
+                    Text(
+                      company.clientType.name,
+                      style: TextStyle(color: Theme.of(context).primaryColor),
+                    ),
+                  ],
+                ),
+              ],
             ),
           ),
         ),

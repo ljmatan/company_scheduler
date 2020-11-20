@@ -94,7 +94,7 @@ abstract class StringValues {
         'error': 'Error',
       },
     },
-    'sr_Latn': {
+    'sr': {
       'login': {
         'username': 'Korisničko ime',
         'password': 'Lozinka',

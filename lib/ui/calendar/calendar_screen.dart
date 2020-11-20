@@ -193,13 +193,6 @@ class _CalendarScreenState extends State<CalendarScreen> {
                           builder: (context) {
                             List _taskList = CalendarProvider.getTaskList(
                               [
-                                TaskDetails(
-                                  startTime: DateTime(2020, 10, 15, 8, 26)
-                                      .millisecondsSinceEpoch,
-                                  endTime: DateTime(2020, 10, 15, 19, 45)
-                                      .millisecondsSinceEpoch,
-                                  name: 'aaaaaaaa',
-                                ),
                                 for (var task in tasks.data)
                                   TaskDetails.fromJson(task),
                               ],

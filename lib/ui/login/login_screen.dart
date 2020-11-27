@@ -62,8 +62,8 @@ class _LoginScreenState extends State<LoginScreen> {
                       UsernameField(controller: _usernameController),
                       PasswordField(controller: _passwordController),
                       LoginButton(
-                        username: _usernameController.text,
-                        password: _passwordController.text,
+                        usernameController: _usernameController,
+                        passwordController: _passwordController,
                         animationController: widget.animationController,
                       ),
                     ],

@@ -5,12 +5,12 @@ import 'package:company_scheduler/ui/login/bloc/textfield_enabled.dart';
 import 'package:flutter/material.dart';
 
 class LoginButton extends StatefulWidget {
-  final String username, password;
+  final TextEditingController usernameController, passwordController;
   final AnimationController animationController;
 
   LoginButton({
-    @required this.username,
-    @required this.password,
+    @required this.usernameController,
+    @required this.passwordController,
     @required this.animationController,
   });
 
@@ -66,12 +66,14 @@ class _LoginButtonState extends State<LoginButton> {
                 FocusScope.of(context).unfocus();
                 _changeState(true);
                 try {
-                  final Map response =
-                      await LoginAPI.login(widget.username, widget.password);
+                  final Map response = await LoginAPI.login(
+                    widget.usernameController.text,
+                    widget.passwordController.text,
+                  );
                   if (response['id'] != null) {
                     await Prefs.setLocalData(
-                      widget.username,
-                      widget.password,
+                      widget.usernameController.text,
+                      widget.passwordController.text,
                       response['id'].toString(),
                     );
                     widget.animationController.forward();

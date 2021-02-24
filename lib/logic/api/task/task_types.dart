@@ -1,51 +1,24 @@
 class TaskType {
-  TaskType({
-    this.id,
-    this.name,
-    this.account,
-  });
-
   int id;
   String name;
-  Account account;
+  String taskTypeType;
+  int account;
 
-  factory TaskType.fromJson(Map<String, dynamic> json) => TaskType(
-        id: json["id"],
-        name: json["name"],
-        account: Account.fromJson(json["account"]),
-      );
+  TaskType({this.id, this.name, this.taskTypeType, this.account});
 
-  Map<String, dynamic> toJson() => {
-        "id": id,
-        "name": name,
-        "account": account.toJson(),
-      };
-}
+  TaskType.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    name = json['name'];
+    taskTypeType = json['taskTypeType'];
+    account = json['account'];
+  }
 
-class Account {
-  Account({
-    this.id,
-    this.name,
-    this.registerTime,
-    this.active,
-  });
-
-  int id;
-  String name;
-  String registerTime;
-  bool active;
-
-  factory Account.fromJson(Map<String, dynamic> json) => Account(
-        id: json["id"],
-        name: json["name"],
-        registerTime: json["registerTime"],
-        active: json["active"],
-      );
-
-  Map<String, dynamic> toJson() => {
-        "id": id,
-        "name": name,
-        "registerTime": registerTime,
-        "active": active,
-      };
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    data['name'] = this.name;
+    data['taskTypeType'] = this.taskTypeType;
+    data['account'] = this.account;
+    return data;
+  }
 }

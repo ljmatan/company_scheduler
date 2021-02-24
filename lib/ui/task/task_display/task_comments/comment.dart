@@ -43,9 +43,9 @@ class Comment extends StatelessWidget {
               Text(
                 commentTime.day.toString() +
                     '.' +
-                    commentTime.month.toString() +
-                    ' - ' +
-                    comment.principal.createdDate.substring(0, 5) +
+                    commentTime.month.toString() + "."+ commentTime.year.toString() +
+                    '  ' +
+                    commentTime.hour.toString() + " :"+ commentTime.minute.toString() +
                     'h',
                 style: const TextStyle(
                   fontSize: 12,

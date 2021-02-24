@@ -43,20 +43,7 @@ class CompanyEntry extends StatelessWidget {
                     ),
                   ],
                 ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      company.account.name,
-                      style: const TextStyle(color: Colors.black54),
-                    ),
-                    Text(
-                      company.clientType.name,
-                      style: TextStyle(color: Theme.of(context).primaryColor),
-                    ),
-                  ],
-                ),
+
               ],
             ),
           ),

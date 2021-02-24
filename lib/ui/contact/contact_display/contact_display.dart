@@ -53,7 +53,7 @@ class _ContactDisplayState extends State<ContactDisplay> {
                 icon: Icons.chrome_reader_mode,
                 label: Internationalization.results('other'),
                 contactType: widget.contact.contactType.name ?? '',
-                clientName: widget.contact.client.account.name ?? '',
+                clientName: widget.contact.client.name ?? '',
               ),
               const SizedBox(height: 90),
             ],
@@ -69,7 +69,7 @@ class _ContactDisplayState extends State<ContactDisplay> {
               phoneNumber: widget.contact.address.mobile1 == ''
                   ? null
                   : widget.contact.address.mobile1,
-              email: widget.contact.address.email1 == ''
+              email: widget.contact.address.email1 == null
                   ? null
                   : widget.contact.address.email1,
             ),

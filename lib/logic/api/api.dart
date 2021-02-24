@@ -3,7 +3,7 @@ import 'dart:io';
 
 abstract class APIHelper {
   static const String url =
-      'https://185.119.88.94:8443/crm-jsf/WebServiceServlet?wsMethod=';
+      'http://185.119.88.94:8080/crm-jsf/WebServiceServlet?account=1&wsMethod=';
 
   static final JsonCodec jsonCodec = const JsonCodec();
 }

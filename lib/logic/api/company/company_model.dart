@@ -10,7 +10,7 @@ class Company {
 
   int id;
   String name;
-  Account account;
+  int account;
   Account clientType;
   Address address;
   dynamic clientTypeDto;
@@ -18,7 +18,7 @@ class Company {
   factory Company.fromJson(Map<String, dynamic> json) => Company(
         id: json["id"],
         name: json["name"],
-        account: Account.fromJson(json["account"]),
+        account: json["account"],
         clientType: Account.fromJson(json["clientType"]),
         address: Address.fromJson(json["address"]),
         clientTypeDto: json["clientTypeDTO"],
@@ -27,7 +27,7 @@ class Company {
   Map<String, dynamic> toJson() => {
         "id": id,
         "name": name,
-        "account": account.toJson(),
+        "account": account,
         "clientType": clientType.toJson(),
         "address": address.toJson(),
         "clientTypeDTO": clientTypeDto,

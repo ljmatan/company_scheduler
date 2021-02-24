@@ -1,55 +1,55 @@
 class Contact {
-  Contact({
-    this.id,
-    this.name,
-    this.address,
-    this.client,
-    this.contactType,
-    this.attributes,
-  });
-
   int id;
   String name;
   Address address;
   Client client;
-  ContactType contactType;
-  dynamic attributes;
+  ClientType contactType;
+  int account;
+  Null attributes;
 
-  factory Contact.fromJson(Map<String, dynamic> json) => Contact(
-        id: json["id"],
-        name: json["name"],
-        address: Address.fromJson(json["address"]),
-        client: Client.fromJson(json["client"]),
-        contactType: ContactType.fromJson(json["contactType"]),
-        attributes: json["attributes"],
-      );
+  Contact(
+      {this.id,
+        this.name,
+        this.address,
+        this.client,
+        this.contactType,
+        this.account,
+        this.attributes});
 
-  Map<String, dynamic> toJson() => {
-        "id": id,
-        "name": name,
-        "address": address.toJson(),
-        "client": client.toJson(),
-        "contactType": contactType.toJson(),
-        "attributes": attributes,
-      };
+  Contact.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    name = json['name'];
+    address =
+    json['address'] != null ? new Address.fromJson(json['address']) : null;
+    client =
+    json['client'] != null ? new Client.fromJson(json['client']) : null;
+    contactType = json['contactType'] != null
+        ? new ClientType.fromJson(json['contactType'])
+        : null;
+    account = json['account'];
+    attributes = json['attributes'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    data['name'] = this.name;
+    if (this.address != null) {
+      data['address'] = this.address.toJson();
+    }
+    if (this.client != null) {
+      data['client'] = this.client.toJson();
+    }
+    if (this.contactType != null) {
+      data['contactType'] = this.contactType.toJson();
+    }
+    data['account'] = this.account;
+    data['attributes'] = this.attributes;
+    return data;
+  }
 }
 
 class Address {
-  Address({
-    this.id,
-    this.street,
-    this.city,
-    this.houseno,
-    this.flatno,
-    this.phone1,
-    this.phone2,
-    this.mobile1,
-    this.mobile2,
-    this.email1,
-    this.email2,
-    this.note,
-  });
-
   int id;
   String street;
   String city;
@@ -63,102 +63,118 @@ class Address {
   String email2;
   String note;
 
-  factory Address.fromJson(Map<String, dynamic> json) => Address(
-        id: json["id"],
-        street: json["street"],
-        city: json["city"],
-        houseno: json["houseno"],
-        flatno: json["flatno"],
-        phone1: json["phone1"],
-        phone2: json["phone2"],
-        mobile1: json["mobile1"],
-        mobile2: json["mobile2"],
-        email1: json["email1"],
-        email2: json["email2"],
-        note: json["note"],
-      );
+  Address(
+      {this.id,
+        this.street,
+        this.city,
+        this.houseno,
+        this.flatno,
+        this.phone1,
+        this.phone2,
+        this.mobile1,
+        this.mobile2,
+        this.email1,
+        this.email2,
+        this.note});
 
-  Map<String, dynamic> toJson() => {
-        "id": id,
-        "street": street,
-        "city": city,
-        "houseno": houseno,
-        "flatno": flatno,
-        "phone1": phone1,
-        "phone2": phone2,
-        "mobile1": mobile1,
-        "mobile2": mobile2,
-        "email1": email1,
-        "email2": email2,
-        "note": note,
-      };
+  Address.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    street = json['street'];
+    city = json['city'];
+    houseno = json['houseno'];
+    flatno = json['flatno'];
+    phone1 = json['phone1'];
+    phone2 = json['phone2'];
+    mobile1 = json['mobile1'];
+    mobile2 = json['mobile2'];
+    email1 = json['email1'];
+    email2 = json['email2'];
+    note = json['note'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    data['street'] = this.street;
+    data['city'] = this.city;
+    data['houseno'] = this.houseno;
+    data['flatno'] = this.flatno;
+    data['phone1'] = this.phone1;
+    data['phone2'] = this.phone2;
+    data['mobile1'] = this.mobile1;
+    data['mobile2'] = this.mobile2;
+    data['email1'] = this.email1;
+    data['email2'] = this.email2;
+    data['note'] = this.note;
+    return data;
+  }
 }
 
 class Client {
-  Client({
-    this.id,
-    this.name,
-    this.account,
-    this.clientType,
-    this.address,
-    this.clientTypeDto,
-  });
-
   int id;
   String name;
-  ContactType account;
-  ContactType clientType;
+  int account;
+  ClientType clientType;
   Address address;
-  dynamic clientTypeDto;
+  Null clientTypeDTO;
 
-  factory Client.fromJson(Map<String, dynamic> json) => Client(
-        id: json["id"],
-        name: json["name"],
-        account: ContactType.fromJson(json["account"]),
-        clientType: ContactType.fromJson(json["clientType"]),
-        address: Address.fromJson(json["address"]),
-        clientTypeDto: json["clientTypeDTO"],
-      );
+  Client(
+      {this.id,
+        this.name,
+        this.account,
+        this.clientType,
+        this.address,
+        this.clientTypeDTO});
 
-  Map<String, dynamic> toJson() => {
-        "id": id,
-        "name": name,
-        "account": account.toJson(),
-        "clientType": clientType.toJson(),
-        "address": address.toJson(),
-        "clientTypeDTO": clientTypeDto,
-      };
+  Client.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    name = json['name'];
+    account = json['account'];
+    clientType = json['clientType'] != null
+        ? new ClientType.fromJson(json['clientType'])
+        : null;
+    address =
+    json['address'] != null ? new Address.fromJson(json['address']) : null;
+    clientTypeDTO = json['clientTypeDTO'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    data['name'] = this.name;
+    data['account'] = this.account;
+    if (this.clientType != null) {
+      data['clientType'] = this.clientType.toJson();
+    }
+    if (this.address != null) {
+      data['address'] = this.address.toJson();
+    }
+    data['clientTypeDTO'] = this.clientTypeDTO;
+    return data;
+  }
 }
 
-class ContactType {
-  ContactType({
-    this.id,
-    this.name,
-    this.registerTime,
-    this.active,
-    this.account,
-  });
-
+class ClientType {
   int id;
   String name;
-  String registerTime;
   bool active;
-  dynamic account;
+  int account;
 
-  factory ContactType.fromJson(Map<String, dynamic> json) => ContactType(
-        id: json["id"],
-        name: json["name"],
-        registerTime:
-            json["registerTime"] == null ? null : json["registerTime"],
-        active: json["active"],
-        account: json["account"],
-      );
+  ClientType({this.id, this.name, this.active, this.account});
 
-  Map<String, dynamic> toJson() => {
-        "id": id,
-        "name": name,
-        "registerTime": registerTime == null ? null : registerTime,
-        "active": active,
-        "account": account,
-      };
+  ClientType.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    name = json['name'];
+    active = json['active'];
+    account = json['account'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    data['name'] = this.name;
+    data['active'] = this.active;
+    data['account'] = this.account;
+    return data;
+  }
 }

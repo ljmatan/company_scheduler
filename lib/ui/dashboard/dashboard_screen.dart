@@ -20,13 +20,14 @@ class DashboardScreen extends StatelessWidget {
             // Screen pushed on tap
             route: ContactScreen(),
           ),
-          DashboardButton(
-            label: 'task',
-            route: TaskScreen(),
-          ),
+
           DashboardButton(
             label: 'company',
             route: CompanyScreen(),
+          ),
+          DashboardButton(
+            label: 'task',
+            route: TaskScreen(),
           ),
           DashboardButton(
             label: 'calendar',

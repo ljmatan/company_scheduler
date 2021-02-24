@@ -43,7 +43,6 @@ class ProjectEntry extends StatelessWidget {
                       ),
                     ),
                     Text(project.projectType.name),
-                    Text(project.projectType.account['name']),
                   ],
                 ),
                 Column(
@@ -52,10 +51,6 @@ class ProjectEntry extends StatelessWidget {
                   children: [
                     Text(
                       project.client.name,
-                      style: const TextStyle(color: Colors.black54),
-                    ),
-                    Text(
-                      project.client.account.name,
                       style: const TextStyle(color: Colors.black54),
                     ),
                     Text(
